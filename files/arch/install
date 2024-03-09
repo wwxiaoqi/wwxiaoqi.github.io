@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Arch Linux 安装脚本
+# @wwxiaoqi
+
+echo "Reflector disabled"
+systemctl stop reflector.service
+systemctl status reflector.service
+
+echo "Synchronize system time with network time"
+# 将系统时间与网络时间进行同步
+timedatectl set-ntp true
+timedatectl status
+
+echo "Replace the mirror source"
+# 外国语大学镜像站
+echo "Server = https://mirrors.bfsu.edu.cn/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+# 兰州大学开源镜像站
+echo "Server = https://mirror.lzu.edu.cn/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+# 华为开源镜像站
+echo "Server = https://repo.huaweicloud.com/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+# 清华大学开源软件镜像站
+echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+# 中国科学技术大学开源镜像站
+echo "Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+
+echo "Partitions"
+# 此处需要您自行进行分区操作，脚本不会帮助你处理，你可以使用以下命令来进行分区：
+# cfdisk /dev/sdx
+# cfdisk /dev/nvme0nx
+lsblk
+df -h
+
+# 可以使用以下命令替换文件中的 nvme0n1p 字符串
+# 在 vim 中可以直接使用 /s/nvme0n1p/sda/g
+# sed -i "s/nvme0n1p/sda/g" file
+echo "Format and create the partition"
+# 格式化并创建分区
+mkfs.vfat -F 32 /dev/nvme0n1p1
+mkswap /dev/nvme0n1p2
+mkfs.btrfs -L Arch /dev/nvme0n1p3
+mount -t btrfs -o compress=zstd /dev/nvme0n1p3 /mnt
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+umount -R /mnt
+
+echo "Mount directory"
+# 挂载目录
+mount -t btrfs -o subvol=/@,compress=zstd /dev/nvme0n1p3 /mnt
+mkdir /mnt/home
+mount -t btrfs -o subvol=/@home,compress=zstd /dev/nvme0n1p3 /mnt/home
+mkdir -p /mnt/boot/efi
+mount /dev/nvme0n1p1 /mnt/boot/efi
+swapon /dev/nvme0n1p2
+
+echo "View the mount"
+# 查看挂载情况
+df -h
+free -h
+
+echo "Installation system"
+# 安装系统
+pacstrap /mnt base base-devel linux linux-firmware
+pacstrap /mnt dhcpcd vim sudo iwd
