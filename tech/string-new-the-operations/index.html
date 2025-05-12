@@ -1,0 +1,669 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>String 字符串操作新增了什么？ | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="在高版本的 Java 中，字符串操作新增了如下方法： Java 版本 方法名 方法描述 9 chars() 返回字符串的字符值">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/string-new-the-operations/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2024-02-03T18:02:59+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/string-new-the-operations/","headline":"String 字符串操作新增了什么？","description":"在高版本的 Java 中，字符串操作新增了如下方法： Java 版本 方法名 方法描述 9 chars() 返回字符串的字符值","inLanguage":"zh-CN","articleSection":"tech","wordCount":2440,"image":["https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203171007-k2m10az.png","https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203171712-2bak09z.png","https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203172533-9z41z30.png","https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203172927-5i5pj0i.png","https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203181330-b7hxykv.png","https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203173731-sagfcga.png","https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203175041-z3t0oag.png","https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203175449-ffz0vl8.png"],"author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary_large_image">
+<meta property="og:title" content="String 字符串操作新增了什么？">
+<meta property="og:description" content="在高版本的 Java 中，字符串操作新增了如下方法： Java 版本 方法名 方法描述 9 chars() 返回字符串的字符值">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/string-new-the-operations/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203171007-k2m10az.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-02-03T18:02:59+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">String 字符串操作新增了什么？</h1>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:获取字符的-intstream href=#获取字符的-intstream>获取字符的 IntStream</a></li>
+<li><a id=contents:空白字符处理 href=#空白字符处理>空白字符处理</a></li>
+<li><a id=contents:判断字符串是否为空 href=#判断字符串是否为空>判断字符串是否为空</a></li>
+<li><a id=contents:重复拼接字符串 href=#重复拼接字符串>重复拼接字符串</a></li>
+<li><a id=contents:换行符拆分流 href=#换行符拆分流>换行符拆分流</a></li>
+<li><a id=contents:字符串缩进 href=#字符串缩进>字符串缩进</a></li>
+<li><a id=contents:字符串转换 href=#字符串转换>字符串转换</a></li>
+<li><a id=contents:返回实例本身的-optional-对象 href=#返回实例本身的-optional-对象>返回实例本身的 Optional 对象</a></li>
+<li><a id=contents:字符串格式化 href=#字符串格式化>字符串格式化</a></li>
+<li><a id=contents:字符串转义 href=#字符串转义>字符串转义</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<p>在高版本的 <code>Java</code> 中，字符串操作新增了如下方法：</p>
+<div class=table-container><table>
+<thead>
+<tr>
+<th>Java 版本</th>
+<th>方法名</th>
+<th>方法描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9</td>
+<td><code>chars()</code></td>
+<td>返回字符串的字符值流</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>codePoints()</code></td>
+<td>返回字符串的 Unicode 值流</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>strip()</code></td>
+<td>移除首尾空白字符（支持所有 Unicode 字符）</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>stripLeading()</code></td>
+<td>移除头部空白字符</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>stripTrailing()</code></td>
+<td>移除尾部空白字符</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>isBlank()</code></td>
+<td>检查字符串是否只包含空白字符</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>repeat(int count)</code></td>
+<td>返回一个由原始字符串重复 <code>count</code> 次组成的新字符串</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>lines()</code></td>
+<td>使用换行符将字符串拆分为一个流</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>indent(int n)</code></td>
+<td>根据参数 <code>n</code> 的值调整字符串的缩进</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>transform(Function&lt;? super String, ? extends R> f)</code></td>
+<td>使用给定的函数 <code>f</code> 对字符串进行转换</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>describeConstable</code></td>
+<td>创建并返回一个实例本身的 <code>Optional</code> 对象</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>formatted(Object... args)</code></td>
+<td>使用提供的参数替换占位符，并返回一个格式化的字符串</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>stripIndent()</code></td>
+<td>移除首尾空白字符（包含换行符前后的）</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>translateEscapes()</code></td>
+<td>将字符串中的转义序列转换为对应的字符</td>
+</tr>
+</tbody>
+</table></div>
+<p>‍</p>
+<h2 id=获取字符的-intstream><a href=#获取字符的-intstream class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:获取字符的-intstream class=headings>获取字符的 IntStream</a></h2>
+<p>在 <code>Java 9</code> 中的 <code>String</code> 类新增了 <code>chars</code> 和 <code>codePoints</code> 方法，用于获取字符的 <code>IntStream</code>：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 测试内容</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;中-E-\uD835\uDD0A&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 测试 chars</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;chars:&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>IntStream</span><span class=w> </span><span class=n>intStreamChars</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>chars</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>intStreamChars</span><span class=p>.</span><span class=na>forEach</span><span class=p>(</span><span class=n>e</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>print</span><span class=p>(</span><span class=n>e</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;=&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=p>(</span><span class=kt>char</span><span class=p>)</span><span class=w> </span><span class=n>e</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;  &#34;</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 测试 codePoints</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;codePoints:&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>IntStream</span><span class=w> </span><span class=n>intStreamCodePoints</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>codePoints</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>intStreamCodePoints</span><span class=p>.</span><span class=na>forEach</span><span class=p>(</span><span class=n>e</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>print</span><span class=p>(</span><span class=n>e</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;=&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=p>(</span><span class=kt>char</span><span class=p>)</span><span class=w> </span><span class=n>e</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;  &#34;</span><span class=p>));</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>两者都是获取字符串中的字符 <code>ASCII</code> 码的 <code>IntStream</code> 流，但 <code>codePoints</code> 方法可以处理 <code>Unicode</code> 特殊字符，输出结果如下：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203171007-k2m10az.png alt=image></p>
+<h2 id=空白字符处理><a href=#空白字符处理 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:空白字符处理 class=headings>空白字符处理</a></h2>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 测试内容</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;\u2000中-E-\uD835\uDD0A-\u2000  &#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 移除首尾空白字符（仅限 ASCII 字符）</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;text.trim():&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>trim</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// Java 11 新增 - 移除首尾空白字符（支持所有 Unicode 字符）</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;text.strip():&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>strip</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// Java 11 新增 - 移除头部空白字符</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;text.stripLeading():&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>stripLeading</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// Java 11 新增 - 移除尾部空白字符</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;text.stripTrailing():&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>stripTrailing</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// Java 15 新增 - 移除首尾空白字符（包含换行符前后的）</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34; \u2000中-E-回车： \n ：回车 \u2000  &#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;text.stripIndent():&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>stripIndent</span><span class=p>());</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>输出结果：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203171712-2bak09z.png alt=image></p>
+<blockquote>
+<p>仔细看这里的 <code>trim</code> 和 <code>strip</code> 方法：</p>
+<p><code>trim</code> 方法仅限 <code>ASCII</code> 编码的空白字符，<code>strip</code> 可以移除所有 <code>Unicode</code> 编码的空白字符。</p>
+</blockquote>
+<h2 id=判断字符串是否为空><a href=#判断字符串是否为空 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:判断字符串是否为空 class=headings>判断字符串是否为空</a></h2>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 测试内容</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34; &#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// Java 6 新增 - 判断是否为空白字符</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 输出：false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// Java 11 新增 - 判断是否为空白字符</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 输出：true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent</span><span class=p>.</span><span class=na>isBlank</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 空指针异常处理</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 输出：Cannot invoke &#34;String.isBlank()&#34; because &#34;testContent2&#34; is null</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent2</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent2</span><span class=p>.</span><span class=na>isBlank</span><span class=p>());</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><code>isEmpty</code> 和 <code>isBlank</code> 方法最大的区别就是对空白字符串的判断，如果字符串仅仅包含空白字符，<code>isEmpty</code> 为真，<code>isBlank</code> 为假。</p>
+<p>如果字符串为 <code>null</code>，使用这两个方法都会抛出空指针异常。</p>
+<h2 id=重复拼接字符串><a href=#重复拼接字符串 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:重复拼接字符串 class=headings>重复拼接字符串</a></h2>
+<p>在 <code>Java 11</code> 中新添加重复拼接字符串 <code>repeat</code> 方法，比如下面示例：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;hello~ &#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent</span><span class=p>.</span><span class=na>repeat</span><span class=p>(</span><span class=n>3</span><span class=p>));</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>输出结果：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203172533-9z41z30.png alt=image></p>
+<p>其底层调用了 <code>System.arraycopy</code> 方法进行字节拷贝，最后再封装成一个新的字符串。</p>
+<h2 id=换行符拆分流><a href=#换行符拆分流 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:换行符拆分流 class=headings>换行符拆分流</a></h2>
+<p><code>Java 11</code> 新增方法。根据字符串的换行符，将每个字符形成一个 <code>Stream</code> 流：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 测试内容</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;hello\njava\nC++\nPHP\nGO\n&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 返回 Stream 流的数量</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;数量:&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>lines</span><span class=p>().</span><span class=na>count</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 遍历 Stream 流输出</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>testContent</span><span class=p>.</span><span class=na>lines</span><span class=p>().</span><span class=na>forEach</span><span class=p>(</span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>::</span><span class=n>println</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>输出结果：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203172927-5i5pj0i.png alt=image></p>
+<h2 id=字符串缩进><a href=#字符串缩进 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:字符串缩进 class=headings>字符串缩进</a></h2>
+<p><code>indent</code> 是 <code>Java 12</code> 新增方法，用于对字符串进行缩进：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;hello\njava\nC++\nPHP\nGO\n&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent</span><span class=p>.</span><span class=na>indent</span><span class=p>(</span><span class=n>3</span><span class=p>));</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>输出结果：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203181330-b7hxykv.png alt=image></p>
+<p>来看它的源码：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * 缩进字符串
+</span></span></span><span class=line><span class=cl><span class=cm> * @param n 缩进的空格数
+</span></span></span><span class=line><span class=cl><span class=cm> * @return 缩进后的字符串
+</span></span></span><span class=line><span class=cl><span class=cm> */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>indent</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>n</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 如果字符串为空，则直接返回空字符串</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>isEmpty</span><span class=p>())</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=s>&#34;&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 获取每一行字符串</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>Stream</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>stream</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>lines</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 如果缩进数大于 0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>n</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=n>0</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// 生成包含 n 个空格的字符串</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=kd>final</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>spaces</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34; &#34;</span><span class=p>.</span><span class=na>repeat</span><span class=p>(</span><span class=n>n</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// 对每一行字符串进行处理，将其前面添加 n 个空格</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>stream</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>stream</span><span class=p>.</span><span class=na>map</span><span class=p>(</span><span class=n>s</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>spaces</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>s</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>n</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=n>Integer</span><span class=p>.</span><span class=na>MIN_VALUE</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// 对每一行字符串进行处理，去除开头的空格</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>stream</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>stream</span><span class=p>.</span><span class=na>map</span><span class=p>(</span><span class=n>s</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>s</span><span class=p>.</span><span class=na>stripLeading</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>n</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>0</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// 对每一行字符串进行处理，截取从开头到第一个非空格字符之间的子字符串</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>stream</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>stream</span><span class=p>.</span><span class=na>map</span><span class=p>(</span><span class=n>s</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>s</span><span class=p>.</span><span class=na>substring</span><span class=p>(</span><span class=n>Math</span><span class=p>.</span><span class=na>min</span><span class=p>(</span><span class=o>-</span><span class=n>n</span><span class=p>,</span><span class=w> </span><span class=n>s</span><span class=p>.</span><span class=na>indexOfNonWhitespace</span><span class=p>())));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 将每一行字符串通过换行符连接起来，并返回结果</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=n>stream</span><span class=p>.</span><span class=na>collect</span><span class=p>(</span><span class=n>Collectors</span><span class=p>.</span><span class=na>joining</span><span class=p>(</span><span class=s>&#34;\n&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;\n&#34;</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>其实就是调用了上面的 <code>lines</code> 方法根据根据换行符来创建一个 <code>Stream</code>，然后再往前拼接指定数量的空格，最后形成新的字符串。</p>
+<h2 id=字符串转换><a href=#字符串转换 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:字符串转换 class=headings>字符串转换</a></h2>
+<p><code>transform</code> 是 <code>Java 12</code> 新增的方法，用于字符串转换：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 测试内容</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34; 自本非美玉，故不敢加以刻苦雕琢 &#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm> * 对测试内容进行处理：
+</span></span></span><span class=line><span class=cl><span class=cm> * 1. 移除首尾空白字符（strip 方法）
+</span></span></span><span class=line><span class=cl><span class=cm> * 2. 转换为大写（toUpperCase 方法）
+</span></span></span><span class=line><span class=cl><span class=cm> * 3. 将处理后的字符串拼接为 &#34;我深怕&#34; 开头的新字符串
+</span></span></span><span class=line><span class=cl><span class=cm> */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>result</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>transform</span><span class=p>(</span><span class=n>String</span><span class=p>::</span><span class=n>strip</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=na>transform</span><span class=p>(</span><span class=n>String</span><span class=p>::</span><span class=n>toUpperCase</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=na>transform</span><span class=p>(</span><span class=n>e</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=s>&#34;我深怕&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>e</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>result</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>这里先用 <code>strip</code> 移除前后的空白字符，然后转换为大写，最后再拼接一个前缀。</p>
+<p>结果输出：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203173731-sagfcga.png alt=image></p>
+<h2 id=返回实例本身的-optional-对象><a href=#返回实例本身的-optional-对象 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:返回实例本身的-optional-对象 class=headings>返回实例本身的 Optional 对象</a></h2>
+<p><code>Java 12</code> 中的 <code>String</code> 实现了 <code>Constable</code> 接口：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=kd>interface</span> <span class=nc>Constable</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>     * 如果可以构建该实例的名义描述符，则返回一个包含它的 {@link Optional} 对象
+</span></span></span><span class=line><span class=cl><span class=cm>     * 若无法构建，则返回一个空的 {@link Optional} 对象。
+</span></span></span><span class=line><span class=cl><span class=cm>     *
+</span></span></span><span class=line><span class=cl><span class=cm>     * @return 包含生成的名义描述符的 {@link Optional} 对象，如果无法构建则返回一个空的 {@link Optional} 对象。
+</span></span></span><span class=line><span class=cl><span class=cm>     */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>Optional</span><span class=o>&lt;?</span><span class=w> </span><span class=kd>extends</span><span class=w> </span><span class=n>ConstantDesc</span><span class=o>&gt;</span><span class=w> </span><span class=nf>describeConstable</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>实现源码如下所示：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm> * 返回一个包含当前对象的 {@link Optional} 对象。
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @return 包含当前对象的 {@link Optional} 对象。
+</span></span></span><span class=line><span class=cl><span class=cm> */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=n>Optional</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=nf>describeConstable</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=n>Optional</span><span class=p>.</span><span class=na>of</span><span class=p>(</span><span class=k>this</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>其实就是把字符串本身封装一个 <code>Optional</code> 对象返回。</p>
+<p>示例代码如下：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 测试内容</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;却又半信自己是块美玉，故又不肯庸庸碌碌，与瓦砾为伍&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>Optional</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>nameOptional</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>testContent</span><span class=p>.</span><span class=na>describeConstable</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 直接 get 会提示如下信息：</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// &#39;Optional.get()&#39; without &#39;isPresent()&#39; check</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>nameOptional</span><span class=p>.</span><span class=na>get</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 此处相当于：</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 1. 使用 &#39;isPresent()&#39; 方法检查 Optional 是否包含值</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 2. 打印 Optional 中的值</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// if (nameOptional.isPresent()) {</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>//     System.out.println(nameOptional.get());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// }</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>nameOptional</span><span class=p>.</span><span class=na>ifPresent</span><span class=p>(</span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>::</span><span class=n>println</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>输出结果：</p>
+<blockquote>
+<p>却又半信自己是块美玉，故又不肯庸庸碌碌，与瓦砾为伍</p>
+</blockquote>
+<p><code>Optional</code> 是 <code>Java 8</code> 中的新特性，可用来替代对象的 <code>!= null</code> 判断。</p>
+<h2 id=字符串格式化><a href=#字符串格式化 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:字符串格式化 class=headings>字符串格式化</a></h2>
+<p><code>Java 15</code> 中的 <code>String</code> 类引入了一个 <code>formatted()</code> 格式化新方法，它是 <code>String.format()</code> 方法的简写版本，它可以方便地对字符串进行格式化。</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>String</span><span class=w> </span><span class=n>testContent1</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;Hello, %s&#34;</span><span class=p>.</span><span class=na>formatted</span><span class=p>(</span><span class=s>&#34;Linux do!&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent1</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 白白白是一只雪白的猫猫</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>String</span><span class=w> </span><span class=n>testContent2</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;我叫 %s，我今年已经 %d 岁啦~&#34;</span><span class=p>.</span><span class=na>formatted</span><span class=p>(</span><span class=s>&#34;白白白&#34;</span><span class=p>,</span><span class=w> </span><span class=n>3</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent2</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>输出结果：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203175041-z3t0oag.png alt=image></p>
+<h2 id=字符串转义><a href=#字符串转义 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:字符串转义 class=headings>字符串转义</a></h2>
+<p>在 <code>Java 15</code> 中，<code>String</code> 类引入了 <code>translateEscapes()</code> 新方法，用于将字符串中的转义序列转化为相应的字符。</p>
+<p>来看下面的示例代码：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>String</span><span class=w> </span><span class=n>testContent</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;Hello\n\\n白白白\\t!&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;===testContent===&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;===translateEscapes===&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>testContent</span><span class=p>.</span><span class=na>translateEscapes</span><span class=p>());</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>输出结果：
+<img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/string-new-the-operations/image-20240203175449-ffz0vl8.png alt=image></p>
+<p>通过前面输出对比可以看出，正常的转义字符 <code>\\n</code> 经过转换一次之后变成了 <code>\n</code> 就不能再转换了，而新出的 <code>translateEscapes</code> 方法可以继续转换出转义之后的转义字符，把所有转义字符转换为真正的字符。</p>
+<p>支持的转义字符如下：</p>
+<div class=table-container><table>
+<thead>
+<tr>
+<th>转义序列</th>
+<th>对应的字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\b</code></td>
+<td>退格符 (Backspace)</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>制表符 (Tab)</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>换行符 (Newline)</td>
+</tr>
+<tr>
+<td><code>\f</code></td>
+<td>换页符 (Form feed)</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>回车符 (Carriage return)</td>
+</tr>
+<tr>
+<td><code>\"</code></td>
+<td>双引号 (Double quote)</td>
+</tr>
+<tr>
+<td><code>\'</code></td>
+<td>单引号 (Single quote)</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>反斜线 (Backslash)</td>
+</tr>
+<tr>
+<td><code>\0</code> to <code>\377</code></td>
+<td>八进制表示的 Unicode 字符</td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>空格符 (Space)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/string/ rel=tag class=post-tag-link>#string</a> <a href=/tags/java/ rel=tag class=post-tag-link>#java</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

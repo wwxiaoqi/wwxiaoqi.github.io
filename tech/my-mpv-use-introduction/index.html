@@ -1,0 +1,274 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>Mpv Player 使用介绍 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="简介 Mpv Player（以下简称 mpv）是一款很奇特的播放器，设置全靠配置文件，操作基本">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/my-mpv-use-introduction/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2024-02-04T15:40:27+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/my-mpv-use-introduction/","headline":"Mpv Player 使用介绍","description":"简介 Mpv Player（以下简称 mpv）是一款很奇特的播放器，设置全靠配置文件，操作基本","inLanguage":"zh-CN","articleSection":"tech","wordCount":2129,"image":["https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/my-mpv-use-introduction/mpv%E9%BB%98%E8%AE%A4%E9%94%AE%E7%BB%91%E5%AE%9A%E5%9B%BE.png"],"author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary_large_image">
+<meta property="og:title" content="Mpv Player 使用介绍">
+<meta property="og:description" content="简介 Mpv Player（以下简称 mpv）是一款很奇特的播放器，设置全靠配置文件，操作基本">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/my-mpv-use-introduction/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/my-mpv-use-introduction/mpv%E9%BB%98%E8%AE%A4%E9%94%AE%E7%BB%91%E5%AE%9A%E5%9B%BE.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-02-04T15:40:27+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">Mpv Player 使用介绍</h1>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:简介 href=#简介>简介</a></li>
+<li><a id=contents:下载安装 href=#下载安装>下载安装</a></li>
+<li><a id=contents:使用 href=#使用>使用</a></li>
+<li><a id=contents:设置文件自定义 href=#设置文件自定义>设置文件自定义</a></li>
+<li><a id=contents:快捷键自定义 href=#快捷键自定义>快捷键自定义</a></li>
+<li><a id=contents:结尾 href=#结尾>结尾</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<h2 id=简介><a href=#简介 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:简介 class=headings>简介</a></h2>
+<p><code>Mpv Player</code>（以下简称 <code>mpv</code>）是一款很奇特的播放器，设置全靠配置文件，操作基本靠快捷键。</p>
+<p>虽然有着那无比详细的官方手册，但是对于部分人来说从入门到上手真是异常困难，以至于很多人转到了其他播放器，如 <a href=https://mpc-hc.org/ target=_blank rel=noopener>MPC-HC(自 2017 年起不再开发)</a>、<a href=https://potplayer.info/download/ target=_blank rel=noopener>PotPlayer</a>。</p>
+<p>不过好处使用它的好处显而易见，因为它是真正完全便携的高质量播放器，底层采用了 <code>MPlayer</code>、<code>Mplayer2</code> 和 <code>FFmpeg</code> 等知名开源项目，功能不仅多到你无法想象，并且 <a href=https://github.com/mpv-player/mpv/wiki/User-Scripts target=_blank rel=noopener>Github Wiki</a> 上更有大量的第三方用户脚本可供选择。</p>
+<p>在官方介绍中，官方将其定义为：<strong>媒体播放器</strong><sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>[1]</a></sup>。但对于大多数人们的认知中，<code>mpv</code> 作为视频播放器的存在感显然更强、也更常见一点。</p>
+<blockquote>
+<p>媒体播放器和视频播放器有什么区别？ 简单来说：</p>
+<p>视频播放器是媒体播放器的一种，它主要用来播放视频文件，而媒体播放器不仅可以播放媒体文件，它还可以打开视频、音频、图片、字幕等等。</p>
+</blockquote>
+<h2 id=下载安装><a href=#下载安装 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:下载安装 class=headings>下载安装</a></h2>
+<p><code>mpv</code> <strong>目前</strong><sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>[2]</a></sup>不发行官方编译的版本，其第三方 <a href=https://github.com/shinchiro target=_blank rel=noopener>shinchiro</a> 编译的算认可度高的半官方版，你可以在 <a href=https://sourceforge.net/projects/mpv-player-windows/files/ target=_blank rel=noopener>SOURCEGORGE</a> 或 <a href=https://github.com/shinchiro/mpv-winbuild-cmake/releases target=_blank rel=noopener>shinchiro github download</a> 获取最新版本，当然你也可以<strong>手动编译</strong><sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>[3]</a></sup>。</p>
+<blockquote>
+<p>版本选择：根据设备选择对应版本即可。</p>
+<p>这里主要是想说如果你的处理器是 <code>Excavator/Haswell</code> 架构或者之后较新的架构，可以使用 v3 版本。</p>
+</blockquote>
+<p>下载完成找个你喜欢的目录全部解压，然后点击运行 <code>mpv.exe</code> 即可。如果需要注册成系统可选的默认播放器，以管理员权限运行 <code>installer</code> 文件夹内的 <code>mpv-install.bat</code> 即可。</p>
+<h2 id=使用><a href=#使用 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:使用 class=headings>使用</a></h2>
+<p>关于使用 <code>mpv</code> 不得不提的就是快捷键，在安装 <code>mpv</code> 的目录下 <code>doc</code> 文件夹内自带了份 <code>manual.pdf</code>（用户使用手册） 和 <code>mpv default bindings.png</code> （mpv 默认键绑定图），你也可以在 <a href=https://mpv.io/manual/master/ target=_blank rel=noopener>MPV Manual</a> 查看详细使用说明。</p>
+<p>这里有一份中文版本的 <code>mpv</code> 默认键绑定图（作者：尉迟子凡）<sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>[4]</a></sup>：</p>
+<p><img src=https://tahicokey.oss-cn-shanghai.aliyuncs.com/Blog/my-mpv-use-introduction/mpv%E9%BB%98%E8%AE%A4%E9%94%AE%E7%BB%91%E5%AE%9A%E5%9B%BE.png alt="mpv default bindings"></p>
+<p>一些常用的快捷键：</p>
+<div class=table-container><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>→</td>
+<td>前进 5 秒</td>
+</tr>
+<tr>
+<td>←</td>
+<td>后退 5 秒</td>
+</tr>
+<tr>
+<td>↑</td>
+<td>前进 1 分钟</td>
+</tr>
+<tr>
+<td>↓</td>
+<td>后退 1 分钟</td>
+</tr>
+<tr>
+<td>PageUp</td>
+<td>跳转到下一章节</td>
+</tr>
+<tr>
+<td>PageDown</td>
+<td>跳转到前一章节</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>播放/暂停</td>
+</tr>
+<tr>
+<td>9</td>
+<td>降低音量</td>
+</tr>
+<tr>
+<td>0</td>
+<td>提高音量</td>
+</tr>
+<tr>
+<td>j</td>
+<td>切换字幕</td>
+</tr>
+<tr>
+<td>#</td>
+<td>切换音轨</td>
+</tr>
+<tr>
+<td>m</td>
+<td>开启/关闭静音</td>
+</tr>
+<tr>
+<td>v</td>
+<td>显示/隐藏字幕</td>
+</tr>
+<tr>
+<td>f</td>
+<td>切换全屏/窗口显示</td>
+</tr>
+<tr>
+<td>s</td>
+<td>截图</td>
+</tr>
+</tbody>
+</table></div>
+<p>快捷键 <code>i</code> 可以显示当前正在播放的文件的媒体信息以及解码。使用 <code>Shift + i</code> 则可以让这些信息保持显示或清除，显示时点击数字键 <code>1</code>、<code>2</code>、<code>3</code> 等等可以分别显示信息的第一、二、三……页。</p>
+<p>打开一个码率较高的视频，按下 <code>Shift + i</code> 观察第一页显示的 <code>Dropped Frames</code> 以及 <code>Mistimed</code> 和 <code>Delayed</code> 这几项计数，如果播放一段时间后这几个数字都保持稳定没有增加，则基本可以确定视频播放没有什么问题了。</p>
+<h2 id=设置文件自定义><a href=#设置文件自定义 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:设置文件自定义 class=headings>设置文件自定义</a></h2>
+<p>在 <code>mpv</code> 的安装路径下新建一个 <code>portable_config</code> 的文件夹。该目录具有最高级的优先级，一旦存在此文件夹，其它所有的设置目录都会被忽略（默认设置目录为：<code>C:/Users/[用户名]/AppData/Roaming/mpv/</code>）。</p>
+<blockquote>
+<p>如何快速打开 <code>mpv</code> 默认设置目录？</p>
+<ol>
+<li>按下徽标键（<code>Windows</code> 键）+ <code>R</code> 键</li>
+<li>在弹出的运行窗口中，输入：<code>%AppData%/mpv/</code></li>
+<li>点击确定键，即可快速打开 <code>mpv</code> 默认设置目录。</li>
+</ol>
+</blockquote>
+<p>然后在 <code>portable_config</code> 文件夹内新建一个 <code>mpv.conf</code> 主配置文件，里面包含个人用户编写的所有个性化使用需求/习惯，并且写入以下参数：</p>
+<pre tabindex=0><code class=language-conf data-lang=conf>hwdec=auto                              # 优先使用硬解（原生模式）
+profile=high-quality                    # 使用一个内置的画质方案预设
+icc-profile-auto=yes                    # 开启色彩管理
+#profile=gpu-hq                         # 使用高质量渲染
+#blend-subtitles=video                  # 避免画面模糊字幕高清的情况
+
+#interpolation=yes                      # 补帧算法是否启用
+#tscale=oversample                      # 补帧算法选择
+#video-sync=display-resample            # 视频同步
+
+keep-open=yes                           # 播放列表中的最后一个条目播放完毕后暂停（窗口保持打开）
+border=no                               # 窗口是否有边框
+snap-window=yes                         # 窗口贴边是否自动吸附 ( 仅限 Windows )
+
+save-position-on-quit=yes               # 退出时保存当前的播放状态
+watch-later-options=start,vid,aid,sid   # 指定保存播放状态的属性列表（示例表示：播放位置、视频 音频 字幕轨号）
+
+audio-file-auto=fuzzy                   # 自动加载同目录下--相似名/同名音频文件
+sub-auto=fuzzy                          # 自动加载同目录下--相似名/同名字幕文件
+slang=chi,eng,jp                        # 切换内封字幕轨优先级--靠左优先,靠右稍后
+alang=eng,chi,jp                        # 切换内封音频轨优先级--靠左优先,靠右稍后
+
+screenshot-format=jpg                   # 截图创建格式
+screenshot-dir=&#34;~~desktop/&#34;             # 截图的输出路径在桌面
+
+#log-file=&#34;~~desktop/mpv.log&#34;           # 输出 log 日志在桌面
+</code></pre><p><code>--log-file</code> 用于输出日志查错，如果有问题可以打开这个选项。
+<code>--profile=high-quality</code> 如果你的显卡太差，建议将这个关闭。</p>
+<p>很多时候，显示器刷新率不是片源帧率的<strong>整数倍</strong><sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>[5]</a></sup>，此时在默认设置下会因每一帧实际在屏幕上的呈现时间不均等而造成卡顿感（俗称 <code>3:2 pull down judder</code>）。启用 <code>interpolation</code> 可以消除这个问题（此功能非常类似于 <code>madVR</code> 中的 <code>smooth motion</code>）：</p>
+<pre tabindex=0><code class=language-conf data-lang=conf>video-sync=display-resample
+interpolation=yes
+tscale=oversample
+</code></pre><p>你也可以根据根据用户手册来进行个性化定制，或者也可以点击这里 <a href=https://github.com/hooke007/MPV_lazy/blob/main/portable_config/mpv.conf target=_blank rel=noopener>mpv.conf 中文版本</a>，参考按需配置即可。</p>
+<h2 id=快捷键自定义><a href=#快捷键自定义 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:快捷键自定义 class=headings>快捷键自定义</a></h2>
+<p>在 <code>portable_config</code> 内新建一个 <code>input.conf</code> 配置文件，然后根据 <a href=https://github.com/hooke007/MPV_lazy/blob/main/portable_config/input_easy.conf target=_blank rel=noopener>常规快捷键的绑定语法</a>、<a href=https://github.com/hooke007/MPV_lazy/blob/main/portable_config/input_list.conf target=_blank rel=noopener>列表选项的绑定语法</a>、<a href=https://github.com/hooke007/MPV_lazy/blob/main/portable_config/input_scripts.conf target=_blank rel=noopener>脚本的绑定语法</a> 进行配置：</p>
+<pre tabindex=0><code class=language-conf data-lang=conf>n cycle-values video-rotate &#34;0&#34; &#34;90&#34; &#34;180&#34; &#34;270&#34;
+b cycle-values video-rotate &#34;270&#34; &#34;180&#34; &#34;90&#34; &#34;0&#34;
+</code></pre><p>在这里我配置了 <code>n</code> 和 <code>b</code> 两个键，分别用于旋转视频画面。</p>
+<h2 id=结尾><a href=#结尾 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:结尾 class=headings>结尾</a></h2>
+<p>这里只是简单的介绍了下 <code>mpv</code> 的使用，如果你想要更加深入的了解 <code>mpv</code>，可以参考以下链接：</p>
+<p><a href=https://mpv.io/manual/master/#interactive-control target=_blank rel=noopener>官方帮助文档</a></p>
+<p><a href=https://hooke007.github.io/unofficial/mpv_start.html target=_blank rel=noopener>mpv播放器的使用引导</a></p>
+<p><a href=https://zhuanlan.zhihu.com/p/623849465 target=_blank rel=noopener>全平台最强播放器mpv！祖母级入门帮扶教学</a></p>
+<p><a href=https://vcb-s.com/archives/7594 target=_blank rel=noopener>跨平台播放器 mpv 配置入门</a></p>
+<p><a href=https://www.bilibili.com/read/cv15646258/ target=_blank rel=noopener>跨平台多媒体播放器MPV Player“养成计划”</a></p>
+<p><a href=https://meta.appinn.net/t/topic/26574 target=_blank rel=noopener>MPV的一些折腾</a></p>
+<p>非常感谢他们的帮助。</p>
+<div class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1>
+<p>在官方网站 mpv.io 中，首页大字：「a free, open source, and cross-platform media player」。&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="icon footnote-icon"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg></a></p>
+</li>
+<li id=fn:2>
+<p>截至本文完稿时间，与 2024-02-04。&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="icon footnote-icon"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg></a></p>
+</li>
+<li id=fn:3>
+<p>详细请看 mpv 的编译说明：<a href=https://github.com/mpv-player/mpv/blob/master/DOCS/compile-windows.md target=_blank rel=noopener>mpv-player compile windows</a>。&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="icon footnote-icon"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg></a></p>
+</li>
+<li id=fn:4>
+<p>来自知乎：<a href=https://www.zhihu.com/people/yuchizifan target=_blank rel=noopener>@尉迟子凡</a>，感谢！&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="icon footnote-icon"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg></a></p>
+</li>
+<li id=fn:5>
+<p>参考资料：<a href=https://www.bilibili.com/video/BV1hp4y1f7B5 target=_blank rel=noopener>影视飓风将停止制作25帧视频</a>&#160;<a href=#fnref:5 class=footnote-backref role=doc-backlink><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="icon footnote-icon"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg></a></p>
+</li>
+</ol>
+</div>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/mpv/ rel=tag class=post-tag-link>#mpv</a> <a href=/tags/software/ rel=tag class=post-tag-link>#software</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

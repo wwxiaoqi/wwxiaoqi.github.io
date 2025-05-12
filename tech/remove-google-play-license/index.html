@@ -1,0 +1,165 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>Google Play 许可验证去除方法 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="某些游戏中 Google_Play 许可证验证的简单去除方法！">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/remove-google-play-license/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2020-05-12T16:53:07+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/remove-google-play-license/","headline":"Google Play 许可验证去除方法","description":"某些游戏中 Google_Play 许可证验证的简单去除方法！","inLanguage":"zh-CN","articleSection":"tech","wordCount":1035,"image":["https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/Minecraft.jpg","https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/play_licensing.png","https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/License_Checker.png","https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/mt_check_access.jpg","https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/hack_check_access.jpg","https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/mc_Index_1.jpg","https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/mc_Index_2.jpg"],"author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary_large_image">
+<meta property="og:title" content="Google Play 许可验证去除方法">
+<meta property="og:description" content="某些游戏中 Google_Play 许可证验证的简单去除方法！">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/remove-google-play-license/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/Minecraft.jpg">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-05-12T16:53:07+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">Google Play 许可验证去除方法</h1>
+<div class="post-description p-summary">某些游戏中 Google_Play 许可证验证的简单去除方法！</div>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:前言 href=#前言>前言</a></li>
+<li><a id=contents:分析 href=#分析>分析</a></li>
+<li><a id=contents:实战 href=#实战>实战</a>
+<ol>
+<li><a id=contents:第一步-打开-dex-文件 href=#第一步-打开-dex-文件>第一步 (打开 dex 文件)</a></li>
+<li><a id=contents:第二步-找到-checkaccess-查看 href=#第二步-找到-checkaccess-查看>第二步 (找到 checkAccess 查看)</a></li>
+<li><a id=contents:第三步-分析并修改 href=#第三步-分析并修改>第三步 (分析并修改)</a></li>
+<li><a id=contents:第四步-保存并签名 href=#第四步-保存并签名>第四步 (保存并签名)</a></li>
+</ol>
+</li>
+<li><a id=contents:免责声明 href=#免责声明>免责声明</a></li>
+<li><a id=contents:结尾 href=#结尾>结尾</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<h2 id=前言><a href=#前言 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:前言 class=headings>前言</a></h2>
+<p>一些以 Google Play 为官方发布渠道的应用、游戏会在启动时通过手机上的 Google Play 框架查询当前应用是否是从 Google Play 商店合法购买安装的，如果不是，会拒绝运行。</p>
+<p>如 Minecraft（国际版）:（本方法适用但不局限于此应用）</p>
+<p><img src=https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/Minecraft.jpg alt=Minecraft.jpg></p>
+<h2 id=分析><a href=#分析 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:分析 class=headings>分析</a></h2>
+<p>对于此类应用，一般是使用了 Google Play 的许可证验证 API。</p>
+<p>要想去除，要先学会如何加上，让我们前往 Google 的 Android 开发文档查询一下：</p>
+<p><a href=https://developer.android.com/google/play/licensing/overview.html target=_blank rel=noopener>https://developer.android.com/google/play/licensing/overview.html</a></p>
+<p>这里面有一张图，演示了许可证的检查过程：</p>
+<p><img src=https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/play_licensing.png alt=play_licensing.png></p>
+<p>可以看出，应用先向手机上的 Google Play 框架提出请求，然后由 Google Play 向服务器进行验证（过程加密），再返回给应用。</p>
+<p>另一张图更实用，展示了应用在验证过程中的具体操作：</p>
+<p><img src=https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/License_Checker.png alt=License_Checker.png></p>
+<p>由此看出，关键函数就是 LicenseChecker.checkAccess()。</p>
+<p>应用会调用 LicenseChecker.checkAccess()，checkAccess() 方法会进行检查，如果结果是许可证有效则会调用应用给出的回调中的 allow()，否则调用 dontAllow()，遇到错误则调用 applicationError()。</p>
+<p>由此可得出思路：</p>
+<p>修改 checkAccess()，使其不管查询结果为何，都无条件调用 LisenceCheckerCallback.allow()。达到破解目的.</p>
+<h2 id=实战><a href=#实战 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:实战 class=headings>实战</a></h2>
+<p>(在手机上使用 MT 管理器（BinMT）完成)</p>
+<h3 id=第一步-打开-dex-文件><a href=#第一步-打开-dex-文件 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:第一步-打开-dex-文件 class=headings>第一步 (打开 dex 文件)</a></h3>
+<p>打开安装包中的 classes.dex 文件</p>
+<h3 id=第二步-找到-checkaccess-查看><a href=#第二步-找到-checkaccess-查看 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:第二步-找到-checkaccess-查看 class=headings>第二步 (找到 checkAccess 查看)</a></h3>
+<p>找到 com.googleplay.licensing.LicenseChecker 并打开，查看 Smali</p>
+<p>在 Smali 编辑器界面使用搜索功能，搜索 checkAccess</p>
+<p><img src=https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/mt_check_access.jpg alt=mt_check_access.jpg></p>
+<h3 id=第三步-分析并修改><a href=#第三步-分析并修改 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:第三步-分析并修改 class=headings>第三步 (分析并修改)</a></h3>
+<p>接下来开始分析这段代码:</p>
+<p><img src=https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/hack_check_access.jpg alt=hack_check_access.jpg></p>
+<p>这个函数从图中第 2 行开始，开头是一些信息之类的内容。</p>
+<p>从第 6 行开始是函数体，第 10 行是一个 try-catch 异常处理块的开头，里面是可能出现异常的代码。这个块里便是我们要寻找的关键。</p>
+<p>第 11 到 15 行的代码用 Java 写出来就是：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>bool</span><span class=w> </span><span class=n>v1</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>this</span><span class=p>.</span><span class=na>mPolicy</span><span class=p>.</span><span class=na>allowAccess</span><span class=p>();</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>这是尝试在本地缓存中查找有没有此应用的许可证，如有就返回 1 (true)，没有就返回 0 (false)。</p>
+<p>紧接着重头戏就来了，第 17 行判断如果 v1 是 0（即 false）就跳转到 :cond_17（进行联网检查许可证）否则继续执行。</p>
+<p>而继续执行便是我们希望看到的 allow()。</p>
+<p>因此我们只要不让程序跳到 :cond_17 就一定能通过验证。</p>
+<p>综上分析修改方法呼之欲出：</p>
+<p>把第 17 行整行的 if-eqz v1, :cond_17 改成 nop（也可以直接删掉）</p>
+<h3 id=第四步-保存并签名><a href=#第四步-保存并签名 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:第四步-保存并签名 class=headings>第四步 (保存并签名)</a></h3>
+<p>保存、编译、保存、签名、安装</p>
+<p><img src=https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/mc_Index_1.jpg alt=mc_Index_1.jpg></p>
+<p><img src=https://wwxiaoqi-1253423189.cos.ap-guangzhou.myqcloud.com/blog/remove_google_play_license/mc_Index_2.jpg alt=mc_Index_2.jpg></p>
+<h2 id=免责声明><a href=#免责声明 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:免责声明 class=headings>免责声明</a></h2>
+<p>仅限用于学习和研究目的；</p>
+<p>不得将上述内容用于商业或者非法用途，否则，一切后果请用户自负。</p>
+<p>如果您喜欢该程序，请支持正版软件，购买注册，得到更好的正版服务。</p>
+<h2 id=结尾><a href=#结尾 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:结尾 class=headings>结尾</a></h2>
+<p>这就是本文的全部内容啦，本文分析中的所有图片均出自 Android 开发文档，在此感谢一下。</p>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/google-play/ rel=tag class=post-tag-link>#google-play</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

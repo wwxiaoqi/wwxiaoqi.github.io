@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Arch Linux 安装系统字体脚本
+# @wwxiaoqi
+
+# yay -S wps-office-mui-zh-cn
+# yay -S ttf-wps-fonts
+
+yay -S wqy-microhei
+yay -S nerd-fonts-jetbrains-mono
+yay -S ttf-material-design-icons
+yay -S ttf-joypixels
+yay -S ttf-dejavu

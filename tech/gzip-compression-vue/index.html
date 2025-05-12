@@ -1,0 +1,207 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>使用 gzip 压缩优化 Vue 项目 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="因 chunk-vendors 体积过大导致首屏加载太慢。 安装插件 安装 compression-webpack-plugin 插件。 前端将文件打包成 .gz 文件，然后通过 nginx">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/gzip-compression-vue/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2024-12-12T15:52:45+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/gzip-compression-vue/","headline":"使用 gzip 压缩优化 Vue 项目","description":"因 chunk-vendors 体积过大导致首屏加载太慢。 安装插件 安装 compression-webpack-plugin 插件。 前端将文件打包成 .gz 文件，然后通过 nginx","inLanguage":"zh-CN","articleSection":"tech","wordCount":330,"image":"https://wwxiaoqi.com/icons/apple-touch-icon.png","author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary">
+<meta property="og:title" content="使用 gzip 压缩优化 Vue 项目">
+<meta property="og:description" content="因 chunk-vendors 体积过大导致首屏加载太慢。 安装插件 安装 compression-webpack-plugin 插件。 前端将文件打包成 .gz 文件，然后通过 nginx">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/gzip-compression-vue/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://wwxiaoqi.com/icons/apple-touch-icon.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-12-12T15:52:45+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">使用 gzip 压缩优化 Vue 项目</h1>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:安装插件 href=#安装插件>安装插件</a></li>
+<li><a id=contents:修改配置 href=#修改配置>修改配置</a></li>
+<li><a id=contents:nginx-配置 href=#nginx-配置>Nginx 配置</a></li>
+<li><a id=contents:一些问题 href=#一些问题>一些问题</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<p>因 <code>chunk-vendors</code> 体积过大导致首屏加载太慢。</p>
+<h2 id=安装插件><a href=#安装插件 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:安装插件 class=headings>安装插件</a></h2>
+<p>安装 <code>compression-webpack-plugin</code> 插件。</p>
+<p>前端将文件打包成 <code>.gz</code> 文件，然后通过 <code>nginx</code> 的配置，让浏览器直接解析 <code>.gz</code> 文件，可以大大提升文件加载的速度。</p>
+<p><code>npm</code> 使用下面命令安装：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>npm install --save-dev compression-webpack-plugin
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><h2 id=修改配置><a href=#修改配置 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:修改配置 class=headings>修改配置</a></h2>
+<p>修改 <code>vue</code> 的配置文件 <code>vue.config.js</code>：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>webpack</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;webpack&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>CompressionWebpackPlugin</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;compression-webpack-plugin&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>productionGzipExtensions</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;js&#39;</span><span class=p>,</span> <span class=s1>&#39;css&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>module</span><span class=p>.</span><span class=nx>exports</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>configureWebpack</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>plugins</span><span class=o>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=c1>// 配置 compression-webpack-plugin 压缩
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=k>new</span> <span class=nx>CompressionWebpackPlugin</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>        <span class=nx>algorithm</span><span class=o>:</span> <span class=s1>&#39;gzip&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>test</span><span class=o>:</span> <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=s1>&#39;\\.(&#39;</span> <span class=o>+</span> <span class=nx>productionGzipExtensions</span><span class=p>.</span><span class=nx>join</span><span class=p>(</span><span class=s1>&#39;|&#39;</span><span class=p>)</span> <span class=o>+</span> <span class=s1>&#39;)$&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=nx>threshold</span><span class=o>:</span> <span class=mi>10240</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>minRatio</span><span class=o>:</span> <span class=mf>0.8</span>
+</span></span><span class=line><span class=cl>      <span class=p>}),</span>
+</span></span><span class=line><span class=cl>      <span class=k>new</span> <span class=nx>webpack</span><span class=p>.</span><span class=nx>optimize</span><span class=p>.</span><span class=nx>LimitChunkCountPlugin</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>        <span class=nx>maxChunks</span><span class=o>:</span> <span class=mi>5</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>        <span class=nx>minChunkSize</span><span class=o>:</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>      <span class=p>})</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><h2 id=nginx-配置><a href=#nginx-配置 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:nginx-配置 class=headings>Nginx 配置</a></h2>
+<pre tabindex=0><code class=language-conf data-lang=conf>server{
+    listen 8087;
+    server_name localhost;
+
+    gzip on;
+    gzip_min_length 1k;
+    gzip_comp_level 9;
+    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_vary on;
+    gzip_disable &#34;MSIE [1-6]\.&#34;;
+
+    location /appShare {
+       client_max_body_size 10m;
+       root /home/test/webIndex/appShare;
+       try_files $uri $uri/ /appShare/index.html;
+       index index.htm index.html;
+    }
+
+}
+</code></pre><h2 id=一些问题><a href=#一些问题 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:一些问题 class=headings>一些问题</a></h2>
+<p>打包的时候报了如下错误：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>ERROR  TypeError: Cannot <span class=nb>read</span> property <span class=s1>&#39;tapPromise&#39;</span> of undefined
+</span></span><span class=line><span class=cl>TypeError: Cannot <span class=nb>read</span> property <span class=s1>&#39;tapPromise&#39;</span> of undefined
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>这是插件版本的问题。</p>
+<p>安装这个插件的时候安装的是最新版本，但脚手架配置 <code>gzip</code> 打包还不支持这个版本的。</p>
+<p>在降低版本后发现使用正常：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>npm install compression-webpack-plugin@6.1.1 --save-dev
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

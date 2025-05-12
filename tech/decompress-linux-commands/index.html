@@ -1,0 +1,601 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>Linux 解压缩 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="一些在 Linux 常用的解压缩方式">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/decompress-linux-commands/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2024-07-04T09:31:52+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/decompress-linux-commands/","headline":"Linux 解压缩","description":"一些在 Linux 常用的解压缩方式","inLanguage":"zh-CN","articleSection":"tech","wordCount":2101,"image":"https://wwxiaoqi.com/icons/apple-touch-icon.png","author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary">
+<meta property="og:title" content="Linux 解压缩">
+<meta property="og:description" content="一些在 Linux 常用的解压缩方式">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/decompress-linux-commands/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://wwxiaoqi.com/icons/apple-touch-icon.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-07-04T09:31:52+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">Linux 解压缩</h1>
+<div class="post-description p-summary">一些在 Linux 常用的解压缩方式</div>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:zip href=#zip>zip</a></li>
+<li><a id=contents:rar href=#rar>rar</a></li>
+<li><a id=contents:7z href=#7z>7z</a></li>
+<li><a id=contents:targz-bz2-xz href=#targz-bz2-xz>tar(gz, bz2, xz)</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<blockquote>
+<p>解压缩工具多种多样，下面列举了一些常用的命令。</p>
+</blockquote>
+<h2 id=zip><a href=#zip class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:zip class=headings>zip</a></h2>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 解</span>
+</span></span><span class=line><span class=cl>unzip -l file.zip                    <span class=c1># 查看 ZIP 文件内容</span>
+</span></span><span class=line><span class=cl>unzip file.zip                       <span class=c1># 解压到当前目录</span>
+</span></span><span class=line><span class=cl>unzip file.zip -d /tmp/              <span class=c1># 解压到指定目录</span>
+</span></span><span class=line><span class=cl>unzip -q file.zip -d /tmp/           <span class=c1># 静默解压到指定目录</span>
+</span></span><span class=line><span class=cl>unzip -P passwd -q file.zip -d /tmp/ <span class=c1># 静默解压带密码的 ZIP 到指定目录</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><details>
+<summary>unzip 的参数介绍</summary>
+<div class=table-container><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-l，--list</td>
+<td>列出压缩文件中的内容，不解压文件</td>
+</tr>
+<tr>
+<td>-x，--exclude</td>
+<td>排除指定的文件或目录，不进行解压</td>
+</tr>
+<tr>
+<td>-t，--test</td>
+<td>测试压缩文件的完整性，不解压文件</td>
+</tr>
+<tr>
+<td>-d，--directory</td>
+<td>指定解压到的目标目录</td>
+</tr>
+<tr>
+<td>-n，--never-overwrite</td>
+<td>不覆盖已存在的文件</td>
+</tr>
+<tr>
+<td>-o，--overwrite</td>
+<td>覆盖已存在的文件</td>
+</tr>
+<tr>
+<td>-q，--quiet</td>
+<td>静默模式，解压时不显示任何信息</td>
+</tr>
+<tr>
+<td>-P，--password</td>
+<td>使用密码解压文件</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 压</span>
+</span></span><span class=line><span class=cl>zip -r file.zip folder/         <span class=c1># 压缩指定目录</span>
+</span></span><span class=line><span class=cl>zip -r file.zip .               <span class=c1># 压缩当前目录下的所有文件和目录</span>
+</span></span><span class=line><span class=cl>zip -e file.zip .               <span class=c1># 创建带密码的 ZIP 文件</span>
+</span></span><span class=line><span class=cl>zip -m file.zip .               <span class=c1># 压缩完成后删除原始文件</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>zip -0 file.zip .               <span class=c1># 不压缩文件，只是存储</span>
+</span></span><span class=line><span class=cl>zip -9 file.zip .               <span class=c1># 最大压缩</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>zip -v file.zip .               <span class=c1># 压缩时显示详细信息</span>
+</span></span><span class=line><span class=cl>zip -u file.zip .               <span class=c1># 更新 ZIP 文件，只添加新文件或更新的文件</span>
+</span></span><span class=line><span class=cl>zip -s 10m file.zip .           <span class=c1># 分卷压缩，每个分卷大小为 10MB</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><details>
+<summary>zip 的参数介绍</summary>
+<div class=table-container><table>
+<thead>
+<tr>
+<th style=text-align:left>参数</th>
+<th style=text-align:left>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>-r，–recurse-paths</td>
+<td style=text-align:left>递归压缩目录和子目录</td>
+</tr>
+<tr>
+<td style=text-align:left>-e，–encrypt</td>
+<td style=text-align:left>创建加密的 ZIP 文件</td>
+</tr>
+<tr>
+<td style=text-align:left>-m，–move</td>
+<td style=text-align:left>压缩后删除原始文件</td>
+</tr>
+<tr>
+<td style=text-align:left>-0，–store</td>
+<td style=text-align:left>不压缩文件，只是存储</td>
+</tr>
+<tr>
+<td style=text-align:left>-9，–maximum</td>
+<td style=text-align:left>最大压缩</td>
+</tr>
+<tr>
+<td style=text-align:left>-v，–verbose</td>
+<td style=text-align:left>压缩时显示详细信息</td>
+</tr>
+<tr>
+<td style=text-align:left>-u，–update</td>
+<td style=text-align:left>更新 ZIP 文件，只添加新文件或更新的文件</td>
+</tr>
+<tr>
+<td style=text-align:left>-s，–split-size</td>
+<td style=text-align:left>分卷压缩，指定每个分卷的大小</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h2 id=rar><a href=#rar class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:rar class=headings>rar</a></h2>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 解</span>
+</span></span><span class=line><span class=cl>unrar l file.rar                     <span class=c1># 列出 RAR 文件内容</span>
+</span></span><span class=line><span class=cl>unrar x file.rar                     <span class=c1># 解压 RAR 文件到当前目录</span>
+</span></span><span class=line><span class=cl>unrar x file.rar /path/to/directory  <span class=c1># 解压 RAR 文件到指定目录</span>
+</span></span><span class=line><span class=cl>unrar x -ppassword file.rar          <span class=c1># 使用密码解压 RAR 文件</span>
+</span></span><span class=line><span class=cl>unrar x -o+ file.rar                 <span class=c1># 覆盖已存在的文件</span>
+</span></span><span class=line><span class=cl>unrar x -o- file.rar                 <span class=c1># 不覆盖已存在的文件</span>
+</span></span><span class=line><span class=cl>unrar t file.rar                     <span class=c1># 测试 RAR 文件完整性</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><details>
+<summary>unrar 的参数介绍</summary>
+<div class=table-container><table>
+<thead>
+<tr>
+<th style=text-align:left>参数</th>
+<th style=text-align:left>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>l，–list</td>
+<td style=text-align:left>列出 RAR 文件内容</td>
+</tr>
+<tr>
+<td style=text-align:left>x，–extract</td>
+<td style=text-align:left>提取文件</td>
+</tr>
+<tr>
+<td style=text-align:left>p，–password</td>
+<td style=text-align:left>指定解压密码</td>
+</tr>
+<tr>
+<td style=text-align:left>o+</td>
+<td style=text-align:left>覆盖已存在的文件</td>
+</tr>
+<tr>
+<td style=text-align:left>o-</td>
+<td style=text-align:left>不覆盖已存在的文件</td>
+</tr>
+<tr>
+<td style=text-align:left>t，–test</td>
+<td style=text-align:left>测试 RAR 文件完整性</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 压</span>
+</span></span><span class=line><span class=cl>rar a file.rar folder/           <span class=c1># 压缩指定目录</span>
+</span></span><span class=line><span class=cl>rar a file.rar .                 <span class=c1># 压缩当前目录下的所有文件</span>
+</span></span><span class=line><span class=cl>rar a file.rar ./*               <span class=c1># 压缩当前目录下的所有文件和目录</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>rar a -pmyPassword file.rar ./*  <span class=c1># 创建带密码的 RAR 文件</span>
+</span></span><span class=line><span class=cl>rar a -m5 file.rar ./*           <span class=c1># 设置压缩级别（0-5），5 为最高压缩</span>
+</span></span><span class=line><span class=cl>rar a -s file.rar ./*            <span class=c1># 创建固实 RAR 文件</span>
+</span></span><span class=line><span class=cl>rar a -vSIZE file.rar ./*        <span class=c1># 创建分卷 RAR 文件，每个分卷大小为 SIZE</span>
+</span></span><span class=line><span class=cl>rar a -r file.rar ./*            <span class=c1># 递归压缩目录和子目录</span>
+</span></span><span class=line><span class=cl>rar a -x*.txt file.rar ./*       <span class=c1># 压缩时排除 .txt 文件</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><details>
+<summary>rar 的参数介绍</summary>
+<div class=table-container><table>
+<thead>
+<tr>
+<th style=text-align:left>参数</th>
+<th style=text-align:left>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>a，–add</td>
+<td style=text-align:left>添加文件或目录到 RAR 文件</td>
+</tr>
+<tr>
+<td style=text-align:left>p，–password</td>
+<td style=text-align:left>设置 RAR 文件的密码</td>
+</tr>
+<tr>
+<td style=text-align:left>m，–method</td>
+<td style=text-align:left>设置压缩级别（0-5），5 为最高压缩</td>
+</tr>
+<tr>
+<td style=text-align:left>s，–solid</td>
+<td style=text-align:left>创建固实 RAR 文件</td>
+</tr>
+<tr>
+<td style=text-align:left>v，–volume</td>
+<td style=text-align:left>创建分卷 RAR 文件，后跟分卷大小</td>
+</tr>
+<tr>
+<td style=text-align:left>r，–recursive</td>
+<td style=text-align:left>递归压缩目录和子目录</td>
+</tr>
+<tr>
+<td style=text-align:left>x，–exclude</td>
+<td style=text-align:left>排除指定的文件或目录，不进行压缩</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h2 id=7z><a href=#7z class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:7z class=headings>7z</a></h2>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 解</span>
+</span></span><span class=line><span class=cl>7z l file.7z                       <span class=c1># 列出 7z 文件内容</span>
+</span></span><span class=line><span class=cl>7z x file.7z                       <span class=c1># 解压 7z 文件到当前目录</span>
+</span></span><span class=line><span class=cl>7z x file.7z -o/path/to/directory  <span class=c1># 解压 7z 文件到指定目录</span>
+</span></span><span class=line><span class=cl>7z x -pPassword file.7z            <span class=c1># 使用密码解压 7z 文件</span>
+</span></span><span class=line><span class=cl>7z x -aoa file.7z                  <span class=c1># 覆盖已存在的文件</span>
+</span></span><span class=line><span class=cl>7z x -aos file.7z                  <span class=c1># 不覆盖已存在的文件</span>
+</span></span><span class=line><span class=cl>7z t file.7z                       <span class=c1># 测试 7z 文件完整性</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><details>
+<summary>7z 的参数介绍</summary>
+<div class=table-container><table>
+<thead>
+<tr>
+<th style=text-align:left>参数</th>
+<th style=text-align:left>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>l，–list</td>
+<td style=text-align:left>列出 7z 文件内容</td>
+</tr>
+<tr>
+<td style=text-align:left>x，–extract</td>
+<td style=text-align:left>提取文件</td>
+</tr>
+<tr>
+<td style=text-align:left>p，–password</td>
+<td style=text-align:left>指定解压密码</td>
+</tr>
+<tr>
+<td style=text-align:left>aoa</td>
+<td style=text-align:left>覆盖已存在的文件</td>
+</tr>
+<tr>
+<td style=text-align:left>aos</td>
+<td style=text-align:left>不覆盖已存在的文件</td>
+</tr>
+<tr>
+<td style=text-align:left>t，–test</td>
+<td style=text-align:left>测试 7z 文件完整性</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 压</span>
+</span></span><span class=line><span class=cl>7z a file.7z folder/            <span class=c1># 压缩指定目录</span>
+</span></span><span class=line><span class=cl>7z a file.7z ./*                <span class=c1># 压缩当前目录下的所有文件和目录</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>7z a -pPassword file.7z ./*     <span class=c1># 创建带密码的 7z 文件</span>
+</span></span><span class=line><span class=cl>7z a -mx<span class=o>=</span><span class=m>5</span> file.7z ./*          <span class=c1># 设置压缩级别（0-9），9 为最高压缩</span>
+</span></span><span class=line><span class=cl>7z a -mhe<span class=o>=</span>on file.7z ./*        <span class=c1># 创建固实 7z 文件</span>
+</span></span><span class=line><span class=cl>7z a -vSIZE file.7z ./*         <span class=c1># 创建分卷 7z 文件，每个分卷大小为 SIZE</span>
+</span></span><span class=line><span class=cl>7z a -r file.7z ./*             <span class=c1># 递归压缩目录和子目录</span>
+</span></span><span class=line><span class=cl>7z a -x!*.txt file.7z ./*       <span class=c1># 压缩时排除 .txt 文件</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><details>
+<summary>7z 的参数介绍</summary>
+<div class=table-container><table>
+<thead>
+<tr>
+<th style=text-align:left>参数</th>
+<th style=text-align:left>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>a，–add</td>
+<td style=text-align:left>添加文件或目录到 7z 文件</td>
+</tr>
+<tr>
+<td style=text-align:left>p，–password</td>
+<td style=text-align:left>设置 7z 文件的密码</td>
+</tr>
+<tr>
+<td style=text-align:left>mx=</td>
+<td style=text-align:left>设置压缩级别（0-9），9 为最高压缩</td>
+</tr>
+<tr>
+<td style=text-align:left>mhe=on</td>
+<td style=text-align:left>创建固实 7z 文件</td>
+</tr>
+<tr>
+<td style=text-align:left>v，–volume</td>
+<td style=text-align:left>创建分卷 7z 文件，后跟分卷大小</td>
+</tr>
+<tr>
+<td style=text-align:left>r，–recursive</td>
+<td style=text-align:left>递归压缩目录和子目录</td>
+</tr>
+<tr>
+<td style=text-align:left>x，–exclude</td>
+<td style=text-align:left>排除指定的文件或目录，不进行压缩</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h2 id=targz-bz2-xz><a href=#targz-bz2-xz class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:targz-bz2-xz class=headings>tar(gz, bz2, xz)</a></h2>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 解</span>
+</span></span><span class=line><span class=cl>tar -xvf archive.tar               <span class=c1># 解包一个 tar 归档文件</span>
+</span></span><span class=line><span class=cl>tar -xzvf archive.tar.gz           <span class=c1># 解压并解包一个 gzip 压缩的 tar 归档文件</span>
+</span></span><span class=line><span class=cl>tar -xjvf archive.tar.bz2          <span class=c1># 解压并解包一个 bzip2 压缩的 tar 归档文件</span>
+</span></span><span class=line><span class=cl>tar -xJvf archive.tar.xz           <span class=c1># 解压并解包一个 xz 压缩的 tar 归档文件</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 压</span>
+</span></span><span class=line><span class=cl>tar -cvf archive.tar folder/       <span class=c1># 创建一个 tar 归档文件</span>
+</span></span><span class=line><span class=cl>tar -czvf archive.tar.gz folder/   <span class=c1># 创建一个 gzip 压缩的 tar 归档文件</span>
+</span></span><span class=line><span class=cl>tar -cjvf archive.tar.bz2 folder/  <span class=c1># 创建一个 bzip2 压缩的 tar 归档文件</span>
+</span></span><span class=line><span class=cl>tar -cJvf archive.tar.xz folder/   <span class=c1># 创建一个 xz 压缩的 tar 归档文件</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>tar -czvf archive.tar.gz .         <span class=c1># gzip 压缩当前目录下的所有文件和目录</span>
+</span></span><span class=line><span class=cl>tar -cjvf archive.tar.bz2 .        <span class=c1># bzip2 压缩当前目录下的所有文件和目录</span>
+</span></span><span class=line><span class=cl>tar -cJvf archive.tar.xz .         <span class=c1># xz 压缩当前目录下的所有文件和目录</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><details>
+<summary>tar 的参数介绍</summary>
+<div class=table-container><table>
+<thead>
+<tr>
+<th style=text-align:left>参数</th>
+<th style=text-align:left>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>-x，–extract</td>
+<td style=text-align:left>从归档文件中解包文件</td>
+</tr>
+<tr>
+<td style=text-align:left>-v，–verbose</td>
+<td style=text-align:left>在处理文件时显示详细信息</td>
+</tr>
+<tr>
+<td style=text-align:left>-f，–file</td>
+<td style=text-align:left>指定归档文件的名称</td>
+</tr>
+<tr>
+<td style=text-align:left>-z，–gzip</td>
+<td style=text-align:left>通过 gzip 工具进行解压缩</td>
+</tr>
+<tr>
+<td style=text-align:left>-j，–bzip2</td>
+<td style=text-align:left>通过 bzip2 工具进行解压缩</td>
+</tr>
+<tr>
+<td style=text-align:left>-J，–xz</td>
+<td style=text-align:left>通过 xz 工具进行解压缩</td>
+</tr>
+<tr>
+<td style=text-align:left>-c，–create</td>
+<td style=text-align:left>创建一个新的 tar 归档文件</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<details>
+<summary>tar 存在 gpg 加密怎么解压？</summary>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 解密</span>
+</span></span><span class=line><span class=cl>gpg -d archive.tar.gpg &gt; archive.tar   <span class=c1># 解密 gpg 加密的 tar 归档文件</span>
+</span></span><span class=line><span class=cl>tar -xvf archive.tar                   <span class=c1># 解包 tar 归档文件</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 加密</span>
+</span></span><span class=line><span class=cl>tar -cvf archive.tar folder/           <span class=c1># 创建一个 tar 归档文件</span>
+</span></span><span class=line><span class=cl>gpg -c archive.tar                     <span class=c1># 使用 gpg 加密 tar 归档文件</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div></details>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/linux/ rel=tag class=post-tag-link>#linux</a> <a href=/tags/decompress/ rel=tag class=post-tag-link>#decompress</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

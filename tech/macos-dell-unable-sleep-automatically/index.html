@@ -1,0 +1,328 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>关于 macOS 10.15 DELL 无法自动休眠的问题 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="⚠️ 警告 ：截止于 2021.11.19 该方法可能不再适用。 故障表现 出现问题的电脑的表现状态为： 点击休眠屏">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/macos-dell-unable-sleep-automatically/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2020-08-08T17:06:26+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/macos-dell-unable-sleep-automatically/","headline":"关于 macOS 10.15 DELL 无法自动休眠的问题","description":"⚠️ 警告 ：截止于 2021.11.19 该方法可能不再适用。 故障表现 出现问题的电脑的表现状态为： 点击休眠屏","inLanguage":"zh-CN","articleSection":"tech","wordCount":783,"image":"https://wwxiaoqi.com/icons/apple-touch-icon.png","author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary">
+<meta property="og:title" content="关于 macOS 10.15 DELL 无法自动休眠的问题">
+<meta property="og:description" content="⚠️ 警告 ：截止于 2021.11.19 该方法可能不再适用。 故障表现 出现问题的电脑的表现状态为： 点击休眠屏">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/macos-dell-unable-sleep-automatically/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://wwxiaoqi.com/icons/apple-touch-icon.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-08-08T17:06:26+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">关于 macOS 10.15 DELL 无法自动休眠的问题</h1>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:故障表现 href=#故障表现>故障表现</a></li>
+<li><a id=contents:分析过程 href=#分析过程>分析过程</a></li>
+<li><a id=contents:解决方法 href=#解决方法>解决方法</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<blockquote>
+<p>⚠️ 警告 ：截止于 2021.11.19 该方法可能不再适用。</p>
+</blockquote>
+<h2 id=故障表现><a href=#故障表现 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:故障表现 class=headings>故障表现</a></h2>
+<p>出现问题的电脑的表现状态为：</p>
+<ul>
+<li>点击休眠屏幕黑屏</li>
+<li>键盘背光亮 1 分钟后熄灭（正常）</li>
+<li>电源键常亮</li>
+<li>风扇一直旋转（温度较高）</li>
+</ul>
+<h2 id=分析过程><a href=#分析过程 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:分析过程 class=headings>分析过程</a></h2>
+<p>于是我使用了如下命令：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>log show --last 1d <span class=p>|</span> grep <span class=s2>&#34;Wake reason&#34;</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>得到的结果如下（截取关键）：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>powerd: <span class=o>[</span>powerd:sleepWake<span class=o>]</span> 
+</span></span><span class=line><span class=cl>Wake reason: <span class=s2>&#34;&lt;private&gt;&#34;</span>  
+</span></span><span class=line><span class=cl>identity: <span class=s2>&#34;&lt;private&gt;&#34;</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>该日志并无关键信息，于是便使用了如下命令：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> ~/Desktop <span class=o>&amp;&amp;</span> pmset -g log &gt; log.txt
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>或者可使用：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>pmset -g log
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>或者</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>pmset -g assertions
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>得到如下结果（截取关键信息）：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>Assertion status system-wide:
+</span></span><span class=line><span class=cl>   BackgroundTask                 <span class=m>0</span>
+</span></span><span class=line><span class=cl>   ApplePushServiceTask           <span class=m>0</span>
+</span></span><span class=line><span class=cl>   UserIsActive                   <span class=m>1</span>
+</span></span><span class=line><span class=cl>   PreventUserIdleDisplaySleep    <span class=m>0</span>
+</span></span><span class=line><span class=cl>   PreventSystemSleep             <span class=m>0</span>
+</span></span><span class=line><span class=cl>   ExternalMedia                  <span class=m>0</span>
+</span></span><span class=line><span class=cl>   PreventUserIdleSystemSleep     <span class=m>0</span>
+</span></span><span class=line><span class=cl>   NetworkClientActive            <span class=m>0</span>
+</span></span><span class=line><span class=cl>   
+</span></span><span class=line><span class=cl>Listed by owning process:
+</span></span><span class=line><span class=cl>   BackgroundTask named: <span class=s2>&#34;com.apple.parsec-fbf.flush&#34;</span>  
+</span></span><span class=line><span class=cl>   
+</span></span><span class=line><span class=cl>UserIsActive named: <span class=s2>&#34;com.apple.iohideventsystem.queue.tickle&#34;</span> 
+</span></span><span class=line><span class=cl>serviceID: <span class=s2>&#34;100000387&#34;</span>
+</span></span><span class=line><span class=cl>name: <span class=s2>&#34;IOHIDEventDriver&#34;</span>
+</span></span><span class=line><span class=cl>product: <span class=s2>&#34;Keyboard&#34;</span>
+</span></span><span class=line><span class=cl>eventType: <span class=s2>&#34;3&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>UserIsActive named: <span class=s2>&#34;com.apple.iohideventsystem.queue.tickle&#34;</span>
+</span></span><span class=line><span class=cl>serviceID: <span class=s2>&#34;100000421&#34;</span>
+</span></span><span class=line><span class=cl>name: <span class=s2>&#34;AppleUserHIDEventSe&#34;</span>
+</span></span><span class=line><span class=cl>product: <span class=s2>&#34;2.4G&#34;</span>
+</span></span><span class=line><span class=cl>Mouse eventType: <span class=s2>&#34;17&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Timeout will fire in <span class=m>600</span> secs <span class=nv>Action</span> <span class=o>=</span>
+</span></span><span class=line><span class=cl>Timeout Action Release No kernel assertions.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Idle sleep preventers: IODisplayWrangler...
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>分析如上信息多少都和</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=s2>&#34;com.apple.iohideventsystem.queue.tickle&#34;</span>
+</span></span><span class=line><span class=cl><span class=s2>&#34;com.apple.parsec-fbf.flush&#34;</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>有关，于是便使用搜索引擎对已上信息进行搜索，找到一个帖子：</p>
+<blockquote>
+<p><a href=http://bbs.pcbeta.com/viewthread-1847399-1-1.html target=_blank rel=noopener>http://bbs.pcbeta.com/viewthread-1847399-1-1.html</a></p>
+</blockquote>
+<p>里面有一个 @yjplayer 提到的一点</p>
+<blockquote>
+<p>手动睡眠，盒盖睡眠完全正常， <br>
+就是自动睡眠倒计时完了只是黑屏没睡眠。 <br>
+还是要用老办法， <br>
+用命令不加载那个文件就可以自动睡眠</p>
+</blockquote>
+<p>这个老办法引起了我的注意，于是我便开始尝试使用「parsec-fbf」</p>
+<p>作为关键词进行搜索....</p>
+<p>找到了这篇帖子：</p>
+<blockquote>
+<p><a href=http://bbs.pcbeta.com/viewthread-1836895-2-1.html target=_blank rel=noopener>http://bbs.pcbeta.com/viewthread-1836895-2-1.html</a></p>
+</blockquote>
+<p>里面有一个 @maojinbing 提到的一点</p>
+<blockquote>
+<p>如果楼主的手动睡眠（即点击睡眠菜单或按下电源按钮）是成功的，建议备份好文件，彻底停用这个文件。副作用：可能影响 siri 的正常使用...</p>
+</blockquote>
+<p>这里提到了副作用，然后在追答后面还提到了：</p>
+<blockquote>
+<p>你弄错了，是 parsec-fbf 其他不动 <br>
+/PrivateFrameworks/CoreParsec.framework/parsec-fbf</p>
+</blockquote>
+<p>这里有了具体位置</p>
+<p>便猜测是：parsec-fbf 用于定期刷新 上传 Siri Search 的分析数据</p>
+<p>这也能解释上面说的副作用</p>
+<p>于是先尝试把这个 parsec-fbf 开机启动关闭掉，看看会不会出现这种情况</p>
+<h2 id=解决方法><a href=#解决方法 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:解决方法 class=headings>解决方法</a></h2>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 显示当前的启动脚本</span>
+</span></span><span class=line><span class=cl>launchctl list
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 开机时自动启动</span>
+</span></span><span class=line><span class=cl>sudo launchctl load -w <span class=o>[</span>path/to/script<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 停止正在运行</span>
+</span></span><span class=line><span class=cl>sudo launchctl unload <span class=o>[</span>path/to/script<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 去除开机启动</span>
+</span></span><span class=line><span class=cl>sudo launchctl unload -w <span class=o>[</span>path/to/script<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>于是我便执行了如下命令：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 停止运行 parsec-fbf</span>
+</span></span><span class=line><span class=cl>launchctl unload /System/Library/LaunchAgents/com.apple.parsec-fbf.plist
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 去除 parsec-fbf 开机启动</span>
+</span></span><span class=line><span class=cl>launchctl unload -w /System/Library/LaunchAgents/com.apple.parsec-fbf.plist
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 检查（提示信息说明还在运行）</span>
+</span></span><span class=line><span class=cl>launchctl list <span class=p>|</span>grep <span class=s2>&#34;parsec-fbf&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 清除 parsec-fbf 的缓存</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~/Library/Caches
+</span></span><span class=line><span class=cl>rm -R com.apple.parsecd
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>重启检查效果</p>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/macos/ rel=tag class=post-tag-link>#macos</a> <a href=/tags/dell/ rel=tag class=post-tag-link>#dell</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

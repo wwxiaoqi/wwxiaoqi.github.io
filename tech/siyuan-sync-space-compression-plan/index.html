@@ -1,0 +1,742 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>【硬核】思源笔记同步空间压缩计划 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="序 为了尽量讲解的通俗易懂，导致本文过于冗长，为了不浪费大家时间，简述下本文解决了什么">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/siyuan-sync-space-compression-plan/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2025-03-03T11:25:19+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/siyuan-sync-space-compression-plan/","headline":"【硬核】思源笔记同步空间压缩计划","description":"序 为了尽量讲解的通俗易懂，导致本文过于冗长，为了不浪费大家时间，简述下本文解决了什么","inLanguage":"zh-CN","articleSection":"tech","wordCount":5752,"image":["https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228204853-430p7gt.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228175743-1uu7vis.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228180023-5q1u04a.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228180438-66llaui.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228182121-vpihpfi.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/FileConverterUsage-20250228181617-zlyk5di.gif","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228190244-df8iqc9.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228194037-xlxtx8w.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228195009-ztccuwh.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228205727-dtsmj9e.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228211143-q1xmake.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228221357-u6m2z09.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/PixPin_2025-02-28_22-18-24-20250228221847-sco8kvc.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228222753-ds49xct.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/PixPin_2025-02-28_22-38-14-20250228223822-vwlw94x.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/PixPin_2025-03-03_11-58-31.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228232050-yef73ql.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228233408-r7uuzxm.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228234533-hgoiqtq.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301115149-hp0l3n8.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301142140-1kpqjp7.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301152747-7sbuyqg.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301155007-t5ekit1.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301161651-ptl96l3.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301161844-x4pkz26.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301162521-pzzkwcx.webp","https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250301163239-tfwgcip.webp"],"author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary_large_image">
+<meta property="og:title" content="【硬核】思源笔记同步空间压缩计划">
+<meta property="og:description" content="序 为了尽量讲解的通俗易懂，导致本文过于冗长，为了不浪费大家时间，简述下本文解决了什么">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/siyuan-sync-space-compression-plan/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://wwxiaoqi.com/images/siyuan-sync-space-compression-plan/image-20250228204853-430p7gt.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2025-03-03T11:25:19+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">【硬核】思源笔记同步空间压缩计划</h1>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:序 href=#序>序</a></li>
+<li><a id=contents:前言 href=#前言>前言</a></li>
+<li><a id=contents:分析 href=#分析>分析</a></li>
+<li><a id=contents:如何导出复制特定的span-data-typetext-stylewhite-space-collapse-break-spaces文件类型span方便进行二次处理 href=#如何导出复制特定的span-data-typetext-stylewhite-space-collapse-break-spaces文件类型span方便进行二次处理>如何导出/复制特定的<span data-type=text style=white-space-collapse:break-spaces>文件类型</span>方便进行二次处理</a>
+<ol>
+<li><a id=contents:方法一按照类型排序然后选择 href=#方法一按照类型排序然后选择>方法一：按照类型排序，然后选择</a></li>
+<li><a id=contents:方法二使用命令行窗口配合-xcopy-快速复制 href=#方法二使用命令行窗口配合-xcopy-快速复制>方法二：使用命令行窗口配合 xcopy 快速复制</a></li>
+</ol>
+</li>
+<li><a id=contents:针对视频格式处理方法 href=#针对视频格式处理方法>针对视频格式处理方法</a>
+<ol>
+<li><a id=contents:方法一使用-file-converter href=#方法一使用-file-converter>方法一：使用 File Converter</a></li>
+<li><a id=contents:方法二使用-ffmpeg href=#方法二使用-ffmpeg>方法二：使用 FFmpeg</a></li>
+</ol>
+</li>
+<li><a id=contents:针对图片格式处理方法 href=#针对图片格式处理方法>针对图片格式处理方法</a>
+<ol>
+<li><a id=contents:方法一使用图压 href=#方法一使用图压>方法一：使用图压</a></li>
+<li><a id=contents:方法二使用压缩能力更加优秀的格式 href=#方法二使用压缩能力更加优秀的格式>方法二：使用压缩能力更加优秀的格式</a>
+<ol>
+<li><a id=contents:第一步数据库找到相矣数据 href=#第一步数据库找到相矣数据>第一步：数据库找到相矣数据</a></li>
+<li><a id=contents:第二步构建替换命令 href=#第二步构建替换命令>第二步：构建替换命令</a></li>
+<li><a id=contents:第三步执行替换操作 href=#第三步执行替换操作>第三步：执行替换操作</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id=contents:文件不一致如何比对 href=#文件不一致如何比对>文件不一致如何比对</a>
+<ol>
+<li><a id=contents:方法一使用-excel href=#方法一使用-excel>方法一：使用 Excel</a></li>
+<li><a id=contents:方法二使用-python href=#方法二使用-python>方法二：使用 Python</a></li>
+</ol>
+</li>
+<li><a id=contents:本文参考内容 href=#本文参考内容>本文参考内容</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<h2 id=序><a href=#序 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:序 class=headings>序</a></h2>
+<p>为了尽量讲解的通俗易懂，导致本文过于冗长，为了不浪费大家时间，简述下本文解决了什么问题：</p>
+<ol>
+<li>针对资源文件的压缩处理、</li>
+<li>针对资源文件压缩后扩展名（后缀）不一致的处理方法</li>
+<li>提出一种批量替换思源文档的处理方法</li>
+</ol>
+<hr>
+<p>本文同步与思源笔记社区链滴，链接 => <a href=https://ld246.com/article/1740818780419 target=_blank rel=noopener>思源笔记同步空间压缩计划</a>。</p>
+<h2 id=前言><a href=#前言 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:前言 class=headings>前言</a></h2>
+<p>在拜读 @<strong>qiancang</strong> 的 <a href=https://ld246.com/article/1722927292074 target=_blank rel=noopener>思源笔记同步空间拯救计划</a> 之后，发现文中的情况并不适合我，</p>
+<p>遂寻找一种可持续、可复现的操作手段来对资源文件夹的内容进行压缩规整，让我们开始吧。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228204853-430p7gt.webp alt=image></p>
+<p>如果您对思源笔记工作空间内的文件结构不太清楚，请查阅：</p>
+<p><a href="https://ld246.com/forward?goto=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F647593068" target=_blank rel=noopener>思源笔记文件系统介绍：数据快照与同步 - 知乎 (zhihu.com)</a></p>
+<p><a href=https://ld246.com/article/1667662814266 target=_blank rel=noopener>缓解数据焦虑，思源笔记文件存储介绍 - 链滴（ld246.com）</a></p>
+<p><a href=https://ld246.com/article/1668249948773 target=_blank rel=noopener>缓解数据焦虑，思源笔记文件存储介绍 2 - 链滴（ld246.com）</a></p>
+<h2 id=分析><a href=#分析 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:分析 class=headings>分析</a></h2>
+<p>想要进行空间压缩，第一步就是要知道目前空间占用情况，然后对相关文件进行分析，针对性的处理。</p>
+<p>在这里推荐一款工具，名字叫：WizTree，并且个人免费使用。</p>
+<p>下载地址：<a href=https://www.diskanalyzer.com/download target=_blank rel=noopener>www.diskanalyzer.com/download</a></p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228175743-1uu7vis.webp alt=image></p>
+<p>只需要点击即可下载。</p>
+<p>软件中文切换方法：</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228180023-5q1u04a.webp alt=image></p>
+<p>软件使用方法：</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228180438-66llaui.webp alt=image></p>
+<h2 id=如何导出复制特定的span-data-typetext-stylewhite-space-collapse-break-spaces文件类型span方便进行二次处理><a href=#如何导出复制特定的span-data-typetext-stylewhite-space-collapse-break-spaces文件类型span方便进行二次处理 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:如何导出复制特定的span-data-typetext-stylewhite-space-collapse-break-spaces文件类型span方便进行二次处理 class=headings>如何导出/复制特定的<span data-type=text style=white-space-collapse:break-spaces>文件类型</span>方便进行二次处理</a></h2>
+<p>assets 资源文件默认存放着全部格式的文件，不方便进行操作，所以需要将特定的文件类型单独区分出来，方便二次操作。</p>
+<h3 id=方法一按照类型排序然后选择><a href=#方法一按照类型排序然后选择 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法一按照类型排序然后选择 class=headings>方法一：按照类型排序，然后选择</a></h3>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228182121-vpihpfi.webp alt=image></p>
+<p>使用排序功能后，文件就会按照类型进行排序，然后：</p>
+<ol>
+<li>选中【你找到第一个视频】</li>
+<li>按下 Shift 键，点击【你找到最后一个视频】</li>
+</ol>
+<p>此时会选中【你找到第一个视频】和【你找到最后一个视频】之间的全部文件，</p>
+<p>通过这种方法可以很方便的将特定类型的文件提取出来。</p>
+<h3 id=方法二使用命令行窗口配合-xcopy-快速复制><a href=#方法二使用命令行窗口配合-xcopy-快速复制 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法二使用命令行窗口配合-xcopy-快速复制 class=headings>方法二：使用命令行窗口配合 xcopy 快速复制</a></h3>
+<p>按下 Windows + R 打开运行窗口，在打开处输入 cmd 然后回车，这个时候打开的就是命令行窗口了。</p>
+<p>接着使用以下命令：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=gh># 命令
+</span></span></span><span class=line><span class=cl><span class=gh></span>xcopy &#34;源文件路径&#34; &#34;目标文件夹路径&#34; /s /i
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=gh># 例子
+</span></span></span><span class=line><span class=cl><span class=gh></span>xcopy &#34;C:\Users\xiaoqi\SiYuan\data\assets\*.png&#34; &#34;C:\Users\xiaoqi\Desktop\PNG&#34; /s /i
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>解释一下这个命令：</p>
+<ol>
+<li><code>xcopy</code> 是 Windows 中的一个命令行工具，用于复制文件和目录。</li>
+<li><code>"C:\Users\xiaoqi\SiYuan\data\assets\*.png"</code> 是源文件路径。<br>
+这里指定了复制 <code>C:\Users\xiaoqi\SiYuan\data\assets</code> 目录下所有扩展名为 <code>.png</code> 的文件。<br>
+这里的 <code>*</code> 你可以理解成【任意】。</li>
+<li><code>"C:\Users\xiaoqi\Desktop\PNG"</code> 是目标文件夹路径。<br>
+这里指定了将文件复制到 <code>C:\Users\xiaoqi\Desktop\PNG</code> 目录下。</li>
+<li><code>/s</code> 选项表示复制包括子目录在内的所有文件。<br>
+如果源目录包含子目录，这个选项可以确保子目录中的文件也被复制。</li>
+<li><code>/i</code> 选项表示如果目标是一个目录，则创建目录。<br>
+如果目标文件夹 <code>C:\Users\xiaoqi\Desktop\PNG</code> 不存在，该命令会自动创建它。</li>
+</ol>
+<p>通过这种方法，在配合【任意】<code>*</code> 符号的使用（如视频：<code>*.mp4</code> 等），可以对多种格式快速的复制。</p>
+<h2 id=针对视频格式处理方法><a href=#针对视频格式处理方法 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:针对视频格式处理方法 class=headings>针对视频格式处理方法</a></h2>
+<p>如果你的视频占用高，那么可以尝试对视频进行压缩处理，具体操作方法如下：</p>
+<h3 id=方法一使用-file-converter><a href=#方法一使用-file-converter class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法一使用-file-converter class=headings>方法一：使用 File Converter</a></h3>
+<p>这是一款开源的文件转换器，是属于 ffmpeg 的封装。</p>
+<p>安装完成默认会在上下文菜单中增加一个菜单项。</p>
+<p>下载地址：<a href=https://file-converter.io/ target=_blank rel=noopener>https://file-converter.io/</a></p>
+<p>Github 地址：<a href=https://github.com/Tichau/FileConverter target=_blank rel=noopener>https://github.com/Tichau/FileConverter</a></p>
+<p>使用方法：</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/FileConverterUsage-20250228181617-zlyk5di.gif alt=FileConverterUsage></p>
+<p>！！使用的时候请注意！！</p>
+<ol>
+<li>软件默认的压缩配置会将压缩完成的文件放置在同一文件夹</li>
+<li>压缩完成的文件会自动重命名并且添加如：<code>(720p)</code>、<code>(1080p)</code>等内容。</li>
+</ol>
+<p>所以需要修改一下，不然不方便后期操作。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228190244-df8iqc9.webp alt=image></p>
+<p>模板代码：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>(p:m)压缩\(f)
+</span></span><span class=line><span class=cl>(p:m)保存文件夹\(f)
+</span></span><span class=line><span class=cl>...
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>然后就可以全选压缩，等待....</p>
+<p>完成后直接复制到 <code>"C:\Users\xiaoqi\SiYuan\data\assets\"</code> 覆盖它。</p>
+<h3 id=方法二使用-ffmpeg><a href=#方法二使用-ffmpeg class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法二使用-ffmpeg class=headings>方法二：使用 FFmpeg</a></h3>
+<p>FFmpeg 用于处理视频、音频和其他多媒体文件及流的库和程序，广泛用于格式转码和基本编辑。</p>
+<p>下载地址：<a href=https://www.gyan.dev/ffmpeg/builds/ target=_blank rel=noopener>www.gyan.dev/ffmpeg/builds</a></p>
+<p>新建一个 bat 文件，将以下内容复制进去：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bat data-lang=bat><span class=line><span class=cl><span class=p>@</span><span class=k>echo</span> off
+</span></span><span class=line><span class=cl><span class=k>setlocal</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>rem 设置 ffmpeg 的路径（例： D:\CommonTools\ffmpeg\bin\ffmpeg.exe）</span>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=s2>&#34;ffmpeg_path=D:\CommonTools\ffmpeg\bin\ffmpeg.exe&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>rem 待压缩视频文件夹（例： C:\Users\xiaoqi\Desktop\MP4）</span>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=s2>&#34;input_folder=C:\Users\xiaoqi\Desktop\MP4&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>rem 压缩后存放位置（例： C:\Users\xiaoqi\Desktop\MP4-ys）</span>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=s2>&#34;output_folder=C:\Users\xiaoqi\Desktop\MP4-ys&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>rem 创建输出文件夹（如果不存在）</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=k>not</span> <span class=k>exist</span> <span class=s2>&#34;</span><span class=nv>%output_folder%</span><span class=s2>&#34;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=k>mkdir</span> <span class=s2>&#34;</span><span class=nv>%output_folder%</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>rem 遍历输入文件夹中的所有 MP4 文件</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=se>%%</span>f <span class=k>in</span> <span class=p>(</span><span class=s2>&#34;</span><span class=nv>%input_folder%</span><span class=s2>\*.mp4&#34;</span><span class=p>)</span> <span class=k>do</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=k>echo</span> 正在压缩 <span class=se>%%</span>~nxf...
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;</span><span class=nv>%ffmpeg_path%</span><span class=s2>&#34;</span> -n -stats -i <span class=s2>&#34;</span><span class=se>%%</span><span class=s2>f&#34;</span> -c:v libx264 -preset medium -crf 21 -c:a aac -qscale:a 1.3 -vf <span class=s2>&#34;scale=1280:720,format=yuv420p&#34;</span> <span class=s2>&#34;</span><span class=nv>%output_folder%</span><span class=s2>\</span><span class=se>%%</span><span class=s2>~nxf&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>echo</span> 压缩完成!
+</span></span><span class=line><span class=cl><span class=k>pause</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>注意修改：<code>ffmpeg_path</code>、<code>input_folder</code>、<code>output_folder</code>，保存后双击运行，接着就是等待....</p>
+<p><strong>完成后请手动检查下文件夹内的文件数量是否一致，如不一致，请看本文 -> 文件不一致如何比对。</strong></p>
+<p>完成后直接复制到 <code>"C:\Users\xiaoqi\SiYuan\data\assets\"</code> 覆盖它。</p>
+<h2 id=针对图片格式处理方法><a href=#针对图片格式处理方法 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:针对图片格式处理方法 class=headings>针对图片格式处理方法</a></h2>
+<p>对于一些图片，也可以进行压缩，具体操作方法如下：</p>
+<h3 id=方法一使用图压><a href=#方法一使用图压 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法一使用图压 class=headings>方法一：使用图压</a></h3>
+<p>这里我使用的是图压这一款软件，你也可以使用其他的图片压缩软件，操作步骤同理。</p>
+<blockquote>
+<p>注：图压的项目源代码是申请开放制的，具体请看官网。</p>
+</blockquote>
+<p>图压官网：https://tuya.xinxiao.tech/</p>
+<p>目前官方网站已经无法正常浏览和下载软件了，但是你可以使用 Web 时光机功能，找到它，</p>
+<p>请不要使用xxx下载站来下载。</p>
+<p><a href=https://web.archive.org/web/20240106021818/https://tuya.xinxiao.tech/ target=_blank rel=noopener>图压官网（archive 链接）</a></p>
+<p><a href=https://web.archive.org/web/20240106021818/https://haokuai.cdn.tinyservices.net/tuya/%E5%9B%BE%E5%8E%8B%20Setup%200.4.1.exe target=_blank rel=noopener>Windows 下载地址（archive 链接）</a></p>
+<p><a href=https://web.archive.org/web/20240106021818/https://haokuai.cdn.tinyservices.net/tuya/%E5%9B%BE%E5%8E%8B-0.4.1.dmg target=_blank rel=noopener>MacOS 下载地址（archive 链接）</a></p>
+<p>注：archive 中文叫网页时光机，可以访问和浏览过去存档的网站。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228194037-xlxtx8w.webp alt=image></p>
+<p>软件很简洁，我推荐的方法设置方法是：</p>
+<ol>
+<li>目标格式选择原格式</li>
+<li>保存路径使用自定义位置</li>
+<li>文件后缀清除</li>
+</ol>
+<p><strong>完成后请手动检查下文件夹内的文件数量是否一致，如不一致，请看本文 -> 文件不一致如何比对。</strong></p>
+<p>这样压缩好的图片就可以快速覆盖到 <code>"C:\Users\xiaoqi\SiYuan\data\assets\"</code></p>
+<h3 id=方法二使用压缩能力更加优秀的格式><a href=#方法二使用压缩能力更加优秀的格式 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法二使用压缩能力更加优秀的格式 class=headings>方法二：使用压缩能力更加优秀的格式</a></h3>
+<p>图片格式可以使用更加优秀的格式来代替它，比如 WebP。</p>
+<p><a href=developers.google.com/speed/webp>WebP</a> 是由 Google 收购 On2 Technologies 后发展出来的图片格式，</p>
+<p>根据业界给出的改造数据可知，改造 WebP 之后图片体积会降低很多：</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228195009-ztccuwh.webp alt=image></p>
+<p>具体可参照 <a href=https://isparta.github.io/compare-webp/index.html target=_blank rel=noopener>WebP 体积测试链接</a>。</p>
+<blockquote>
+<p>注：浏览器支持程度和兼容性浏览：<a href="https://caniuse.com/?search=WebP" target=_blank rel=noopener>caniuse.com/?search=WebP</a>，思源当然是支持的啦！</p>
+</blockquote>
+<p>你<strong>可以使用上面的图压工具来压缩并且转换为 WebP 图片格式(目标格式选择 WebP)</strong> ，也可以使用以下方法：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bat data-lang=bat><span class=line><span class=cl><span class=p>@</span><span class=k>echo</span> off
+</span></span><span class=line><span class=cl>chcp 65001 <span class=p>&gt;</span>nul
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>:</span><span class=c1>: 設置 cwebp.exe 的路徑（例：D:\CommonTools\cwebp.exe）</span>
+</span></span><span class=line><span class=cl><span class=p>:</span><span class=c1>: 详细介绍: https://rene78.github.io/batch-convert-to-webp</span>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=s2>&#34;cwebp_path=D:\CommonTools\cwebp.exe&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>:</span><span class=c1>: 設置源文件夾路徑（例：C:\Users\xiaoqi\Desktop\PNG）</span>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=s2>&#34;source_folder=C:\Users\xiaoqi\Desktop\PNG&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>:</span><span class=c1>: 設置目標文件夾（例：C:\Users\xiaoqi\Desktop\PNG1）</span>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=s2>&#34;target_folder=</span><span class=nv>%source_folder%</span><span class=s2>\converted&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>:</span><span class=c1>: 確保目標文件夾存在</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=k>not</span> <span class=k>exist</span> <span class=s2>&#34;</span><span class=nv>%target_folder%</span><span class=s2>&#34;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=k>mkdir</span> <span class=s2>&#34;</span><span class=nv>%target_folder%</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>:</span><span class=c1>: 遍歷源文件夾中的所有支持的圖像文件</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=se>%%</span>f <span class=k>in</span> <span class=p>(</span><span class=s2>&#34;</span><span class=nv>%source_folder%</span><span class=s2>\*.jpeg&#34;</span>, <span class=s2>&#34;</span><span class=nv>%source_folder%</span><span class=s2>\*.jpg&#34;</span>, <span class=s2>&#34;</span><span class=nv>%source_folder%</span><span class=s2>\*.png&#34;</span>, <span class=s2>&#34;</span><span class=nv>%source_folder%</span><span class=s2>\*.bmp&#34;</span><span class=p>)</span> <span class=k>do</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=k>echo</span> 正在處理文件：<span class=se>%%</span>f
+</span></span><span class=line><span class=cl>    <span class=p>:</span><span class=c1>: 提取文件名（不帶擴展名）</span>
+</span></span><span class=line><span class=cl>    <span class=k>set</span> <span class=s2>&#34;filename=</span><span class=se>%%</span><span class=s2>~nf&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>:</span><span class=c1>: 執行轉換命令</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;</span><span class=nv>%cwebp_path%</span><span class=s2>&#34;</span> -q 80 <span class=s2>&#34;</span><span class=se>%%</span><span class=s2>f&#34;</span> -o <span class=s2>&#34;</span><span class=nv>%target_folder%</span><span class=s2>\</span><span class=se>%%</span><span class=s2>~nf.webp&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>echo</span> 所有文件處理完成！
+</span></span><span class=line><span class=cl><span class=k>pause</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><blockquote>
+<p>注：cwebp.exe 用于将图片文件压缩为 WebP 文件，<a href="https://developers.google.com/speed/webp/docs/cwebp?hl=zh-cn" target=_blank rel=noopener>具体参数介绍</a>，<a href=https://rene78.github.io/batch-convert-to-webp/ target=_blank rel=noopener>下载地址</a>。</p>
+</blockquote>
+<p><strong>这里主要不是介绍如何转换，而是介绍转换后的内容如何修改到思源。</strong></p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228205727-dtsmj9e.webp alt=image></p>
+<p>其实答案很简单，即：修改笔记内容。</p>
+<p>这里我的思路是直接在数据库里面将这部分内容查询出来，然后生成替换命令，直接运行命令替换，</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228211143-q1xmake.webp alt=image></p>
+<p>如果大家有更加好的方法，欢迎在下面留言探讨，谢谢！</p>
+<h4 id=第一步数据库找到相矣数据><a href=#第一步数据库找到相矣数据 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:第一步数据库找到相矣数据 class=headings>第一步：数据库找到相矣数据</a></h4>
+<p>这里我使用的是 <a href=https://www.hexhub.cn/ target=_blank rel=noopener>HexHub</a>，你也可以使用任意的工具，比如：</p>
+<ol>
+<li>HeidiSQL <a href=https://www.heidisql.com/ target=_blank rel=noopener>官方网站</a></li>
+<li><a href=https://github.com/frostime/sy-query-view target=_blank rel=noopener>sy-query-view 插件</a>的 <a href=https://github.com/frostime/sy-query-view/blob/main/README_zh_CN.md#sql-%E6%9F%A5%E8%AF%A2%E5%99%A8 target=_blank rel=noopener>SQL 查询器</a></li>
+<li><a href=https://zhuanlan.zhihu.com/p/687985024 target=_blank rel=noopener>十个优秀的开源免费数据库管理SQL客户端 -（知乎 zhihu.com）</a></li>
+</ol>
+<p>Sql 教程帖子定位：</p>
+<p><a href=https://ld246.com/article/1683355095671 target=_blank rel=noopener>思源 SQL 新人指南：SQL 语法 + Query + 模板</a></p>
+<p><a href=https://ld246.com/article/1683205452972 target=_blank rel=noopener>SQL&amp;Query 用法记录</a></p>
+<p><a href=https://geekdaxue.co/read/siyuannote@docs/nr981n target=_blank rel=noopener>SQL该怎么用？</a></p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228221357-u6m2z09.webp alt=image></p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/PixPin_2025-02-28_22-18-24-20250228221847-sco8kvc.webp alt=PixPin_2025-02-28_22-18-24></p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228222753-ds49xct.webp alt=image></p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/PixPin_2025-02-28_22-38-14-20250228223822-vwlw94x.webp alt=PixPin_2025-02-28_22-38-14></p>
+<p>连接成功后先别急着查询，先来看看 assets 数据库表与字段分别代表什么意思。</p>
+<blockquote>
+<p>此处参考：@shuoying 的<a href=https://ld246.com/article/1642081937568 target=_blank rel=noopener>思源笔记数据库表与字段</a>一帖，感谢！</p>
+</blockquote>
+<p><img src=../../images/siyuan-sync-space-compression-plan/PixPin_2025-03-03_11-58-31.webp alt=PixPin_2025-02-28_22-38-14></p>
+<p>需要修改笔记内容就需要找到这个资源对应是哪个文档，</p>
+<p>而<code>path（资源文件路径）</code>、<code>name（资源文件名）</code>这两个字段可以是哪个资源，</p>
+<p><code>box（笔记本 ID）</code>、<code>docpath（文档路径）</code>就可以确定是哪个笔记本及文件存放位置。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228232050-yef73ql.webp alt=image></p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=n>box</span><span class=p>:</span><span class=w> </span><span class=mi>20241224095229</span><span class=o>-</span><span class=n>yxbhu6o</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>docpath</span><span class=p>:</span><span class=w> </span><span class=o>/</span><span class=mi>20241212102205</span><span class=o>-</span><span class=n>fwomcie</span><span class=o>/</span><span class=mi>20240220165409</span><span class=o>-</span><span class=n>i5eml9m</span><span class=p>.</span><span class=n>sy</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>path</span><span class=p>:</span><span class=w> </span><span class=n>assets</span><span class=o>/</span><span class=n>image</span><span class=o>-</span><span class=mi>20240319104536</span><span class=o>-</span><span class=mi>66</span><span class=n>zo3wo</span><span class=p>.</span><span class=n>webp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>name</span><span class=p>:</span><span class=w> </span><span class=n>image</span><span class=o>-</span><span class=mi>20240319104536</span><span class=o>-</span><span class=mi>66</span><span class=n>zo3wo</span><span class=p>.</span><span class=n>webp</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>分析该数据得出：</p>
+<pre tabindex=0><code>此路径的文档：工作空间/data/20241224095229-yxbhu6o/20241212102205-fwomcie/20240220165409-i5eml9m.sy
+该文档使用了这个路径下的文件：工作空间/data/assets/image-20240319104536-66zo3wo.webp
+资源文件名称叫：image-20240319104536-66zo3wo.webp
+</code></pre><p>打开这个文档，使用搜索工具搜索 <code>image-20240319104536-66zo3wo.webp</code> 看看是否正确。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228233408-r7uuzxm.webp alt=image></p>
+<p>确定没问题后，接下来就可以通过 SQL 查询出全部内容来了，</p>
+<p>这里主要是查询 png 格式的文件，也就是这样操作：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=o>#</span><span class=w> </span><span class=err>查询语句例子</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=o>##</span><span class=w> </span><span class=err>查询</span><span class=w> </span><span class=n>assets</span><span class=w> </span><span class=err>表里面</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=err>字段全部为</span><span class=w> </span><span class=p>.</span><span class=n>mp4</span><span class=w> </span><span class=err>结尾的文件</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>assets</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=k>LIKE</span><span class=w> </span><span class=s1>&#39;%.mp4&#39;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=o>##</span><span class=w> </span><span class=err>查询</span><span class=w> </span><span class=n>assets</span><span class=w> </span><span class=err>表里面</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=err>字段全部为</span><span class=w> </span><span class=p>.</span><span class=n>png</span><span class=w> </span><span class=err>结尾的文件</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>assets</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=k>LIKE</span><span class=w> </span><span class=s1>&#39;%.png&#39;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>...</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><img src=../../images/siyuan-sync-space-compression-plan/image-20250228234533-hgoiqtq.webp alt=image></p>
+<h4 id=第二步构建替换命令><a href=#第二步构建替换命令 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:第二步构建替换命令 class=headings>第二步：构建替换命令</a></h4>
+<p>接下来就是想办法批量的将数据库查询出来<code>box（笔记本 ID）</code>、<code>docpath（文档路径）</code>文档打开，
+然后使用替换工具批量的替换里面的<code>path（资源文件路径）</code>、<code>name（资源文件名）</code>资源扩展名。</p>
+<p><strong>比如：</strong></p>
+<p>一个<code>工作空间/.../20240220165409-i5eml9m.sy</code> 的文档，</p>
+<p>使用了<code>工作空间/data/assets/image-20240319104536-66zo3wo.png</code>这个文件，</p>
+<p>资源保存的文件名称叫<code>image-20240319104536-66zo3wo.png</code>。</p>
+<hr>
+<p><strong>操作步骤：</strong></p>
+<p>我打开<code>工作空间/.../20240220165409-i5eml9m.sy</code> 文档，</p>
+<p>搜索 <code>image-20240319104536-66zo3wo.png</code> 这个资源文件名，替换成我前面压缩并且转换成 WebP 的文件名称，</p>
+<p>也就是<code>image-20240319104536-66zo3wo.webp</code>，最后在保存。</p>
+<hr>
+<p><strong>使用方法：</strong></p>
+<p>替换操作我想到了 <code>Linux</code> 操作系统的 <code>sed</code> 命令，于是我尝试搜索一下是否能来 <code>Windows</code> 上使用 <code>sed</code> 这个命令工具。</p>
+<p>Github 地址：<a href=https://github.com/mbuilov/sed-windows target=_blank rel=noopener>https://github.com/mbuilov/sed-windows</a></p>
+<p>下载链接：<a href=https://github.com/mbuilov/sed-windows/releases/tag/sed-4.9-x64-fixed target=_blank rel=noopener>https://github.com/mbuilov/sed-windows/releases/tag/sed-4.9-x64-fixed</a></p>
+<p>下载好之后其实就是一个很小的 <code>exe</code> 文件，我下载的是 <a href=https://github.com/mbuilov/sed-windows/releases/download/sed-4.9-x64-fixed/sed-4.9-x64.exe target=_blank rel=noopener>sed-4.9-x64.exe</a> 这个版本，使用方法如下：</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301115149-hp0l3n8.webp alt=image></p>
+<p>常用例子：</p>
+<pre tabindex=0><code class=language-linux data-lang=linux># 打印文件 /etc/passwd 的第三行
+# 指定地址定界 3
+# command 命令设置为 p 即打印输出
+# options 选项使用 -n 表示静默模式（多余的不显示）
+sed -n &#39;3p&#39; /etc/passwd
+
+# 打印文件 /etc/passwd 的第三行到第七行区间的内容
+sed -n &#39;3,7p&#39; /etc/passwd
+
+# 使用正则表达式匹配：
+# 开始：/^root/
+# 结束：/^sync/
+# 打印开始和结束的区间的全部内容
+sed -n &#39;/^root/,/^sync/p&#39; /etc/passwd
+
+# 在第一行前面指定添加字符串
+# 1 指定第一行
+# command 命令设置为 i：insert，增
+# 666 是内容
+# 第一行前面指定添加字符串 666
+sed &#39;1i666&#39; /etc/passwd
+
+# 删除 /etc/passwd 文件中的第二行到第五行区间的内容
+# 2,5 是区间
+# command 命令设置为 d:delete 删
+sed &#39;2,5d&#39; /etc/passwd
+
+# 查找并替换
+# 将小写的 root 替换为大写的 ROOT，替换文件 /etc/passwd 的内容
+# command 命令设置为 s：substitute 改
+# 这里的 g 表示 global，意味着全局替换，简单来说就是替换全部
+# 如果没有添加 g 如果查到有多条的情况下，默认替换第一条
+sed &#39;s/root/ROOT/&#39; /etc/passwd
+sed &#39;s/root/ROOT/g&#39; /etc/passwd
+</code></pre><p>接下来就是构建 <code>sed</code> 的替换命令了，注意看上面的常用例子，</p>
+<p><code>options</code> 选项都没有使用 <code>-i</code> 直接在原文件上进行操作的方式，下面就需要用到它。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301142140-1kpqjp7.webp alt=image></p>
+<p><code>思源工作空间路径</code> + <code>box（笔记本 ID）</code>+ <code>docpath（文档路径）</code>就是需要替换的文档的绝对路径，</p>
+<p><code>name</code> 是搜索关键词，</p>
+<p>对搜索关键词 <code>name</code> 修改后的结果就是替换内容。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301152747-7sbuyqg.webp alt=image></p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=o>#</span><span class=w> </span><span class=err>对于</span><span class=w> </span><span class=n>SQLite</span><span class=w> </span><span class=k>version</span><span class=w> </span><span class=mi>3</span><span class=p>.</span><span class=mi>44</span><span class=p>.</span><span class=mi>0</span><span class=w> </span><span class=p>(</span><span class=mi>2023</span><span class=o>-</span><span class=mi>11</span><span class=o>-</span><span class=mi>01</span><span class=p>)</span><span class=w> </span><span class=err>之后的版本可以使用：</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=n>CONCAT</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s1>&#39;D:/CommonTools/sed-4.9-x64.exe&#39;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s1>&#39; -i &#34;s/&#39;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>name</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s1>&#39;/&#39;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>REPLACE</span><span class=p>(</span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;.png&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;.webp&#39;</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s1>&#39;/&#34; &#34;C:/Users/xiaoqi/SiYuan/data/&#39;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>box</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>docpath</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s1>&#39;&#34;&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>replace_command</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>assets</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>name</span><span class=w> </span><span class=k>LIKE</span><span class=w> </span><span class=s1>&#39;%.png&#39;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=o>#</span><span class=w> </span><span class=err>对于</span><span class=w> </span><span class=n>SQLite</span><span class=w> </span><span class=k>version</span><span class=w> </span><span class=mi>3</span><span class=p>.</span><span class=mi>44</span><span class=p>.</span><span class=mi>0</span><span class=w> </span><span class=err>之前的版本请使用：</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39;D:/CommonTools/sed-4.9-x64.exe&#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39; -i &#34;s/&#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=n>name</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39;/&#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=k>REPLACE</span><span class=p>(</span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;.png&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;.webp&#39;</span><span class=p>)</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39;/&#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39;&#34;&#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39; &#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39;&#34;&#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39;C:/Users/xiaoqi/SiYuan/data/&#39;</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=n>box</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=n>docpath</span><span class=w> </span><span class=o>||</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s1>&#39;&#34;&#39;</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>replace_command</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>assets</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>name</span><span class=w> </span><span class=k>LIKE</span><span class=w> </span><span class=s1>&#39;%.png&#39;</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><blockquote>
+<p>如何查看版本？</p>
+<p>使用 <code>SELECT sqlite_source_id();</code>命令查看返回的日期。</p>
+</blockquote>
+<p>这里需要注意的是：</p>
+<ol>
+<li><code>D:/CommonTools/sed-4.9-x64.exe</code> 需要替换成你的 <code>sed</code> 位置<br>
+（当然你也可以将文件名称修改成 <code>sed.exe</code>并复制到 <code>C:\Windows</code> 里面，这样就可以直接使用 <code>sed</code> 代替它）</li>
+<li><code>C:/Users/xiaoqi/SiYuan/data/</code> 思源工作空间路径需要添加 <code>data/</code></li>
+</ol>
+<p>执行完毕后对查询结果导出，就获得了完整的操作命令啦~</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301155007-t5ekit1.webp alt=image></p>
+<h4 id=第三步执行替换操作><a href=#第三步执行替换操作 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:第三步执行替换操作 class=headings>第三步：执行替换操作</a></h4>
+<p>对于 <code>Hexhub</code> 软件来说，导出的 <code>TXT</code> 文件直接可以修改扩展名修改成 <code>bat</code> 或者 <code>cmd</code> 就可以直接双击运行了</p>
+<p><code>HeidiSQL</code> 则需要导出成 <code>CSV</code> 格式然后使用 <code>Excel</code> 打开复制 <code>A1</code> 列，复制到一个 <code>bat</code> 里面在运行。</p>
+<p>或者你可以直接复制全部命令然后到 <code>cmd</code> 控制台粘贴回车自动运行....</p>
+<p>这个时候工作空间的 <code>"C:\Users\xiaoqi\SiYuan\data\assets\"</code> 资源文件夹</p>
+<p>既存在了原有的 <code>png</code> 又保留了压缩又转换的 <code>WebP</code></p>
+<p>这些文件可以使用思源的【设置】【资源】【未引用资源】处删除...</p>
+<p><strong>执行完毕后记得重建索引！</strong></p>
+<p><strong>重建索引后数据库会刷新，可以通过这个机制来判断是否存在遗漏。</strong></p>
+<h2 id=文件不一致如何比对><a href=#文件不一致如何比对 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:文件不一致如何比对 class=headings>文件不一致如何比对</a></h2>
+<p>在处理时可能会存在<strong>压缩前后文件数量对不上</strong>的问题，如果不注意使用 <code>sed</code> 就进行替换的话，</p>
+<p>就会出现大面积的资源文件丢失的情况（思源【设置】【资源】【资源文件丢失】）</p>
+<p>所以需要在压缩/转换操作完成后对比压缩前和压缩后的文件数量，如果出现数量对不上，使用以下方法寻找文件：</p>
+<h3 id=方法一使用-excel><a href=#方法一使用-excel class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法一使用-excel class=headings>方法一：使用 Excel</a></h3>
+<p>在 <code>Windows</code> 中，有个 <code>dir</code> 命令，用于列出当前文件夹的文件详细信息：</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301161651-ptl96l3.webp alt=image></p>
+<p>其中有个参数 <strong><code>/B</code></strong> 可以只显示全部文件的名称</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301161844-x4pkz26.webp alt=image></p>
+<p>通过这个命令在配合重定向输出 <code>></code> 来使用，就可以快速实现指定文件夹快速名称导出。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301162521-pzzkwcx.webp alt=image></p>
+<p>为此制作了个简单的 bat 脚本：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=o>@</span><span class=n>echo</span><span class=w> </span><span class=k>off</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>rem</span><span class=w> </span><span class=err>生成当前文件夹的目录树并保存到</span><span class=w> </span><span class=n>tree</span><span class=p>.</span><span class=n>txt</span><span class=w> </span><span class=err>文件</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>dir</span><span class=w> </span><span class=o>/</span><span class=n>B</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=n>tree</span><span class=p>.</span><span class=n>txt</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>echo</span><span class=w> </span><span class=err>目录树已保存到</span><span class=w> </span><span class=n>tree</span><span class=p>.</span><span class=n>txt</span><span class=w> </span><span class=err>文件中。</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>将上面的代码保存为一个 <code>.bat</code> 文件，然后直接复制到你要生成的文件夹内，双击运行。</p>
+<p>当压缩前和压缩后的文件名称都有了，那就可以使用对比工具来对比下少了哪个文件了。</p>
+<p>这里我直接使用 Excel，对比过程不在叙述。</p>
+<p><img src=../../images/siyuan-sync-space-compression-plan/image-20250301163239-tfwgcip.webp alt=image></p>
+<h3 id=方法二使用-python><a href=#方法二使用-python class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法二使用-python class=headings>方法二：使用 Python</a></h3>
+<p>直接使用 Python 来处理：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>shutil</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## 哪两个文件夹进行对比？</span>
+</span></span><span class=line><span class=cl><span class=c1># 源文件夹</span>
+</span></span><span class=line><span class=cl><span class=n>png_folder</span> <span class=o>=</span> <span class=sa>r</span><span class=s2>&#34;C:\Users\xiaoqi\Desktop\PNG&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># 目标文件夹路径</span>
+</span></span><span class=line><span class=cl><span class=n>webp_folder</span> <span class=o>=</span> <span class=sa>r</span><span class=s2>&#34;C:\Users\xiaoqi\Desktop\converted&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## 对比完成后将缺失文件复制到此文件夹内</span>
+</span></span><span class=line><span class=cl><span class=n>new_folder</span> <span class=o>=</span> <span class=sa>r</span><span class=s2>&#34;C:\Users\xiaoqi\Desktop\missing_png&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 创建新文件夹</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=ow>not</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>exists</span><span class=p>(</span><span class=n>new_folder</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>os</span><span class=o>.</span><span class=n>makedirs</span><span class=p>(</span><span class=n>new_folder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 获取 PNG 和 WEBP 文件列表</span>
+</span></span><span class=line><span class=cl><span class=n>png_files</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>listdir</span><span class=p>(</span><span class=n>png_folder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>webp_files</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>listdir</span><span class=p>(</span><span class=n>webp_folder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 找出 PNG 文件在 WEBP 文件夹中缺失的文件</span>
+</span></span><span class=line><span class=cl><span class=n>missing_png_files</span> <span class=o>=</span> <span class=p>[</span><span class=n>f</span> <span class=k>for</span> <span class=n>f</span> <span class=ow>in</span> <span class=n>png_files</span> <span class=k>if</span> <span class=n>f</span><span class=o>.</span><span class=n>endswith</span><span class=p>(</span><span class=s2>&#34;.png&#34;</span><span class=p>)</span> <span class=ow>and</span> <span class=n>f</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s2>&#34;.png&#34;</span><span class=p>,</span> <span class=s2>&#34;.webp&#34;</span><span class=p>)</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>webp_files</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 将缺失的 PNG 文件复制到新文件夹</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>f</span> <span class=ow>in</span> <span class=n>missing_png_files</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>src_path</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>png_folder</span><span class=p>,</span> <span class=n>f</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>dst_path</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>new_folder</span><span class=p>,</span> <span class=n>f</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>shutil</span><span class=o>.</span><span class=n>copy2</span><span class=p>(</span><span class=n>src_path</span><span class=p>,</span> <span class=n>dst_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Copied </span><span class=si>{</span><span class=n>f</span><span class=si>}</span><span class=s2> to </span><span class=si>{</span><span class=n>new_folder</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Total </span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>missing_png_files</span><span class=p>)</span><span class=si>}</span><span class=s2> missing PNG files copied to </span><span class=si>{</span><span class=n>new_folder</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><h2 id=本文参考内容><a href=#本文参考内容 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:本文参考内容 class=headings>本文参考内容</a></h2>
+<p><a href=https://www.imooc.com/wiki/shelllesson/sed.html target=_blank rel=noopener>Shell 三剑客之 sed</a></p>
+<p><a href=https://www.cnblogs.com/wangcp-2014/p/6756377.html target=_blank rel=noopener>Shell脚本学习之sed详解</a></p>
+<p><a href=https://database.guide/how-to-concatenate-strings-in-sqlite/ target=_blank rel=noopener>How to Concatenate Strings in SQLite</a></p>
+<p><a href=https://sqlite.org/forum/forumpost/c14028be1b9c0e20de9e39d70706adc9f5a36bb5ccaad6db22f7d99633eafff8 target=_blank rel=noopener>concat function error</a></p>
+<p><a href=https://ld246.com/article/1722927292074 target=_blank rel=noopener>思源笔记同步空间拯救计划</a></p>
+<p><a href="https://ld246.com/forward?goto=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F647593068" target=_blank rel=noopener>思源笔记文件系统介绍：数据快照与同步 - 知乎 (zhihu.com)</a></p>
+<p><a href=https://ld246.com/article/1667662814266 target=_blank rel=noopener>缓解数据焦虑，思源笔记文件存储介绍 - 链滴（ld246.com）</a></p>
+<p><a href=https://ld246.com/article/1668249948773 target=_blank rel=noopener>缓解数据焦虑，思源笔记文件存储介绍 2 - 链滴（ld246.com）</a></p>
+<p><a href=https://ld246.com/article/1683355095671 target=_blank rel=noopener>思源 SQL 新人指南：SQL 语法 + Query + 模板</a></p>
+<p><a href=https://ld246.com/article/1683205452972 target=_blank rel=noopener>SQL&amp;Query 用法记录</a></p>
+<p><a href=https://geekdaxue.co/read/siyuannote@docs/nr981n target=_blank rel=noopener>SQL该怎么用？</a></p>
+<p><a href=https://ld246.com/article/1642081937568 target=_blank rel=noopener>思源笔记数据库表与字段</a></p>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0/ rel=tag class=post-tag-link>#思源笔记</a> <a href=/tags/%E6%95%99%E7%A8%8B/ rel=tag class=post-tag-link>#教程</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

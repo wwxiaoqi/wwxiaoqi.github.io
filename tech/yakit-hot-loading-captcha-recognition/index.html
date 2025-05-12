@@ -1,0 +1,1221 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>Yakit 热加载验证码识别 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="最近碰到一个使用 Spring Boot 平台并且使用 easy-captcha 来做图形验证码的 admin 1 2 3 4 5 <!-- 图形验证码 --> <dependency> <groupId>com.github.whvcse</groupId> <artifactId>easy-captcha</artifactId> </dependency>">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/yakit-hot-loading-captcha-recognition/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2025-02-16T15:05:43+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/yakit-hot-loading-captcha-recognition/","headline":"Yakit 热加载验证码识别","description":"最近碰到一个使用 Spring Boot 平台并且使用 easy-captcha 来做图形验证码的 admin 1 2 3 4 5 \u003c!-- 图形验证码 --\u003e \u003cdependency\u003e \u003cgroupId\u003ecom.github.whvcse\u003c/groupId\u003e \u003cartifactId\u003eeasy-captcha\u003c/artifactId\u003e \u003c/dependency\u003e","inLanguage":"zh-CN","articleSection":"tech","wordCount":3902,"image":["https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250215215650-rsv7r6v.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250215230231-4n0swjt.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250215235806-oi4un48.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216122424-28v02vk.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216135209-1fk3zk4.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216001359-2j6raoz.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216002855-5nhunvw.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216011705-t4n0ghu.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216135328-1ojv4za.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216140651-daba4vy.webp","https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250216142504-azzkcue.webp"],"author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary_large_image">
+<meta property="og:title" content="Yakit 热加载验证码识别">
+<meta property="og:description" content="最近碰到一个使用 Spring Boot 平台并且使用 easy-captcha 来做图形验证码的 admin 1 2 3 4 5 <!-- 图形验证码 --> <dependency> <groupId>com.github.whvcse</groupId> <artifactId>easy-captcha</artifactId> </dependency>">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/yakit-hot-loading-captcha-recognition/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://wwxiaoqi.com/images/yakit-hot-loading-captcha-recognition/image-20250215215650-rsv7r6v.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2025-02-16T15:05:43+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">Yakit 热加载验证码识别</h1>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:本地搭建验证码识别工具 href=#本地搭建验证码识别工具>本地搭建验证码识别工具</a>
+<ol>
+<li><a id=contents:方法一使用-rapidocr_onnxruntime href=#方法一使用-rapidocr_onnxruntime>方法一，使用 rapidocr_onnxruntime</a></li>
+<li><a id=contents:方法二使用-ocr-captcha href=#方法二使用-ocr-captcha>方法二，使用 ocr-captcha</a></li>
+<li><a id=contents:方法三使用-muggle-ocr href=#方法三使用-muggle-ocr>方法三，使用 muggle-ocr</a></li>
+</ol>
+</li>
+<li><a id=contents:yakit-热加载替换验证码 href=#yakit-热加载替换验证码>Yakit 热加载替换验证码</a></li>
+<li><a id=contents:结论 href=#结论>结论</a></li>
+</ol>
+</nav><div class="post-body e-content">
+<p>最近碰到一个使用 Spring Boot 平台并且使用 easy-captcha 来做图形验证码的 admin</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl><span class=c>&lt;!-- 图形验证码 --&gt;</span>
+</span></span><span class=line><span class=cl><span class=nt>&lt;dependency&gt;</span>
+</span></span><span class=line><span class=cl>	<span class=nt>&lt;groupId&gt;</span>com.github.whvcse<span class=nt>&lt;/groupId&gt;</span>
+</span></span><span class=line><span class=cl>	<span class=nt>&lt;artifactId&gt;</span>easy-captcha<span class=nt>&lt;/artifactId&gt;</span>
+</span></span><span class=line><span class=cl><span class=nt>&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><a href=https://github.com/pig-mesh/easy-captcha target=_blank rel=noopener>https://github.com/pig-mesh/easy-captcha</a> 里面说使用方法如下：</p>
+<p>在 MVC 中使用 captcha 指定生成一个图片，CaptchaUtil 会保存下来</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@RequestMapping</span><span class=p>(</span><span class=s>&#34;/captcha&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>captcha</span><span class=p>(</span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>Exception</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// 使用 Jakarta 时用 CaptchaJakartaUtil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>CaptchaUtil</span><span class=p>.</span><span class=na>out</span><span class=p>(</span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>response</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>在登录处判断验证码是否正确</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@PostMapping</span><span class=p>(</span><span class=s>&#34;/login&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=n>JsonResult</span><span class=w> </span><span class=nf>login</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>username</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>password</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>verCode</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// 使用 Jakarta 时用 CaptchaJakartaUtil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>CaptchaUtil</span><span class=p>.</span><span class=na>ver</span><span class=p>(</span><span class=n>verCode</span><span class=p>,</span><span class=w> </span><span class=n>request</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>CaptchaUtil</span><span class=p>.</span><span class=na>clear</span><span class=p>(</span><span class=n>request</span><span class=p>);</span><span class=w>  </span><span class=c1>// 清除 session 中的验证码</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>JsonResult</span><span class=p>.</span><span class=na>error</span><span class=p>(</span><span class=s>&#34;验证码不正确&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>也就是说流程大致是这样的：
+​<img src=../../images/yakit-hot-loading-captcha-recognition/image-20250215215650-rsv7r6v.webp alt=image>​
+通过梳理流程发现需要以下两步骤进行操作：</p>
+<ol>
+<li>手动发包【生成验证码】结果获取验证码返回结果</li>
+<li>使用本地搭建的验证码识别工具将验证码图片转换成字符串</li>
+<li>发包【登录请求】添加该字符串，获取返回结果</li>
+</ol>
+<p>‍</p>
+<h2 id=本地搭建验证码识别工具><a href=#本地搭建验证码识别工具 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:本地搭建验证码识别工具 class=headings>本地搭建验证码识别工具</a></h2>
+<h3 id=方法一使用-rapidocr_onnxruntime><a href=#方法一使用-rapidocr_onnxruntime class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法一使用-rapidocr_onnxruntime class=headings>方法一，使用 rapidocr_onnxruntime</a></h3>
+<p>推荐使用虚拟环境使用，这样不影响系统环境</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl># 创建一个新的虚拟环境，并且使用 .\ocr-captcha 目录来存放
+</span></span><span class=line><span class=cl>python -m venv --system-site-packages .\ocr-captcha 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 激活虚拟环境
+</span></span><span class=line><span class=cl>.\ocr-captcha\Scripts\activate
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 安装
+</span></span><span class=line><span class=cl># 下载慢可以参考：https://mirrors.tuna.tsinghua.edu.cn/help/pypi/
+</span></span><span class=line><span class=cl>pip install rapidocr_onnxruntime
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>然后新建一个 ocr_server.py 将以下代码复制进去</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>json</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>http.server</span> <span class=kn>import</span> <span class=n>BaseHTTPRequestHandler</span><span class=p>,</span> <span class=n>HTTPServer</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>rapidocr_onnxruntime</span> <span class=kn>import</span> <span class=n>RapidOCR</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 初始化 OCR 模型</span>
+</span></span><span class=line><span class=cl><span class=n>model</span> <span class=o>=</span> <span class=n>RapidOCR</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=n>rec_model_path</span><span class=o>=</span><span class=s2>&#34;ch_PP-OCRv4_rec_infer.onnx&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=n>det_model_path</span><span class=o>=</span><span class=s2>&#34;ch_PP-OCRv4_det_infer.onnx&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=n>character_dict_path</span><span class=o>=</span><span class=s2>&#34;en_dict.txt&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>OCRHandler</span><span class=p>(</span><span class=n>BaseHTTPRequestHandler</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>do_POST</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 设置响应头</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>send_response</span><span class=p>(</span><span class=mi>200</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>send_header</span><span class=p>(</span><span class=s2>&#34;Content-Type&#34;</span><span class=p>,</span> <span class=s2>&#34;application/json&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>end_headers</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 获取请求体</span>
+</span></span><span class=line><span class=cl>            <span class=n>content_length</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>headers</span><span class=p>[</span><span class=s2>&#34;Content-Length&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>post_data</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>rfile</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=n>content_length</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>request_data</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>loads</span><span class=p>(</span><span class=n>post_data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 检查是否有 &#34;image&#34; 字段</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=s2>&#34;image&#34;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>request_data</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>response</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;error&#34;</span><span class=p>:</span> <span class=s2>&#34;Missing &#39;image&#39; field in request&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=bp>self</span><span class=o>.</span><span class=n>wfile</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>json</span><span class=o>.</span><span class=n>dumps</span><span class=p>(</span><span class=n>response</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&#34;utf-8&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 解码 base64 图片</span>
+</span></span><span class=line><span class=cl>            <span class=n>img_data</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>request_data</span><span class=p>[</span><span class=s2>&#34;image&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>img_path</span> <span class=o>=</span> <span class=s2>&#34;temp_image.png&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 保存图片到本地</span>
+</span></span><span class=line><span class=cl>            <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>img_path</span><span class=p>,</span> <span class=s2>&#34;wb&#34;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>f</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>img_data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 使用 OCR 模型解析图片</span>
+</span></span><span class=line><span class=cl>            <span class=c1># result = [[[[0.0, 0.0], [129.0, 2.0], [129.0, 47.0], [0.0, 46.0]], &#39;ZERUF&#39;, &#39;0.640465592344602&#39;]]</span>
+</span></span><span class=line><span class=cl>            <span class=c1># print(&#34;OCR Result:&#34;, result)</span>
+</span></span><span class=line><span class=cl>            <span class=n>result</span><span class=p>,</span> <span class=n>_</span> <span class=o>=</span> <span class=n>model</span><span class=p>(</span><span class=n>img_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 提取解析的字符串</span>
+</span></span><span class=line><span class=cl>            <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=c1># 提取第一個結果，並構造返回格式</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>result</span> <span class=ow>and</span> <span class=nb>len</span><span class=p>(</span><span class=n>result</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>0</span> <span class=ow>and</span> <span class=nb>len</span><span class=p>(</span><span class=n>result</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=o>&gt;</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=n>parsed_result</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;text&#34;</span><span class=p>:</span> <span class=n>result</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>1</span><span class=p>],</span> <span class=s2>&#34;confidence&#34;</span><span class=p>:</span> <span class=nb>float</span><span class=p>(</span><span class=n>result</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>2</span><span class=p>])}</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=c1># 如果 result 結構不符合預期，返回默認值或錯誤信息</span>
+</span></span><span class=line><span class=cl>                    <span class=n>parsed_result</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;text&#34;</span><span class=p>:</span> <span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=s2>&#34;confidence&#34;</span><span class=p>:</span> <span class=mf>0.0</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Error while parsing OCR result:&#34;</span><span class=p>,</span> <span class=nb>str</span><span class=p>(</span><span class=n>e</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                <span class=n>parsed_result</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;text&#34;</span><span class=p>:</span> <span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=s2>&#34;confidence&#34;</span><span class=p>:</span> <span class=mf>0.0</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 返回解析結果</span>
+</span></span><span class=line><span class=cl>            <span class=n>response</span> <span class=o>=</span> <span class=n>parsed_result</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>wfile</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>json</span><span class=o>.</span><span class=n>dumps</span><span class=p>(</span><span class=n>response</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&#34;utf-8&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 处理异常</span>
+</span></span><span class=line><span class=cl>            <span class=n>response</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;error&#34;</span><span class=p>:</span> <span class=nb>str</span><span class=p>(</span><span class=n>e</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>wfile</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>json</span><span class=o>.</span><span class=n>dumps</span><span class=p>(</span><span class=n>response</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&#34;utf-8&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>run</span><span class=p>(</span><span class=n>server_class</span><span class=o>=</span><span class=n>HTTPServer</span><span class=p>,</span> <span class=n>handler_class</span><span class=o>=</span><span class=n>OCRHandler</span><span class=p>,</span> <span class=n>port</span><span class=o>=</span><span class=mi>8000</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>server_address</span> <span class=o>=</span> <span class=p>(</span><span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=n>port</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>httpd</span> <span class=o>=</span> <span class=n>server_class</span><span class=p>(</span><span class=n>server_address</span><span class=p>,</span> <span class=n>handler_class</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Starting server on port </span><span class=si>{</span><span class=n>port</span><span class=si>}</span><span class=s2>...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>httpd</span><span class=o>.</span><span class=n>serve_forever</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>run</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>注意代码中的 OCR 模型，你需要要自行下载放到和 py 一致的位置，请参考：</p>
+<p>检测模型 (det)：用于检测文字区域。识别模型 (rec)：用于识别文字内容。</p>
+<p><a href=https://rapidai.github.io/RapidOCRDocs/model_list target=_blank rel=noopener>RapidOCRDocs/model_list</a></p>
+<p><a href=https://github.com/PaddlePaddle/PaddleOCR/blob/40c56628fda416e1c8710eb19e4b260536902520/doc/doc_ch/models_list.md target=_blank rel=noopener>github/PaddlePaddle/doc/models_list</a>
+​<img src=../../images/yakit-hot-loading-captcha-recognition/image-20250215230231-4n0swjt.webp alt=image>​</p>
+<p>如果出现 <code>AssertionError: character_dict_path should not be None</code>​ 错误：</p>
+<p>在这里下载一个字典 <a href=https://github.com/PaddlePaddle/PaddleOCR/tree/release/2.6/ppocr/utils target=_blank rel=noopener>Github/PaddleOCR/utils</a> 放到和 py 一致的位置，我这里下载的是：</p>
+<p><a href=https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/ppocr/utils/ppocr_keys_v1.txt target=_blank rel=noopener>PaddlePaddle/PaddleOCR/ppocr_keys_v1.txt</a></p>
+<p><a href=https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/ppocr/utils/dict/en_dict.txt target=_blank rel=noopener>PaddlePaddle/PaddleOCR/en_dict.txt</a></p>
+<p>然后修改初始化 OCR 模型处，修改内容：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl># 初始化 OCR 模型
+</span></span><span class=line><span class=cl><span class=gd>- model = ‍RapidOCR(rec_model_path=&#34;ch_PP-OCRv4_rec_infer.onnx&#34;, det_model_path=&#34;ch_PP-OCRv4_det_infer.onnx&#34;)
+</span></span></span><span class=line><span class=cl><span class=gd></span><span class=gi>+ model = RapidOCR(rec_model_path=&#34;ch_PP-OCRv4_rec_infer.onnx&#34;, det_model_path=&#34;ch_PP-OCRv4_det_infer.onnx&#34;, character_dict_path=&#34;en_dict.txt&#34;)
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>確保你使用的模型与字典文件匹配</p>
+<p>如果模型是中文模型，則需要中文字符集的字典（如 ppocr_keys_v1.txt）</p>
+<p>如果是英文模型，則需要英文字母和數字的字典，对应着 en_dict.txt</p>
+<hr>
+<p>运行（默认运行在 http://localhost:8000）</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>python ocr_server.py
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250215235806-oi4un48.webp alt=image>​
+这里返回的结果：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=err>#</span> <span class=err>text</span> <span class=err>解析结果</span>
+</span></span><span class=line><span class=cl><span class=err>#</span> <span class=err>confidence</span> <span class=err>置信度</span>
+</span></span><span class=line><span class=cl><span class=p>{</span><span class=nt>&#34;text&#34;</span><span class=p>:</span> <span class=s2>&#34;ZERUF&#34;</span><span class=p>,</span> <span class=nt>&#34;confidence&#34;</span><span class=p>:</span> <span class=mf>0.640465592344602</span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>使用完毕后就可以直接退出虚拟环境</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl># 退出虚拟环境
+</span></span><span class=line><span class=cl>deactivate
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>第二次启动</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl># 激活虚拟环境
+</span></span><span class=line><span class=cl>.\ocr-captcha\Scripts\activate
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 启动服务
+</span></span><span class=line><span class=cl>python ocr_server.py
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 使用
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 退出虚拟环境
+</span></span><span class=line><span class=cl>deactivate
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 id=方法二使用-ocr-captcha><a href=#方法二使用-ocr-captcha class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法二使用-ocr-captcha class=headings>方法二，使用 ocr-captcha</a></h3>
+<p>这里使用的是 <a href=https://huggingface.co/xiaolv/ocr-captcha target=_blank rel=noopener>ocr-captcha</a>，推荐使用虚拟环境使用，这样不影响系统环境</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl># 创建一个新的虚拟环境，并且使用 .\ocr-captcha2 目录来存放
+</span></span><span class=line><span class=cl>python -m venv --system-site-packages .\ocr-captcha2 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 激活虚拟环境
+</span></span><span class=line><span class=cl>.\ocr-captcha2\Scripts\activate
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 下载模型
+</span></span><span class=line><span class=cl>git clone https://huggingface.co/xiaolv/ocr-captcha
+</span></span><span class=line><span class=cl><span class=k>cd</span> ocr-captcha
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 安装包
+</span></span><span class=line><span class=cl>pip install requests flask modelscope addict numpy torch Pillow datasets simplejson sortedcontainers opencv-python
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>然后新建一个 ocr_server.py 将以下代码复制进去</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>flask</span> <span class=kn>import</span> <span class=n>Flask</span><span class=p>,</span> <span class=n>request</span><span class=p>,</span> <span class=n>jsonify</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>modelscope.pipelines</span> <span class=kn>import</span> <span class=n>pipeline</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>modelscope.utils.constant</span> <span class=kn>import</span> <span class=n>Tasks</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>Flask</span><span class=p>(</span><span class=vm>__name__</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>XiaolvOCRModel</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>model_small</span> <span class=o>=</span> <span class=sa>r</span><span class=s2>&#34;./output_small&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>model_big</span> <span class=o>=</span> <span class=sa>r</span><span class=s2>&#34;./output_big&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>ocr_recognition_small</span> <span class=o>=</span> <span class=n>pipeline</span><span class=p>(</span><span class=n>Tasks</span><span class=o>.</span><span class=n>ocr_recognition</span><span class=p>,</span> <span class=n>model</span><span class=o>=</span><span class=n>model_small</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>ocr_recognition_big</span> <span class=o>=</span> <span class=n>pipeline</span><span class=p>(</span><span class=n>Tasks</span><span class=o>.</span><span class=n>ocr_recognition</span><span class=p>,</span> <span class=n>model</span><span class=o>=</span><span class=n>model_big</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>run</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>pict_path</span><span class=p>,</span> <span class=n>mode</span><span class=o>=</span><span class=s2>&#34;small&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 選擇模型</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>mode</span> <span class=o>==</span> <span class=s2>&#34;small&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>result</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>ocr_recognition_small</span><span class=p>(</span><span class=n>pict_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>result</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>ocr_recognition_big</span><span class=p>(</span><span class=n>pict_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 提取識別結果</span>
+</span></span><span class=line><span class=cl>        <span class=n>recognized_text</span> <span class=o>=</span> <span class=n>result</span><span class=p>[</span><span class=s1>&#39;text&#39;</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=k>if</span> <span class=s1>&#39;text&#39;</span> <span class=ow>in</span> <span class=n>result</span> <span class=ow>and</span> <span class=nb>len</span><span class=p>(</span><span class=n>result</span><span class=p>[</span><span class=s1>&#39;text&#39;</span><span class=p>])</span> <span class=o>&gt;</span> <span class=mi>0</span> <span class=k>else</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;識別的結果為：</span><span class=si>{</span><span class=n>result</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>recognized_text</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 初始化模型</span>
+</span></span><span class=line><span class=cl><span class=n>ocr_model</span> <span class=o>=</span> <span class=n>XiaolvOCRModel</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/ocr&#34;</span><span class=p>,</span> <span class=n>methods</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;POST&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>ocr</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    接收 Base64 圖片並進行 OCR 識別
+</span></span></span><span class=line><span class=cl><span class=s2>    請求參數：
+</span></span></span><span class=line><span class=cl><span class=s2>    - image: Base64 編碼的圖片字符串
+</span></span></span><span class=line><span class=cl><span class=s2>    - mode: 模式選擇（&#34;small&#34; 或 &#34;big&#34;）
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 獲取 Base64 圖片字符串</span>
+</span></span><span class=line><span class=cl>        <span class=n>data</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>get_json</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=s2>&#34;image&#34;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>data</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>jsonify</span><span class=p>({</span><span class=s2>&#34;error&#34;</span><span class=p>:</span> <span class=s2>&#34;Missing &#39;image&#39; parameter&#34;</span><span class=p>}),</span> <span class=mi>400</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>image_base64</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;image&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 檢查模式參數</span>
+</span></span><span class=line><span class=cl>        <span class=n>mode</span> <span class=o>=</span> <span class=n>data</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;mode&#34;</span><span class=p>,</span> <span class=s2>&#34;small&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>mode</span> <span class=ow>not</span> <span class=ow>in</span> <span class=p>[</span><span class=s2>&#34;small&#34;</span><span class=p>,</span> <span class=s2>&#34;big&#34;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>jsonify</span><span class=p>({</span><span class=s2>&#34;error&#34;</span><span class=p>:</span> <span class=s2>&#34;Invalid mode. Choose &#39;small&#39; or &#39;big&#39;&#34;</span><span class=p>}),</span> <span class=mi>400</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 解碼 Base64 圖片並保存到臨時文件</span>
+</span></span><span class=line><span class=cl>        <span class=n>temp_path</span> <span class=o>=</span> <span class=s2>&#34;./temp_image.png&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>temp_path</span><span class=p>,</span> <span class=s2>&#34;wb&#34;</span><span class=p>)</span> <span class=k>as</span> <span class=n>temp_file</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>temp_file</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>image_base64</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 調用模型進行識別</span>
+</span></span><span class=line><span class=cl>        <span class=n>recognized_text</span> <span class=o>=</span> <span class=n>ocr_model</span><span class=o>.</span><span class=n>run</span><span class=p>(</span><span class=n>temp_path</span><span class=p>,</span> <span class=n>mode</span><span class=o>=</span><span class=n>mode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 刪除臨時文件</span>
+</span></span><span class=line><span class=cl>        <span class=n>os</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>temp_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 返回識別結果</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>jsonify</span><span class=p>({</span><span class=s2>&#34;text&#34;</span><span class=p>:</span> <span class=n>recognized_text</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>jsonify</span><span class=p>({</span><span class=s2>&#34;error&#34;</span><span class=p>:</span> <span class=nb>str</span><span class=p>(</span><span class=n>e</span><span class=p>)}),</span> <span class=mi>500</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>app</span><span class=o>.</span><span class=n>run</span><span class=p>(</span><span class=n>host</span><span class=o>=</span><span class=s2>&#34;0.0.0.0&#34;</span><span class=p>,</span> <span class=n>port</span><span class=o>=</span><span class=mi>8000</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>运行（默认运行在 http://localhost:8000）</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>python ocr_server.py
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216122424-28v02vk.webp alt=image>​
+该模型默认自带了</p>
+<ol>
+<li>验证码识别模型（小）- small</li>
+<li>验证码识别模型（大）- big</li>
+</ol>
+<p>修改方法是在请求 json 里面修改 mode 参数</p>
+<h3 id=方法三使用-muggle-ocr><a href=#方法三使用-muggle-ocr class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:方法三使用-muggle-ocr class=headings>方法三，使用 muggle-ocr</a></h3>
+<p>尝试使用 <a href=https://github.com/litongjava/muggle_ocr target=_blank rel=noopener>muggle-ocr</a></p>
+<p>这套模型竟然是基于 <a href=https://github.com/kerlomz/captcha_trainer target=_blank rel=noopener>kerlomz/captcha_trainer</a> 训练的，准确率还行</p>
+<p>推荐使用虚拟环境使用，这样不影响系统环境</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>#‍ 确保已安装 virtualenv
+</span></span><span class=line><span class=cl>pip install virtualenv
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 创建一个新的虚拟环境，并且使用 .\ocr-captcha3 目录来存放，并且指定 python 版本 3.8
+</span></span><span class=line><span class=cl># https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe
+</span></span><span class=line><span class=cl>virtualenv .\ocr-captcha3 --system-site-packages --python=python3.8
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 激活虚拟环境
+</span></span><span class=line><span class=cl>.\ocr-captcha3\Scripts\activate
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 安装
+</span></span><span class=line><span class=cl>git clone https://github.com/litongjava/muggle_ocr
+</span></span><span class=line><span class=cl><span class=k>cd</span> muggle_ocr
+</span></span><span class=line><span class=cl>pip install -r requirements.txt
+</span></span><span class=line><span class=cl>python setup.py install
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>然后新建一个 ocr_server.py 将以下代码复制进去</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>json</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>http.server</span> <span class=kn>import</span> <span class=n>BaseHTTPRequestHandler</span><span class=p>,</span> <span class=n>HTTPServer</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>muggle_ocr</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>使用预置模型，预置模型包含了[ModelType.OCR, ModelType.Captcha] 两种
+</span></span></span><span class=line><span class=cl><span class=s2>其中 ModelType.OCR 用于识别普通印刷文本, ModelType.Captcha 用于识别 4-6 位简单英数验证码
+</span></span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># 初始化 OCR 模型</span>
+</span></span><span class=line><span class=cl><span class=n>ocr_sdk</span> <span class=o>=</span> <span class=n>muggle_ocr</span><span class=o>.</span><span class=n>SDK</span><span class=p>(</span><span class=n>model_type</span><span class=o>=</span><span class=n>muggle_ocr</span><span class=o>.</span><span class=n>ModelType</span><span class=o>.</span><span class=n>Captcha</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>OCRHandler</span><span class=p>(</span><span class=n>BaseHTTPRequestHandler</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>do_POST</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 設置響應頭</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>send_response</span><span class=p>(</span><span class=mi>200</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>send_header</span><span class=p>(</span><span class=s2>&#34;Content-Type&#34;</span><span class=p>,</span> <span class=s2>&#34;application/json&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>end_headers</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 讀取請求體</span>
+</span></span><span class=line><span class=cl>            <span class=n>content_length</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>headers</span><span class=p>[</span><span class=s2>&#34;Content-Length&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>post_data</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>rfile</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=n>content_length</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>request_data</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>loads</span><span class=p>(</span><span class=n>post_data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 檢查是否有 &#34;image&#34; 字段</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=s2>&#34;image&#34;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>request_data</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>response</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;error&#34;</span><span class=p>:</span> <span class=s2>&#34;Missing &#39;image&#39; field in request&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=bp>self</span><span class=o>.</span><span class=n>wfile</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>json</span><span class=o>.</span><span class=n>dumps</span><span class=p>(</span><span class=n>response</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&#34;utf-8&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 解碼 base64 圖片</span>
+</span></span><span class=line><span class=cl>            <span class=n>img_data</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>request_data</span><span class=p>[</span><span class=s2>&#34;image&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 使用 OCR 模型進行文字識別</span>
+</span></span><span class=line><span class=cl>            <span class=n>text</span> <span class=o>=</span> <span class=n>ocr_sdk</span><span class=o>.</span><span class=n>predict</span><span class=p>(</span><span class=n>image_bytes</span><span class=o>=</span><span class=n>img_data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># 返回識別結果</span>
+</span></span><span class=line><span class=cl>            <span class=n>response</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;text&#34;</span><span class=p>:</span> <span class=n>text</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>wfile</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>json</span><span class=o>.</span><span class=n>dumps</span><span class=p>(</span><span class=n>response</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&#34;utf-8&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 處理異常</span>
+</span></span><span class=line><span class=cl>            <span class=n>response</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;error&#34;</span><span class=p>:</span> <span class=nb>str</span><span class=p>(</span><span class=n>e</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>wfile</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>json</span><span class=o>.</span><span class=n>dumps</span><span class=p>(</span><span class=n>response</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&#34;utf-8&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 啟動服務器</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>run</span><span class=p>(</span><span class=n>server_class</span><span class=o>=</span><span class=n>HTTPServer</span><span class=p>,</span> <span class=n>handler_class</span><span class=o>=</span><span class=n>OCRHandler</span><span class=p>,</span> <span class=n>port</span><span class=o>=</span><span class=mi>8000</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>server_address</span> <span class=o>=</span> <span class=p>(</span><span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=n>port</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>httpd</span> <span class=o>=</span> <span class=n>server_class</span><span class=p>(</span><span class=n>server_address</span><span class=p>,</span> <span class=n>handler_class</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Starting server on port </span><span class=si>{</span><span class=n>port</span><span class=si>}</span><span class=s2>...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>httpd</span><span class=o>.</span><span class=n>serve_forever</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>run</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>运行（默认运行在 http://localhost:8000）</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>python ocr_server.py
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216135209-1fk3zk4.webp alt=image></p>
+<h2 id=yakit-热加载替换验证码><a href=#yakit-热加载替换验证码 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:yakit-热加载替换验证码 class=headings>Yakit 热加载替换验证码</a></h2>
+<p>通过研究发现，easy-captcha 的验证码的参数 t 无论是不是一致，都会返回一个新的验证码</p>
+<p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216001359-2j6raoz.webp alt=image></p>
+<p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216002855-5nhunvw.webp alt=image></p>
+<p>那就好办了，直接暴力发一个包，获取返回的图片，然后转成 base64，然后文字识别，再发包</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-dart data-lang=dart><span class=line><span class=cl><span class=n>img</span> <span class=o>=</span> <span class=err>`</span>
+</span></span><span class=line><span class=cl><span class=n>GET</span> <span class=o>/</span><span class=n>assets</span><span class=o>/</span><span class=n>captcha</span><span class=o>?</span><span class=n>t</span><span class=o>=</span><span class=m>1739625263183</span>
+</span></span><span class=line><span class=cl><span class=nl>Referer:</span> <span class=n>xxxxxxxxxxxx</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Fetch</span><span class=o>-</span><span class=nl>Mode:</span> <span class=n>no</span><span class=o>-</span><span class=n>cors</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Ch</span><span class=o>-</span><span class=n>Ua</span><span class=o>-</span><span class=nl>Platform:</span> <span class=s2>&#34;Windows&#34;</span>
+</span></span><span class=line><span class=cl><span class=nl>Host:</span> <span class=n>xxxxxxxxxxxx</span>
+</span></span><span class=line><span class=cl><span class=nl>Accept:</span> <span class=n>image</span><span class=o>/</span><span class=n>avif</span><span class=p>,</span><span class=n>image</span><span class=o>/</span><span class=n>webp</span><span class=p>,</span><span class=n>image</span><span class=o>/</span><span class=n>apng</span><span class=p>,</span><span class=n>image</span><span class=o>/</span><span class=n>svg</span><span class=o>+</span><span class=n>xml</span><span class=p>,</span><span class=n>image</span><span class=cm>/*,*/</span><span class=o>*</span><span class=p>;</span><span class=n>q</span><span class=o>=</span><span class=m>0.8</span>
+</span></span><span class=line><span class=cl><span class=nl>Connection:</span> <span class=n>keep</span><span class=o>-</span><span class=n>alive</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Fetch</span><span class=o>-</span><span class=nl>Dest:</span> <span class=n>image</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Fetch</span><span class=o>-</span><span class=nl>Site:</span> <span class=n>same</span><span class=o>-</span><span class=n>origin</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>-</span><span class=nl>Language:</span> <span class=n>en</span><span class=o>-</span><span class=n>US</span><span class=p>,</span><span class=n>en</span><span class=p>;</span><span class=n>q</span><span class=o>=</span><span class=m>0.9</span>
+</span></span><span class=line><span class=cl><span class=err>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span> <span class=err>發送</span> <span class=n>HTTP</span> <span class=err>請求</span>
+</span></span><span class=line><span class=cl><span class=n>response</span><span class=p>,</span> <span class=n>request</span><span class=p>,</span> <span class=n>err</span> <span class=o>=</span> <span class=n>poc</span><span class=p>.</span><span class=n>HTTPEx</span><span class=p>(</span><span class=n>img</span><span class=p>,</span> <span class=n>poc</span><span class=p>.</span><span class=n>https</span><span class=p>(</span><span class=kc>true</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span> <span class=err>確保請求成功</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=n>err</span> <span class=o>==</span> <span class=n>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=err>使用</span> <span class=n>GetBody</span><span class=p>()</span> <span class=err>獲取響應正文（圖片數據）</span>
+</span></span><span class=line><span class=cl>    <span class=n>image_data</span> <span class=o>=</span> <span class=n>response</span><span class=p>.</span><span class=n>GetBody</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=err>將正文數據進行</span> <span class=n>Base64</span> <span class=err>編碼</span>
+</span></span><span class=line><span class=cl>    <span class=n>base64_data</span> <span class=o>=</span> <span class=n>codec</span><span class=p>.</span><span class=n>EncodeBase64</span><span class=p>(</span><span class=n>image_data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=err>輸出</span> <span class=n>Base64</span> <span class=err>編碼結果</span>
+</span></span><span class=line><span class=cl>    <span class=n>print</span><span class=p>(</span><span class=n>base64_data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216011705-t4n0ghu.webp alt=image></p>
+<p>接着继续将这部分内容直接发送到验证码识别接口里面</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-dart data-lang=dart><span class=line><span class=cl><span class=n>img</span> <span class=o>=</span> <span class=err>`</span>
+</span></span><span class=line><span class=cl><span class=n>GET</span> <span class=o>/</span><span class=n>assets</span><span class=o>/</span><span class=n>captcha</span><span class=o>?</span><span class=n>t</span><span class=o>=</span><span class=m>1739625263183</span>
+</span></span><span class=line><span class=cl><span class=nl>Referer:</span> <span class=n>xxxxxxxxxxxx</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Fetch</span><span class=o>-</span><span class=nl>Mode:</span> <span class=n>no</span><span class=o>-</span><span class=n>cors</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Ch</span><span class=o>-</span><span class=n>Ua</span><span class=o>-</span><span class=nl>Platform:</span> <span class=s2>&#34;Windows&#34;</span>
+</span></span><span class=line><span class=cl><span class=nl>Host:</span> <span class=n>xxxxxxxxxxxx</span>
+</span></span><span class=line><span class=cl><span class=nl>Accept:</span> <span class=n>image</span><span class=o>/</span><span class=n>avif</span><span class=p>,</span><span class=n>image</span><span class=o>/</span><span class=n>webp</span><span class=p>,</span><span class=n>image</span><span class=o>/</span><span class=n>apng</span><span class=p>,</span><span class=n>image</span><span class=o>/</span><span class=n>svg</span><span class=o>+</span><span class=n>xml</span><span class=p>,</span><span class=n>image</span><span class=cm>/*,*/</span><span class=o>*</span><span class=p>;</span><span class=n>q</span><span class=o>=</span><span class=m>0.8</span>
+</span></span><span class=line><span class=cl><span class=nl>Connection:</span> <span class=n>keep</span><span class=o>-</span><span class=n>alive</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Fetch</span><span class=o>-</span><span class=nl>Dest:</span> <span class=n>image</span>
+</span></span><span class=line><span class=cl><span class=n>Sec</span><span class=o>-</span><span class=n>Fetch</span><span class=o>-</span><span class=nl>Site:</span> <span class=n>same</span><span class=o>-</span><span class=n>origin</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>-</span><span class=nl>Language:</span> <span class=n>en</span><span class=o>-</span><span class=n>US</span><span class=p>,</span><span class=n>en</span><span class=p>;</span><span class=n>q</span><span class=o>=</span><span class=m>0.9</span>
+</span></span><span class=line><span class=cl><span class=err>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span> <span class=err>發送</span> <span class=n>GET</span> <span class=err>請求獲取圖片</span>
+</span></span><span class=line><span class=cl><span class=n>response</span><span class=p>,</span> <span class=n>request</span><span class=p>,</span> <span class=n>err</span> <span class=o>=</span> <span class=n>poc</span><span class=p>.</span><span class=n>HTTPEx</span><span class=p>(</span><span class=n>img</span><span class=p>,</span> <span class=n>poc</span><span class=p>.</span><span class=n>https</span><span class=p>(</span><span class=kc>true</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=n>err</span> <span class=o>==</span> <span class=n>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>image_data</span> <span class=o>=</span> <span class=n>response</span><span class=p>.</span><span class=n>GetBody</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=err>將圖片數據進行</span> <span class=n>Base64</span> <span class=err>編碼</span>
+</span></span><span class=line><span class=cl>    <span class=n>base64_data</span> <span class=o>=</span> <span class=n>codec</span><span class=p>.</span><span class=n>EncodeBase64</span><span class=p>(</span><span class=n>image_data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=err>構造</span> <span class=n>POST</span> <span class=err>請求數據</span>
+</span></span><span class=line><span class=cl>    <span class=n>request_body</span> <span class=o>=</span> <span class=n>json</span><span class=p>.</span><span class=n>dumps</span><span class=p>({</span><span class=s2>&#34;image&#34;</span><span class=o>:</span> <span class=n>base64_data</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=err>發送</span> <span class=n>POST</span> <span class=err>請求</span>
+</span></span><span class=line><span class=cl>    <span class=n>headers</span> <span class=o>=</span> <span class=err>`</span>
+</span></span><span class=line><span class=cl><span class=n>POST</span> <span class=o>/</span> <span class=n>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Content</span><span class=o>-</span><span class=nl>Type:</span> <span class=n>application</span><span class=o>/</span><span class=n>json</span>
+</span></span><span class=line><span class=cl><span class=nl>Host:</span> <span class=m>127.0</span><span class=p>.</span><span class=m>0.1</span><span class=o>:</span><span class=m>8000</span>
+</span></span><span class=line><span class=cl><span class=err>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>response1</span><span class=p>,</span> <span class=n>request2</span><span class=p>,</span> <span class=n>err3</span> <span class=o>=</span> <span class=n>poc</span><span class=p>.</span><span class=n>HTTPEx</span><span class=p>(</span><span class=n>headers</span> <span class=o>+</span> <span class=s2>&#34;</span><span class=se>\n\n</span><span class=s2>&#34;</span> <span class=o>+</span> <span class=n>request_body</span><span class=p>,</span> <span class=n>poc</span><span class=p>.</span><span class=n>https</span><span class=p>(</span><span class=kc>false</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>err3</span> <span class=o>==</span> <span class=n>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>response_body</span> <span class=o>=</span> <span class=n>string</span><span class=p>(</span><span class=n>response1</span><span class=p>.</span><span class=n>GetBody</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=n>print</span><span class=p>(</span><span class=s2>&#34;服務端返回數據：&#34;</span> <span class=o>+</span> <span class=n>response_body</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216135328-1ojv4za.webp alt=image></p>
+<p>接着在 Web Fuzzer 里面使用热加载模式</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 使用标签 {{yak(handle|param)}} 可以触发热加载调用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>handle</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>p</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 返回值可以是一个字符串
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=nx>codec</span><span class=p>.</span><span class=nf>EncodeBase64</span><span class=p>(</span><span class=s>&#34;base64-prefix&#34;</span> <span class=o>+</span> <span class=nx>p</span><span class=p>)</span> <span class=o>+</span> <span class=nf>sprintf</span><span class=p>(</span><span class=s>&#34;_origin(%v)&#34;</span><span class=p>,</span> <span class=nx>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 使用标签 {{yak(handle1|...)}} 也可以触发热加载调用
+</span></span></span><span class=line><span class=cl><span class=c1>// 如何传多个参数：使用自定义的分隔符进行分隔，例如逗号(,)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>handle1</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>p</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>results</span> <span class=p>=</span> <span class=nx>str</span><span class=p>.</span><span class=nf>Split</span><span class=p>(</span><span class=nx>p</span><span class=p>,</span> <span class=s>&#34;,&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 返回值也支持返回一个数组
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=nx>results</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 使用标签 {{yak(handleYield|...)}} 可以触发热加载调用，这通常用于返回的数据需要长时间执行（例如读取大文件）的时候
+</span></span></span><span class=line><span class=cl><span class=c1>// 使用yield可以在执行中途返回值并交给渲染系统进行渲染，无需等待该函数执行完再进行发包
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>handleYield</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>param</span><span class=p>,</span> <span class=nx>yield</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 这个特殊的 Hook 也支持返回数组
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>for</span> <span class=nx>s</span> <span class=nx>in</span> <span class=p>[</span><span class=s>&#34;12312312&#34;</span><span class=p>,</span> <span class=s>&#34;abc&#34;</span><span class=p>,</span> <span class=s>&#34;def&#34;</span><span class=p>]</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nf>yield</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// beforeRequest 允许在每次发送数据包前对请求做最后的处理，定义为 func(https bool, originReq []byte, req []byte) []byte
+</span></span></span><span class=line><span class=cl><span class=c1>// https 请求是否为https请求
+</span></span></span><span class=line><span class=cl><span class=c1>// originReq 原始请求
+</span></span></span><span class=line><span class=cl><span class=c1>// req 请求
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>beforeRequest</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>https</span><span class=p>,</span> <span class=nx>originReq</span><span class=p>,</span> <span class=nx>req</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 我们可以将请求进行一定的修改
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>    一个替换请求参数a的例子
+</span></span></span><span class=line><span class=cl><span class=cm>    poc.ReplaceHTTPPacketQueryParam(req, &#34;a&#34;, &#34;bbb&#34;)
+</span></span></span><span class=line><span class=cl><span class=cm>    */</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 将修改后的请求返回
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>req</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// afterRequest 允许在返回响应前对响应做最后的处理，定义为 func(https bool, originReq []byte, req []byte, originRsp []byte, rsp []byte) []byte
+</span></span></span><span class=line><span class=cl><span class=c1>// https 请求是否为https请求
+</span></span></span><span class=line><span class=cl><span class=c1>// originReq 原始请求
+</span></span></span><span class=line><span class=cl><span class=c1>// req 请求
+</span></span></span><span class=line><span class=cl><span class=c1>// originRsp 原始响应
+</span></span></span><span class=line><span class=cl><span class=c1>// rsp 响应
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>afterRequest</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>https</span><span class=p>,</span> <span class=nx>originReq</span><span class=p>,</span> <span class=nx>req</span><span class=p>,</span> <span class=nx>originRsp</span><span class=p>,</span> <span class=nx>rsp</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>       <span class=c1>// 我们可以将响应进行一定的修改，例如解密响应
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>    一个替换响应的例子
+</span></span></span><span class=line><span class=cl><span class=cm>    body = poc.GetHTTPPacketBody(rsp)
+</span></span></span><span class=line><span class=cl><span class=cm>    data = json.loads(body)~
+</span></span></span><span class=line><span class=cl><span class=cm>    if &#34;result&#34; in data {
+</span></span></span><span class=line><span class=cl><span class=cm>        data[&#34;result&#34;] = string(codec.DecodeBase64(data[&#34;result&#34;])~)
+</span></span></span><span class=line><span class=cl><span class=cm>    }
+</span></span></span><span class=line><span class=cl><span class=cm>    */</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>rsp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// mirrorHTTPFlow 允许对每一个请求的响应做处理，定义为 func(req []byte, rsp []byte, params map[string]any) map[string]any
+</span></span></span><span class=line><span class=cl><span class=c1>// req 请求
+</span></span></span><span class=line><span class=cl><span class=c1>// rsp 响应
+</span></span></span><span class=line><span class=cl><span class=c1>// params 之前提取器/mirrorHTTPFlow中提取到的参数
+</span></span></span><span class=line><span class=cl><span class=c1>// 返回值会作为下一个请求的参数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>mirrorHTTPFlow</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>req</span><span class=p>,</span> <span class=nx>rsp</span><span class=p>,</span> <span class=nx>params</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>params</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>这里使用到 beforeRequest 允许在每次发送数据包前对请求做最后的处理，来将验证码获取并且解析返回</p>
+<p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216140651-daba4vy.webp alt=image></p>
+<p>先定义一个 <strong>ocr</strong> 字符串方便动态替换</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// beforeRequest 允许在每次发送数据包前对请求做最后的处理，定义为 func(https bool, originReq []byte, req []byte) []byte
+</span></span></span><span class=line><span class=cl><span class=c1>// https 请求是否为https请求
+</span></span></span><span class=line><span class=cl><span class=c1>// originReq 原始请求
+</span></span></span><span class=line><span class=cl><span class=c1>// req 请求
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>beforeRequest</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>https</span><span class=p>,</span> <span class=nx>originReq</span><span class=p>,</span> <span class=nx>req</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 我们可以将请求进行一定的修改
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>	<span class=nx>img</span> <span class=p>=</span> <span class=s>`
+</span></span></span><span class=line><span class=cl><span class=s>GET /assets/captcha?t=1739625263183
+</span></span></span><span class=line><span class=cl><span class=s>Referer: xxxxxxxxxxxx
+</span></span></span><span class=line><span class=cl><span class=s>Sec-Fetch-Mode: no-cors
+</span></span></span><span class=line><span class=cl><span class=s>Sec-Ch-Ua-Platform: &#34;Windows&#34;
+</span></span></span><span class=line><span class=cl><span class=s>Host: xxxxxxxxxxxx
+</span></span></span><span class=line><span class=cl><span class=s>Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+</span></span></span><span class=line><span class=cl><span class=s>Connection: keep-alive
+</span></span></span><span class=line><span class=cl><span class=s>Sec-Fetch-Dest: image
+</span></span></span><span class=line><span class=cl><span class=s>Sec-Fetch-Site: same-origin
+</span></span></span><span class=line><span class=cl><span class=s>Accept-Language: en-US,en;q=0.9
+</span></span></span><span class=line><span class=cl><span class=s>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>發送</span> <span class=nx>GET</span> <span class=nx>請求獲取圖片</span>
+</span></span><span class=line><span class=cl>    <span class=nx>response</span><span class=p>,</span> <span class=nx>request</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>poc</span><span class=p>.</span><span class=nf>HTTPEx</span><span class=p>(</span><span class=nx>img</span><span class=p>,</span> <span class=nx>poc</span><span class=p>.</span><span class=nf>https</span><span class=p>(</span><span class=kc>true</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>err</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>image_data</span> <span class=p>=</span> <span class=nx>response</span><span class=p>.</span><span class=nf>GetBody</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=err>#</span> <span class=nx>將圖片數據進行</span> <span class=nx>Base64</span> <span class=nx>編碼</span>
+</span></span><span class=line><span class=cl>        <span class=nx>base64_data</span> <span class=p>=</span> <span class=nx>codec</span><span class=p>.</span><span class=nf>EncodeBase64</span><span class=p>(</span><span class=nx>image_data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=err>#</span> <span class=nx>構造</span> <span class=nx>POST</span> <span class=nx>請求數據</span>
+</span></span><span class=line><span class=cl>        <span class=nx>request_body</span> <span class=p>=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>dumps</span><span class=p>({</span><span class=s>&#34;image&#34;</span><span class=p>:</span> <span class=nx>base64_data</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=err>#</span> <span class=nx>發送</span> <span class=nx>POST</span> <span class=nx>請求</span>
+</span></span><span class=line><span class=cl>        <span class=nx>headers</span> <span class=p>=</span> <span class=s>`
+</span></span></span><span class=line><span class=cl><span class=s>POST / HTTP/1.1
+</span></span></span><span class=line><span class=cl><span class=s>Content-Type: application/json
+</span></span></span><span class=line><span class=cl><span class=s>Host: 127.0.0.1:8000
+</span></span></span><span class=line><span class=cl><span class=s>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nx>response1</span><span class=p>,</span> <span class=nx>request2</span><span class=p>,</span> <span class=nx>err3</span> <span class=p>=</span> <span class=nx>poc</span><span class=p>.</span><span class=nf>HTTPEx</span><span class=p>(</span><span class=nx>headers</span> <span class=o>+</span> <span class=s>&#34;\n\n&#34;</span> <span class=o>+</span> <span class=nx>request_body</span><span class=p>,</span> <span class=nx>poc</span><span class=p>.</span><span class=nf>https</span><span class=p>(</span><span class=kc>false</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>err3</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>response_body</span> <span class=p>=</span> <span class=nb>string</span><span class=p>(</span><span class=nx>response1</span><span class=p>.</span><span class=nf>GetBody</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>            <span class=err>#</span> <span class=nx>將</span> <span class=nx>JSON</span> <span class=nx>字符串解析為</span> <span class=nx>JSON</span> <span class=nx>對象</span>
+</span></span><span class=line><span class=cl>            <span class=nx>parsed_json</span> <span class=p>=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>loads</span><span class=p>(</span><span class=nx>response_body</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=err>#</span> <span class=nx>提取</span> <span class=nx>JSON</span> <span class=nx>中的</span> <span class=nx>text</span> <span class=nx>字段</span>
+</span></span><span class=line><span class=cl>            <span class=nx>result</span> <span class=p>=</span> <span class=nx>parsed_json</span><span class=p>[</span><span class=s>&#34;text&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>      
+</span></span><span class=line><span class=cl>            <span class=err>#</span> <span class=nx>替换内容</span>
+</span></span><span class=line><span class=cl>            <span class=nx>req</span> <span class=p>=</span> <span class=nx>str</span><span class=p>.</span><span class=nf>ReplaceAll</span><span class=p>(</span><span class=nx>req</span><span class=p>,</span> <span class=s>&#34;__ocr__&#34;</span><span class=p>,</span> <span class=nx>result</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 将修改后的请求返回
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>req</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><img src=../../images/yakit-hot-loading-captcha-recognition/image-20250216142504-azzkcue.webp alt=image></p>
+<h2 id=结论><a href=#结论 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:结论 class=headings>结论</a></h2>
+<p>热加载模式的确很方便，但是主要是验证码识别这一块需要优异的模型来进行对抗。</p>
+<p>文中分别体验了 rapidocr_onnxruntime、ocr-captcha、muggle-ocr 这几款比较优异的模型，但是识别成功率也只有大概 89% 左右，并未达到我想要的效果</p>
+<p>其实这里完全可以使用easy-captcha来生成验证码数据集，然后通过 <a href=https://github.com/kerlomz/captcha_trainer target=_blank rel=noopener>https://github.com/kerlomz/captcha_trainer</a> 训练</p>
+<p>来得到特定验证码生成机制中的更加准确的结果，当然也可以使用付费产品，就不用折腾了。</p>
+<p>‍</p>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/yakit/ rel=tag class=post-tag-link>#yakit</a> <a href=/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/ rel=tag class=post-tag-link>#验证码</a> <a href=/tags/%E8%AF%86%E5%88%AB/ rel=tag class=post-tag-link>#识别</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>

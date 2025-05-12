@@ -1,0 +1,308 @@
+#!/bin/bash
+
+# Arch Linux Installation Script
+# @wwxiaoqi
+
+systemctl stop reflector.service
+timedatectl set-ntp true
+
+clear
+
+# Enable parallel download feature
+cp /etc/pacman.conf /etc/pacman.conf.bak
+sed -i 's/#Color/Color/; s/#ParallelDownloads/ParallelDownloads/;' /etc/pacman.conf
+
+# Add domestic mirrors
+echo "Server = https://mirrors.bfsu.edu.cn/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+echo "Server = https://mirror.lzu.edu.cn/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+echo "Server = https://repo.huaweicloud.com/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+echo "Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+
+# Check if efivars directory is empty
+if [ -z "$(ls -A /sys/firmware/efi/efivars)" ]; then
+    echo "This script only supports UEFI mode installation."
+    exit
+fi
+
+# Check CPU microcode
+CPU=$(grep vendor_id /proc/cpuinfo)
+if [[ $CPU == *"AuthenticAMD"* ]]
+then
+    microcode=amd-ucode
+else
+    microcode=intel-ucode
+fi
+
+# Select installation target disk
+lsblk
+PS3="Select the disk to install Arch Linux:"
+select ENTRY in $(lsblk -dpnoNAME|grep -P "/dev/sd|nvme|vd");
+do
+    DISK=$ENTRY
+    echo "Arch Linux will be installed on $DISK."
+    break
+done
+
+# Confirm deletion of old partition scheme
+read -r -p "This will delete all partitions on $DISK. Do you want to continue [y/N]? " response
+response=${response,,}
+if [[ "$response" =~ ^(yes|y)$ ]]
+then
+    wipefs -af "$DISK" &>/dev/null
+    sgdisk -Zo "$DISK" &>/dev/null
+else
+    exit
+fi
+
+# Creating new partition scheme
+echo "Creating new partition scheme on $DISK."
+parted -s "$DISK" \
+    mklabel gpt \
+    mkpart ESP fat32 1MiB 1GiB \
+    set 1 ESP on \
+    mkpart SWAP linux-swap 1GiB 17GiB \
+    mkpart BTRFS 17GiB 100%
+
+ESP="/dev/disk/by-partlabel/ESP"
+SWAP="/dev/disk/by-partlabel/SWAP"
+BTRFS="/dev/disk/by-partlabel/BTRFS"
+
+echo "Notifying the kernel of disk changes..."
+partprobe "$DISK"
+
+# Format ESP as FAT32
+mkfs.fat -F 32 $ESP &>/dev/null
+
+# Format SWAP partition
+mkswap $SWAP
+
+# Format root partition as BTRFS
+mkfs.btrfs -f $BTRFS &>/dev/null
+
+# Create subvolumes
+mount $BTRFS /mnt
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@log
+btrfs subvolume create /mnt/@pkg
+umount $BTRFS
+
+# Mount partitions
+MOUNT_OPTIONS="noatime,compress=zstd,ssd,discard=async,space_cache=v2"
+
+mount $BTRFS /mnt -o subvol=@,$MOUNT_OPTIONS
+mkdir /mnt/home
+mount $BTRFS /mnt/home -o subvol=@home,$MOUNT_OPTIONS
+mkdir -p /mnt/var/log
+mount $BTRFS /mnt/var/log -o subvol=@log,$MOUNT_OPTIONS
+mkdir -p /mnt/var/cache/pacman/pkg
+mount $BTRFS /mnt/var/cache/pacman/pkg -o subvol=@pkg,$MOUNT_OPTIONS
+mkdir /mnt/efi
+mount $ESP /mnt/efi
+swapon $SWAP
+
+# Disable copy-on-write
+chattr +C /mnt/var/log
+chattr +C /mnt/var/cache/pacman/pkg
+
+# Select kernel to install
+kernel_selector () {
+    echo "Kernel list:"
+    echo "1) linux - Native Linux kernel and modules"
+    echo "2) linux-Hardened - Security-focused Linux kernel"
+    echo "3) linux-lts - Long-term support version"
+    echo "4) linux-zen - Optimized for desktop use"
+    read -r -p "Enter the corresponding kernel number: " choice
+    echo "$choice will be installed"
+    case $choice in
+        1 ) kernel=linux
+            ;;
+        2 ) kernel=linux-Hardened
+            ;;
+        3 ) kernel=linux-lts
+            ;;
+        4 ) kernel=linux-zen
+            ;;
+        * ) echo "Invalid choice."
+            kernel_selector
+    esac
+}
+
+kernel_selector
+
+# Pacstrap (install base system to new root directory).
+echo "Installing base system (this will take some time, please wait....)"
+pacstrap /mnt base $kernel $microcode linux-firmware btrfs-progs grub grub-btrfs efibootmgr base-devel git vim sudo
+
+# Select network connection method
+network_selector () {
+    echo "Network tools:"
+    echo "1) IWD - iNet Wireless Daemon, written by Intel (WiFi only)"
+    echo "2) NetworkManager - Provides detection and configuration programs to automatically connect to networks (supports WiFi and Ethernet)"
+    echo "3) wpa_supplicant - A cross-platform client supporting WEP, WPA, and WPA2 (WiFi only, DHCP client will also be installed)"
+    echo "4) I do not need"
+    read -r -p "Enter the corresponding network tool number: " choice
+    echo "$choice will be installed"
+    case $choice in
+        1 ) echo "Installing IWD"
+            pacstrap /mnt iwd
+            echo "Enabling IWD"
+            systemctl enable iwd --root=/mnt &>/dev/null
+            ;;
+        2 ) echo "Installing NetworkManager"
+            pacstrap /mnt networkmanager
+            echo "Enabling NetworkManager"
+            systemctl enable NetworkManager --root=/mnt &>/dev/null
+            ;;
+        3 ) echo "Installing wpa_supplicant and dhcpcd"
+            pacstrap /mnt wpa_supplicant dhcpcd
+            echo "Enabling wpa_supplicant and dhcpcd"
+            systemctl enable wpa_supplicant --root=/mnt &>/dev/null
+            systemctl enable dhcpcd --root=/mnt &>/dev/null
+            ;;
+        4 )
+            ;;
+        * ) echo "Invalid choice"
+            network_selector
+    esac
+}
+
+network_selector
+
+# Install Desktop Environment
+de_selector() {
+    echo "Desktop environments:"
+    echo "1) XFCE"
+    echo "2) Gnome"
+    echo "3) Plasma"
+    echo "4) I do not need"
+    read -r -p "Enter the corresponding desktop environment number: " choice
+    echo "$choice will be installed"
+    case $choice in
+        1 ) echo "Installing XFCE"
+            pacstrap /mnt xfce4 xfce4-goodies xorg xorg-server lightdm-gtk-greeter
+            echo "Enabling LightDM"
+            systemctl enable lightdm --root=/mnt &>/dev/null
+            ;;
+        2 ) echo "Installing Gnome"
+            pacstrap /mnt gnome gdm xorg
+            echo "Enabling GDM."
+            systemctl enable gdm --root=/mnt &>/dev/null
+            ;;
+        3 ) echo "Installing Plasma"
+            pacstrap /mnt plasma-meta sddm xorg
+            echo "Enabling SDDM."
+            systemctl enable sddm --root=/mnt &>/dev/null
+            ;;
+        4 )
+            ;;
+        * ) echo "Invalid choice"
+            de_selector
+    esac
+}
+
+de_selector
+
+# Is it a virtual machine?
+read -r -p "Is this machine a VirtualBox virtual machine [y/N]? " response
+response=${response,,}
+if [[ "$response" =~ ^(yes|y)$ ]]
+then
+    echo "Installing VirtualBox guest utilities"
+    pacstrap /mnt virtualbox-guest-utils
+    echo "Enabling vboxservice"
+    systemctl enable vboxservice --root=/mnt &>/dev/null
+fi
+
+# Generate /etc/fstab
+echo "Generating new fstab"
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Set hostname
+read -r -p "Enter hostname: " hostname
+echo "$hostname" > /mnt/etc/hostname
+
+# Set username
+read -r -p "Enter user account name (leave blank to not create an account): " username
+
+# Set locale
+set_locales() {
+    echo "Please select your locale (format: xx_XX), press Enter when done."
+    echo "1) Option 1: zh_CN en_US"
+    echo "2) Custom locale"
+    echo "3) Finish setting"
+
+    locales=()
+
+    while true; do
+        read -r -p "Enter option number: " choice
+        case $choice in
+            1) 
+                locales=("zh_CN" "en_US")
+                break ;;
+            2) 
+                read -r -p "Enter custom locale (format: xx_XX): " locale
+                locales+=("$locale")
+                ;;
+            3) break ;;
+            *) echo "Invalid option, please select again" ;;
+        esac
+    done
+
+    # Write locales to file
+    for loc in "${locales[@]}"; do
+        echo "$loc.UTF-8 UTF-8" >> /mnt/etc/locale.gen
+    done
+
+    # Set default locale
+    if [[ ${#locales[@]} -gt 0 ]]; then
+        echo "LANG=${locales[0]}.UTF-8" > /mnt/etc/locale.conf
+    fi
+}
+
+set_locales
+
+# Set hosts file
+echo "Setting up hosts"
+cat > /mnt/etc/hosts <<EOF
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   $hostname.localdomain   $hostname
+EOF
+
+# Configure system
+arch-chroot /mnt /bin/bash -e <<EOF
+    # Set timezone
+    ln -sf /usr/share/zoneinfo/\$(curl -s "http://ip-api.com/line?fields=timezone") /etc/localtime &>/dev/null
+
+    # Sync hardware clock
+    hwclock --systohc
+
+    # Generate Locale
+    echo "Generating locales..."
+    locale-gen &>/dev/null
+
+    # Install GRUB
+    echo "Installing GRUB to /efi"
+    grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB &>/dev/null
+
+    # Create GRUB configuration file
+    echo "Creating GRUB configuration file"
+    grub-mkconfig -o /boot/grub/grub.cfg &>/dev/null
+
+    # Add user
+    echo "Adding $username and granting wheel group"
+    useradd -m $username
+    usermod -aG wheel $username
+    echo "$username ALL=(ALL) ALL" >> /etc/sudoers.d/$username
+EOF
+
+# Setting root password.
+echo "Setting root password."
+arch-chroot /mnt /bin/passwd
+[ -n "$username" ] && echo "Setting user password for ${username}." && arch-chroot /mnt /bin/passwd "$username"
+
+# Final message
+echo "Installation complete! Please reboot your system."
+

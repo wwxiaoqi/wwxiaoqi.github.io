@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Arch Linux 配置脚本
+# @wwxiaoqi
+
+echo "Set hostname"
+# 设置主机名
+echo "computer" > /etc/hostname
+
+echo "Set Hosts"
+# 设置 Hosts
+echo "127.0.0.1   localhost" >> /etc/hosts
+echo "::1         localhost" >> /etc/hosts
+echo "127.0.0.1   computer.localdomain	computer" >> /etc/hosts
+
+echo "Set time zone"
+# 设置时区
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc
+
+echo "Set language"
+# 设置语言
+sed -i 's/#\(en_US.UTF-8\)/\1/' /etc/locale.gen
+sed -i 's/#\(zh_CN.UTF-8\)/\1/' /etc/locale.gen
+echo "LANG=en_US.UTF-8" >/etc/locale.conf
+locale-gen
+
+echo "Installation boot"
+# 安装引导
+pacman -S amd-ucode
+pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH
+grub-mkconfig -o /boot/grub/grub.cfg
+cat /boot/grub/grub.cfg
+echo "export EDITOR='vim'" >> ~/.bash_profile
+
+echo "Create a user"
+# 创建用户
+# 请不要忘记使用 passwd xiaoqi 设置用户密码
+useradd -m -G wheel -s /bin/bash xiaoqi
+mkdir /home/xiaoqi
+chown xiaoqi:xiaoqi /home/xiaoqi
+
+echo "pacman.conf The configuration"
+# pacman.conf 配置
+echo "[multilib]" >> /etc/pacman.conf
+echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+echo "[archlinuxcn]" >> /etc/pacman.conf
+echo "Server = https://mirrors.bfsu.edu.cn/archlinuxcn/\$arch" >> /etc/pacman.conf
+pacman -Syyu
+
+echo "Don't forget to use passwd to set the user password."

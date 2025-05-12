@@ -1,0 +1,571 @@
+<!doctype html><html lang=zh-CN>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+<meta charset=UTF-8>
+<meta name=generator content="Hugo 0.126.1"><meta name=theme-color content="#fff">
+<meta name=color-scheme content="light dark">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no, date=no, address=no, email=no">
+<meta http-equiv=Cache-Control content="no-transform">
+<meta http-equiv=Cache-Control content="no-siteapp">
+<title>Windows 编译 OLLVM NDK 使用 | Pear</title>
+<link rel=stylesheet href=/css/meme.min.e7849369b80372d813d9235d2e4703a3536a16de72dd494f1c241b2cd67a99b0.css>
+<script src=/js/meme.min.93caf51ca41a6ed5e468d2ac73c7cdfe253a756a2192255cf28aaa8da5ea4209.js></script>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media=print onload='this.media="all"'>
+<noscript><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lexend+Giga:wght@400;500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"></noscript>
+<meta name=author content><meta name=description content="编译 OLLVM 环境准备 Android Gradle plugin：gradle-8.2 NDK:25.1.8937393 Python: 3.12.1 Cmake: 3.26.4 LLVM: 14.x Android Gradle plugin 的 gradle-8.2 版本默认">
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=mask-icon href=/icons/safari-pinned-tab.svg color=#2a6df4>
+<link rel=apple-touch-icon sizes=180x180 href=/icons/apple-touch-icon.png>
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-title content="Pear">
+<meta name=apple-mobile-web-app-status-bar-style content="black">
+<meta name=mobile-web-app-capable content="yes">
+<meta name=application-name content="Pear">
+<meta name=msapplication-starturl content="../../">
+<meta name=msapplication-TileColor content="#fff">
+<meta name=msapplication-TileImage content="../../icons/mstile-150x150.png">
+<link rel=manifest href=/manifest.json>
+<link rel=canonical href=https://wwxiaoqi.com/tech/android-ollvm-build/>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","datePublished":"2024-12-12T16:36:27+08:00","dateModified":"2025-05-12T12:02:23+08:00","url":"https://wwxiaoqi.com/tech/android-ollvm-build/","headline":"Windows 编译 OLLVM NDK 使用","description":"编译 OLLVM 环境准备 Android Gradle plugin：gradle-8.2 NDK:25.1.8937393 Python: 3.12.1 Cmake: 3.26.4 LLVM: 14.x Android Gradle plugin 的 gradle-8.2 版本默认","inLanguage":"zh-CN","articleSection":"tech","wordCount":1970,"image":["https://wwxiaoqi.com/images/android-ollvm-build/image-20240219165222-s94sqni.png","https://wwxiaoqi.com/images/android-ollvm-build/image-20240219170018-cnqqh2z.png","https://wwxiaoqi.com/images/android-ollvm-build/image-20240219172201-irtzbut.png","https://wwxiaoqi.com/images/android-ollvm-build/image-20240220101237-6ipi2am.png"],"author":{"@type":"Person","url":"https://wwxiaoqi.com/"},"license":"[萌 ICP 备 20225299 号](https://icp.gov.moe/?keyword=20225299) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)","publisher":{"@type":"Organization","name":"Pear","logo":{"@type":"ImageObject","url":"https://wwxiaoqi.com/icons/apple-touch-icon.png"},"url":"https://wwxiaoqi.com/"},"mainEntityOfPage":{"@type":"WebSite","@id":"https://wwxiaoqi.com/"}}</script>
+<meta name=twitter:card content="summary_large_image">
+<meta property="og:title" content="Windows 编译 OLLVM NDK 使用">
+<meta property="og:description" content="编译 OLLVM 环境准备 Android Gradle plugin：gradle-8.2 NDK:25.1.8937393 Python: 3.12.1 Cmake: 3.26.4 LLVM: 14.x Android Gradle plugin 的 gradle-8.2 版本默认">
+<meta property="og:url" content="https://wwxiaoqi.com/tech/android-ollvm-build/">
+<meta property="og:site_name" content="Pear">
+<meta property="og:locale" content="zh-cn"><meta property="og:image" content="https://wwxiaoqi.com/images/android-ollvm-build/image-20240219165222-s94sqni.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-12-12T16:36:27+08:00">
+<meta property="article:modified_time" content="2025-05-12T12:02:23+08:00">
+<meta property="article:section" content="tech">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<div class=header-wrapper>
+<div class="header-inner single">
+<div class=site-brand>
+<a href=/ class=brand>Pear</a>
+</div>
+<nav class=nav>
+<ul class=menu id=menu>
+<li class=menu-item><a href=/tech/><span class=menu-item-name>技术</span></a>
+</li>
+<li class=menu-item><a href=/life/><span class=menu-item-name>生活</span></a>
+</li>
+<li class=menu-item><a href=/about/><span class=menu-item-name>关于</span></a>
+</li>
+<li class=menu-item>
+<a id=theme-switcher href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5 242 7a18 18 0 0128 0l48.8 97.5L422.2 70A18 18 0 01442 89.8l-34.5 103.4L505 242a18 18 0 010 28l-97.5 48.8L442 422.2A18 18 0 01422.2 442l-103.4-34.5L270 505a18 18 0 01-28 0l-48.8-97.5L89.8 442A18 18 0 0170 422.2l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8L70 89.8A18 18 0 0189.8 70zM256 128a128 128 0 10.01.0M256 160a96 96 0 10.01.0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412A256 256 0 10181 5a11.5 11.5.0 00-5 20A201.5 201.5.0 0142 399a11.5 11.5.0 00-15 13"/></svg></a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<input type=checkbox id=nav-toggle aria-hidden=true>
+<label for=nav-toggle class=nav-toggle></label>
+<label for=nav-toggle class=nav-curtain></label>
+</header>
+<main class="main single" id=main>
+<div class=main-inner>
+<article class="content post h-entry" data-align=justify data-type=tech data-toc-num=true>
+<h1 class="post-title p-name">Windows 编译 OLLVM NDK 使用</h1>
+<div class=post-meta>
+</div>
+<nav class=contents>
+<h2 id=contents class=contents-title>目录</h2><ol class=toc>
+<li><a id=contents:编译-ollvm href=#编译-ollvm>编译 OLLVM</a>
+<ol>
+<li><a id=contents:环境准备 href=#环境准备>环境准备</a></li>
+<li><a id=contents:下载-ollvm-源码 href=#下载-ollvm-源码>下载 OLLVM 源码</a></li>
+<li><a id=contents:开始编译 href=#开始编译>开始编译</a></li>
+</ol>
+</li>
+<li><a id=contents:配置-studio href=#配置-studio>配置 Studio</a>
+<ol>
+<li><a id=contents:准备 href=#准备>准备</a></li>
+<li><a id=contents:studio-配置-ndk href=#studio-配置-ndk>Studio 配置 ndk</a></li>
+</ol>
+</li>
+</ol>
+</nav><div class="post-body e-content">
+<h2 id=编译-ollvm><a href=#编译-ollvm class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:编译-ollvm class=headings>编译 OLLVM</a></h2>
+<h3 id=环境准备><a href=#环境准备 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:环境准备 class=headings>环境准备</a></h3>
+<pre tabindex=0><code>Android Gradle plugin：gradle-8.2
+NDK:25.1.8937393
+Python: 3.12.1
+Cmake: 3.26.4
+LLVM: 14.x
+</code></pre><p>Android Gradle plugin 的 <code>gradle-8.2</code> 版本默认使用的 NDK 版本为<code>25.1.8937393</code>，对应的 LLVM 为<code>14.x</code>。
+<img src=../../images/android-ollvm-build/image-20240219165222-s94sqni.png alt=image>
+需要根据实际情况选择 NDK 对应的 LLVM 版本，编译 OLLVM，LLVM 版本号可以通过：</p>
+<p><code>Sdk_DIR\ndk\$version\toolchains\llvm\prebuilt\windows-x86_64\AndroidVersion.txt</code></p>
+<p>文件看到。如 SDK Manager 中的 <code>25.1.8937393</code> 版本为：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-txt data-lang=txt><span class=line><span class=cl>14.0.6
+</span></span><span class=line><span class=cl>based on r450784d
+</span></span><span class=line><span class=cl>for additional information on LLVM revision and cherry-picks, see clang_source_info.md
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><blockquote>
+<p>可以在 module 的 <code>build.gradle</code> 中指定 NDK 版本</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-groovy data-lang=groovy><span class=line><span class=cl><span class=n>android</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>ndkVersion</span> <span class=s2>&#34;25.1.8937393&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div></blockquote>
+<h3 id=下载-ollvm-源码><a href=#下载-ollvm-源码 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:下载-ollvm-源码 class=headings>下载 OLLVM 源码</a></h3>
+<p>可以在 <a href=https://github.com/heroims/obfuscator target=_blank rel=noopener>github/heroims/obfuscator</a> 仓库的分支中找到对应的移植源码</p>
+<p>OLLVM14 可以根据 README.md 找到下载方法：
+<img src=../../images/android-ollvm-build/image-20240219170018-cnqqh2z.png alt=image></p>
+<p>然后进行以下操作：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>git clone --depth=1 -b release/14.x git@github.com:llvm/llvm-project.git
+</span></span><span class=line><span class=cl><span class=k>cd</span> llvm-project
+</span></span><span class=line><span class=cl>wget https://heroims.github.io/obfuscator/NewPass/ollvm14.patch
+</span></span><span class=line><span class=cl>git apply ollvm14.patch
+</span></span><span class=line><span class=cl>git apply --reject --ignore-whitespace ollvm14.patch
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>当你运行 <code>git apply ollvm14.patch</code> 时，Git 将尝试将名为 <code>ollvm14.patch</code> 的补丁文件应用到当前的代码库中。</p>
+<p>而当你运行 <code>git apply --reject --ignore-whitespace ollvm14.patch</code> 时，Git 将以不同的方式处理。在这种情况下：</p>
+<ul>
+<li><code>--reject</code>: 这个选项告诉 Git，在遇到无法直接应用的更改时创建拒绝文件（<code>.rej</code> 文件），其中包含未能应用的部分内容。这样做可以让你手动查看和解决无法自动合并的部分。</li>
+<li><code>--ignore-whitespace</code>: 这个选项告诉 Git 在比较和应用补丁时忽略空格变化。有时候由于空格差异导致补丁无法直接匹配，使用此选项可以跳过空格差异而继续尝试应用补丁。</li>
+</ul>
+<h3 id=开始编译><a href=#开始编译 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:开始编译 class=headings>开始编译</a></h3>
+<p>在源码的目录执行以下命令构建 cmake 配置</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>cmake -S llvm -B build -G Ninja -DLLVM_ENABLE_PROJECTS=<span class=s2>&#34;clang&#34;</span> -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF -DLLVM_ENABLE_NEW_PASS_MANAGER=OFF
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>对应的参数:</p>
+<blockquote>
+<p>-G Ninja</p>
+<p>使用 ninja 进行编译源码</p>
+<p>-DLLVM_ENABLE_PROJECTS="clang"</p>
+<p>启用 clang，有多个选择 但我们只需要 clang，官方文档有说明</p>
+<p>-DCMAKE_BUILD_TYPE=Release</p>
+<p>构建 release 版本，比 debug 版本编译快很多</p>
+<p>-DLLVM_INCLUDE_TESTS=OFF</p>
+<p>关闭 llvm 的头文件测试，也是为了加快编译速度</p>
+<p>-DLLVM_ENABLE_NEW_PASS_MANAGER=OFF</p>
+<p>这个非常重要，llvm-12.x 开始默认使用 newPM 进行编译源码，导致 ollvm 不起作用！</p>
+<p>因此，需要加上这个参数禁用掉 newPM (在每个编译时增加 flag -flegacy-pass-manager 让 llvm 不走 newPM 编译也可以，但没必要）</p>
+</blockquote>
+<p>执行以上命令后若提示 Configuration done. 则配置成功。
+<img src=../../images/android-ollvm-build/image-20240219172201-irtzbut.png alt=image></p>
+<p>接下来执行以下命令开始编译：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>cmake --build build -j16
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>其中 <code>-j16</code> 为指定的线程数，需要根据 CPU 调整。然后等待编译完成。</p>
+<h2 id=配置-studio><a href=#配置-studio class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:配置-studio class=headings>配置 Studio</a></h2>
+<h3 id=准备><a href=#准备 class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:准备 class=headings>准备</a></h3>
+<p>编译成功后需要把 <code>build/bin</code> 目录中的以下文件文件复制出来，方便后面操作:</p>
+<ul>
+<li>clang.exe</li>
+<li>clang++.exe</li>
+<li>clang-format.exe</li>
+</ul>
+<blockquote>
+<p>注意这里的 [VERSION] 是你的 LLVM 版本。</p>
+</blockquote>
+<p>同理，接着把 <code>build/lib/clang/[VERSION]/include</code> 目录中的也复制出来：</p>
+<ul>
+<li>__stddef_max_align_t.h</li>
+<li>float.h</li>
+<li>stdarg.h</li>
+<li>stddef.h</li>
+<li>stdbool.h</li>
+</ul>
+<p>这是需要复制的文件结构内容：</p>
+<pre tabindex=0><code class=language-file data-lang=file>├── build
+│   └── bin
+│       ├── clang
+│       ├── clang++
+│       └── clang-format
+│       └── clang-cl
+└── lib
+    └── clang
+        └── 14.0.6
+            └── include
+                ├── __stddef_max_align_t.h
+                ├── float.h
+                ├── stdarg.h
+                ├── stdbool.h
+                └── stddef.h
+</code></pre><blockquote>
+<p>编译后的文件大小为 137MB，对比 NDK 目录下的 clang.exe 仅有 88.6MB。
+编译后的文件可以通过 <code>strip clang.exe</code> 命令剥离可执行文件减小到 113MB。</p>
+</blockquote>
+<p>把前面 bin 目录的 4 个文件复制到:</p>
+<pre tabindex=0><code class=language-file data-lang=file># macOS
+~/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin
+
+# Windows
+C:\Users\xiaoqi\AppData\Local\Android\Sdk\ndk\25.1.8937393\toolchains\llvm\prebuilt\windows-x86_64\bin
+</code></pre><p>覆盖之前文件（覆盖前请备份）根据自己电脑情况做修改。</p>
+<hr>
+<p>此时编译会出现找不到 <code>libunwind</code> 等库的错误，错误信息显示目录文件不存在</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-gradle data-lang=gradle><span class=line><span class=cl><span class=o>&gt;</span> <span class=n>Task</span> <span class=o>:</span><span class=nl>app:</span><span class=n>configureCMakeDebug</span><span class=o>[</span><span class=n>armeabi</span><span class=o>-</span><span class=n>v7a</span><span class=o>]</span> <span class=n>FAILED</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++: CMake Error at C:/</span><span class=n>Users</span><span class=s>/xiaoqi/</span><span class=n>AppData</span><span class=s>/Local/</span><span class=n>Android</span><span class=s>/Sdk/</span><span class=n>cmake</span><span class=s>/3.22.1/</span><span class=n>share</span><span class=s>/cmake-3.22/</span><span class=n>Modules</span><span class=s>/CMakeTestCCompiler.cmake:69 (message):
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>   <span class=n>The</span> <span class=n>C</span> <span class=n>compiler</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     &#34;C:/</span><span class=n>Users</span><span class=s>/xiaoqi/</span><span class=n>AppData</span><span class=s>/Local/</span><span class=n>Android</span><span class=s>/Sdk/</span><span class=n>ndk</span><span class=s>/25.1.8937393/</span><span class=n>toolchains</span><span class=s>/llvm/</span><span class=n>prebuilt</span><span class=s>/windows-x86_64/</span><span class=n>bin</span><span class=s>/clang.exe&#34;
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>   <span class=n>is</span> <span class=n>not</span> <span class=n>able</span> <span class=n>to</span> <span class=n>compile</span> <span class=n>a</span> <span class=n>simple</span> <span class=n>test</span> <span class=n>program</span><span class=o>.</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:   It fails with the following output:
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>     <span class=n>Change</span> <span class=nl>Dir:</span> <span class=nl>C:</span><span class=s>/Users/</span><span class=n>xiaoqi</span><span class=s>/AndroidStudioProjects/</span><span class=n>NDK</span><span class=s>/app/</span><span class=o>.</span><span class=na>cxx</span><span class=s>/Debug/</span><span class=mi>6</span><span class=n>y611i46</span><span class=s>/armeabi-v7a/</span><span class=n>CMakeFiles</span><span class=s>/CMakeTmp
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>   
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     Run Build Command(s):C:\Users\xiaoqi\AppData\Local\Android\Sdk\cmake\3.22.1\bin\ninja.exe cmTC_cd6c3 &amp;&amp; [1/</span><span class=mi>2</span><span class=o>]</span> <span class=n>Building</span> <span class=n>C</span> <span class=n>object</span> <span class=n>CMakeFiles</span><span class=s>/cmTC_cd6c3.dir/</span><span class=n>testCCompiler</span><span class=o>.</span><span class=na>c</span><span class=o>.</span><span class=na>o</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     [2/</span><span class=mi>2</span><span class=o>]</span> <span class=n>Linking</span> <span class=n>C</span> <span class=n>executable</span> <span class=n>cmTC_cd6c3</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     FAILED: cmTC_cd6c3 
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>     <span class=n>cmd</span><span class=o>.</span><span class=na>exe</span> <span class=s>/C &#34;cd . &amp;&amp; C:\Users\xiaoqi\AppData\Local\Android\Sdk\ndk\25.1.8937393\toolchains\llvm\prebuilt\windows-x86_64\bin\clang.exe --target=armv7-none-linux-androideabi24 --sysroot=C:/</span><span class=n>Users</span><span class=s>/xiaoqi/</span><span class=n>AppData</span><span class=s>/Local/</span><span class=n>Android</span><span class=s>/Sdk/</span><span class=n>ndk</span><span class=s>/25.1.8937393/</span><span class=n>toolchains</span><span class=s>/llvm/</span><span class=n>prebuilt</span><span class=s>/windows-x86_64/</span><span class=n>sysroot</span> <span class=o>-</span><span class=n>g</span> <span class=o>-</span><span class=n>DANDROID</span> <span class=o>-</span><span class=n>fdata</span><span class=o>-</span><span class=n>sections</span> <span class=o>-</span><span class=n>ffunction</span><span class=o>-</span><span class=n>sections</span> <span class=o>-</span><span class=n>funwind</span><span class=o>-</span><span class=n>tables</span> <span class=o>-</span><span class=n>fstack</span><span class=o>-</span><span class=n>protector</span><span class=o>-</span><span class=n>strong</span> <span class=o>-</span><span class=n>no</span><span class=o>-</span><span class=n>canonical</span><span class=o>-</span><span class=n>prefixes</span> <span class=o>-</span><span class=n>D_FORTIFY_SOURCE</span><span class=o>=</span><span class=mi>2</span> <span class=o>-</span><span class=n>march</span><span class=o>=</span><span class=n>armv7</span><span class=o>-</span><span class=n>a</span> <span class=o>-</span><span class=n>mthumb</span> <span class=o>-</span><span class=n>Wformat</span> <span class=o>-</span><span class=n>Werror</span><span class=o>=</span><span class=n>format</span><span class=o>-</span><span class=n>security</span> <span class=o>-</span><span class=kd>static</span><span class=o>-</span><span class=n>libstdc</span><span class=o>++</span> <span class=o>-</span><span class=n>Wl</span><span class=o>,--</span><span class=n>build</span><span class=o>-</span><span class=n>id</span><span class=o>=</span><span class=n>sha1</span> <span class=o>-</span><span class=n>Wl</span><span class=o>,--</span><span class=n>no</span><span class=o>-</span><span class=n>rosegment</span> <span class=o>-</span><span class=n>Wl</span><span class=o>,--</span><span class=n>fatal</span><span class=o>-</span><span class=n>warnings</span> <span class=o>-</span><span class=n>Wl</span><span class=o>,--</span><span class=n>gc</span><span class=o>-</span><span class=n>sections</span> <span class=o>-</span><span class=n>Wl</span><span class=o>,--</span><span class=n>no</span><span class=o>-</span><span class=n>undefined</span> <span class=o>-</span><span class=n>Qunused</span><span class=o>-</span><span class=n>arguments</span> <span class=o>-</span><span class=n>Wl</span><span class=o>,--</span><span class=n>gc</span><span class=o>-</span><span class=n>sections</span> <span class=n>CMakeFiles</span><span class=s>/cmTC_cd6c3.dir/</span><span class=n>testCCompiler</span><span class=o>.</span><span class=na>c</span><span class=o>.</span><span class=na>o</span> <span class=o>-</span><span class=n>o</span> <span class=n>cmTC_cd6c3</span>  <span class=o>-</span><span class=n>latomic</span> <span class=o>-</span><span class=n>lm</span> <span class=o>&amp;&amp;</span> <span class=n>cd</span> <span class=o>.</span><span class=err>&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     ld: error: unable to find library -latomic
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>     <span class=nl>ld:</span> <span class=nl>error:</span> <span class=n>cannot</span> <span class=n>open</span> <span class=nl>C:</span><span class=s>/Users/</span><span class=n>xiaoqi</span><span class=s>/AppData/</span><span class=n>Local</span><span class=s>/Android/</span><span class=n>Sdk</span><span class=s>/ndk/</span><span class=mf>25.1</span><span class=o>.</span><span class=mi>8937393</span><span class=s>/toolchains/</span><span class=n>llvm</span><span class=s>/prebuilt/</span><span class=n>windows</span><span class=o>-</span><span class=n>x86_64</span><span class=s>/lib/</span><span class=n>clang</span><span class=s>/14.0.6/</span><span class=n>lib</span><span class=s>/linux/</span><span class=n>libclang_rt</span><span class=o>.</span><span class=na>builtins</span><span class=o>-</span><span class=n>arm</span><span class=o>-</span><span class=n>android</span><span class=o>.</span><span class=na>a</span><span class=o>:</span> <span class=n>No</span> <span class=n>such</span> <span class=n>file</span> <span class=n>or</span> <span class=n>directory</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     ld: error: unable to find library -l:libunwind.a
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>     <span class=nl>ld:</span> <span class=nl>error:</span> <span class=n>cannot</span> <span class=n>open</span> <span class=nl>C:</span><span class=s>/Users/</span><span class=n>xiaoqi</span><span class=s>/AppData/</span><span class=n>Local</span><span class=s>/Android/</span><span class=n>Sdk</span><span class=s>/ndk/</span><span class=mf>25.1</span><span class=o>.</span><span class=mi>8937393</span><span class=s>/toolchains/</span><span class=n>llvm</span><span class=s>/prebuilt/</span><span class=n>windows</span><span class=o>-</span><span class=n>x86_64</span><span class=s>/lib/</span><span class=n>clang</span><span class=s>/14.0.6/</span><span class=n>lib</span><span class=s>/linux/</span><span class=n>libclang_rt</span><span class=o>.</span><span class=na>builtins</span><span class=o>-</span><span class=n>arm</span><span class=o>-</span><span class=n>android</span><span class=o>.</span><span class=na>a</span><span class=o>:</span> <span class=n>No</span> <span class=n>such</span> <span class=n>file</span> <span class=n>or</span> <span class=n>directory</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     ld: error: unable to find library -l:libunwind.a
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>     <span class=nl>clang:</span> <span class=nl>error:</span> <span class=n>linker</span> <span class=n>command</span> <span class=n>failed</span> <span class=n>with</span> <span class=n>exit</span> <span class=n>code</span> <span class=mi>1</span> <span class=o>(</span><span class=n>use</span> <span class=o>-</span><span class=n>v</span> <span class=n>to</span> <span class=n>see</span> <span class=n>invocation</span><span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:     ninja: build stopped: subcommand failed.
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>   
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:   
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span>   
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=s>/C++:   CMake will not be able to correctly generate this project.
+</span></span></span><span class=line><span class=cl><span class=s>C/</span><span class=n>C</span><span class=o>++:</span> <span class=n>Call</span> <span class=n>Stack</span> <span class=o>(</span><span class=n>most</span> <span class=n>recent</span> <span class=n>call</span> <span class=n>first</span><span class=o>):</span>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=o>/</span><span class=n>C</span><span class=o>++:</span>   <span class=n>CMakeLists</span><span class=o>.</span><span class=na>txt</span><span class=o>:</span><span class=mi>12</span> <span class=o>(</span><span class=n>project</span><span class=o>)</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>解决方法就是将：</p>
+<pre tabindex=0><code class=language-file data-lang=file>SDK_DIR/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/lib64/
+</code></pre><p>目录下的 <code>calng</code> 目录，复制到 <code>/lib</code> 目录中，</p>
+<p>并把 <code>clang/14.0.3</code> 修改为 <code>14.0.6</code>。</p>
+<hr>
+<p>这里的 <code>14.0.6</code> 是根据错误日志中出现的路径提取出来的，在控制台中输入 <code>clang -v</code> 查看当前 clang 的版本，按照日志中出现或当前使用的 clang 版本调整。
+<img src=../../images/android-ollvm-build/image-20240220101237-6ipi2am.png alt=image></p>
+<p>接着把 include 目录下 5 个文件复制到:</p>
+<pre tabindex=0><code class=language-file data-lang=file># macOS
+~/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include
+
+# Windows
+C:\Users\xiaoqi\AppData\Local\Android\Sdk\ndk\25.1.8937393\toolchains\llvm\prebuilt\windows-x86_64\sysroot\usr\include
+</code></pre><p>因为编译使用了 property 系统的头文件读取系统属性，会遇到 stdbool.h 缺失，所以 H 文件也必须复制过去。</p>
+<p>至此，NDK 中 集成 OLLVM 已经完成了。接下来是配置和使用 OLLVM。</p>
+<h3 id=studio-配置-ndk><a href=#studio-配置-ndk class=anchor-link><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96.0-59.27-59.26-59.27-155.7.0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757.0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037.0 01-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482.0 0120.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96.0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454.0 0020.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037.0 00-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639.0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href=#contents:studio-配置-ndk class=headings>Studio 配置 ndk</a></h3>
+<p>这部分网上参考的文档很多，这里也只是简单介绍一下参数</p>
+<div class=table-container><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-mllbm -sub</td>
+<td>激活指令替换</td>
+</tr>
+<tr>
+<td>-mllvm -sub_loop=3</td>
+<td>如果激活了传递，则在函数上应用3次。默认值：1</td>
+</tr>
+<tr>
+<td>-mllvm -bcf</td>
+<td>激活虚假控制流程</td>
+</tr>
+<tr>
+<td>-mllvm -bcf_loop=3</td>
+<td>如果激活了传递，则在函数上应用3次。默认值：1</td>
+</tr>
+<tr>
+<td>-mllvm -bcf_prob=40</td>
+<td>如果激活了传递，基本块将以40％的概率进行模糊处理。默认值：30</td>
+</tr>
+<tr>
+<td>-mllvm -fla</td>
+<td>激活控制流扁平化</td>
+</tr>
+<tr>
+<td>-mllvm -split</td>
+<td>激活基本块分割。在一起使用时改善展平</td>
+</tr>
+<tr>
+<td>-mllvm -split_num=3</td>
+<td>如果激活了传递，则在每个基本块上应用3次。默认值：1</td>
+</tr>
+</tbody>
+</table></div>
+<p><a href=https://heroims.github.io/ target=_blank rel=noopener>Heroims</a> 在移植 OLLVM 时，集成了 <a href=https://github.com/GoSSIP-SJTU/Armariris target=_blank rel=noopener>Armariris</a> 的字符串混淆功能。</p>
+<div class=table-container><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-mllvm -sobf</td>
+<td>编译时候添加选项开启字符串加密</td>
+</tr>
+<tr>
+<td>-mllvm -seed=</td>
+<td>指定随机数生成器种子</td>
+</tr>
+</tbody>
+</table></div>
+<p>‍
+在 <code>build.gradle</code> 中进行配置，如:</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-gradle data-lang=gradle><span class=line><span class=cl><span class=n>android</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>defaultConfig</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>extrnalNativeBuild</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>cmake</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>cppFlags</span> <span class=s1>&#39;-mllvm -fla&#39;</span>
+</span></span><span class=line><span class=cl>            <span class=o>}</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-gradle data-lang=gradle><span class=line><span class=cl><span class=n>android</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>compileSdk</span> <span class=mi>32</span>
+</span></span><span class=line><span class=cl>    <span class=n>ndkVersion</span> <span class=s2>&#34;21.4.7075529&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>defaultConfig</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>applicationId</span> <span class=s2>&#34;com.cat.stalker&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>externalNativeBuild</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>cmake</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>abiFilters</span> <span class=s1>&#39;arm64-v8a&#39;</span>
+</span></span><span class=line><span class=cl>                <span class=n>cppFlags</span> <span class=s2>&#34;-std=c++14 -fexceptions -fvisibility=hidden&#34;</span>
+</span></span><span class=line><span class=cl>                <span class=n>cppFlags</span> <span class=s2>&#34;-mllvm -fla -mllvm -split -mllvm -split_num=3 -mllvm -sub -mllvm -sub_loop=3 -mllvm -sobf&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=o>}</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>        <span class=n>ndk</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>abiFilters</span> <span class=s2>&#34;arm64-v8a&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-gradle data-lang=gradle><span class=line><span class=cl><span class=n>android</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>ndkVersion</span> <span class=s2>&#34;25.1.8937393&#34;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>    <span class=n>namespace</span> <span class=s1>&#39;com.wwxiaoqi.ndk&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=n>compileSdk</span> <span class=mi>34</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>defaultConfig</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>externalNativeBuild</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>cmake</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>cppFlags</span> <span class=s1>&#39;-std=c++17 -fexceptions -fvisibility=hidden&#39;</span>
+</span></span><span class=line><span class=cl>                <span class=n>cppFlags</span> <span class=s2>&#34;-mllvm -fla -mllvm -split -mllvm -split_num=3 -mllvm -sub -mllvm -sub_loop=3 -mllvm -sobf&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=o>}</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>externalNativeBuild</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>cmake</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>path</span> <span class=nf>file</span><span class=o>(</span><span class=s1>&#39;src/main/cpp/CMakeLists.txt&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>version</span> <span class=s1>&#39;3.22.1&#39;</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>也可以在 <code>CMakeLists</code> 中进行配置，如：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cmake data-lang=cmake><span class=line><span class=cl><span class=c># 设置 llvm 混淆编译
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_C_FLAGS</span> <span class=s2>&#34;${CMAKE_C_FLAGS} -mllvm -fla -mllvm -sub -mllvm -sobf&#34;</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_CXX_FLAGS</span> <span class=s2>&#34;${CMAKE_CXX_FLAGS} -mllvm -fla -mllvm -sub -mllvm -sobf&#34;</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># 设置 llvm debug 模式混淆编译
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_C_FLAGS_DEBUG</span> <span class=s2>&#34;${CMAKE_C_FLAGS_DEBUG} -mllvm -fla -mllvm -sobf&#34;</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_CXX_FLAGS_DEBUG</span> <span class=s2>&#34;${CMAKE_CXX_FLAGS_DEBUG} -mllvm -fla -mllvm -sobf&#34;</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span>  <span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># 设置 llvm release 模式混淆编译
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_C_FLAGS_RELEASE</span> <span class=s2>&#34;${CMAKE_C_FLAGS_RELEASE} -mllvm -fla -mllvm -sub -mllvm -bcf -mllvm -sobf&#34;</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_CXX_FLAGS_RELEASE</span> <span class=s2>&#34;${CMAKE_CXX_FLAGS_RELEASE} -mllvm -fla -mllvm -sub -mllvm -bcf -mllvm -sobf&#34;</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># 深度混淆
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_C_FLAGS_RELEASE</span> <span class=s2>&#34;${CMAKE_C_FLAGS_RELEASE} -mllvm -bcf -mllvm -bcf_loop=4 -mllvm -bcf_prob=100 -mllvm -sub -mllvm -sub_loop=2 -mllvm -fla -mllvm -sobf -mllvm -split&#34;</span><span class=p>)</span><span class=err>
+</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>如果需要单个函数混淆的情况：</p>
+<div class=highlight><div class=chroma>
+<div class=table-container><table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=nf>__attribute</span><span class=p>((</span><span class=nf>__annotate__</span><span class=p>(</span><span class=s>&#34;bcf&#34;</span><span class=p>)))</span>
+</span></span><span class=line><span class=cl><span class=nf>__attribute</span><span class=p>((</span><span class=nf>__annotate__</span><span class=p>(</span><span class=s>&#34;fla&#34;</span><span class=p>)))</span>
+</span></span><span class=line><span class=cl><span class=nf>__attribute</span><span class=p>((</span><span class=nf>__annotate__</span><span class=p>(</span><span class=s>&#34;sub&#34;</span><span class=p>)))</span>
+</span></span><span class=line><span class=cl><span class=nf>__attribute</span><span class=p>((</span><span class=nf>__annotate__</span><span class=p>(</span><span class=s>&#34;split&#34;</span><span class=p>)))</span>
+</span></span><span class=line><span class=cl><span class=nf>__attribute</span><span class=p>((</span><span class=nf>__annotate__</span><span class=p>(</span><span class=s>&#34;sobf&#34;</span><span class=p>)))</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>func</span><span class=p>(){</span>
+</span></span><span class=line><span class=cl>	<span class=n>xxx</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div>
+</div>
+</div>
+</div>
+</article>
+<footer class=minimal-footer>
+<div class=post-tag><a href=/tags/android/ rel=tag class=post-tag-link>#android</a> <a href=/tags/ollvm/ rel=tag class=post-tag-link>#ollvm</a> <a href=/tags/build/ rel=tag class=post-tag-link>#build</a></div>
+<div class=post-category>
+<a href=/tech/ class="post-category-link active">tech</a>
+</div>
+</footer>
+</div>
+</main>
+<div id=back-to-top class=back-to-top>
+<a href=#><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js></script>
+<script>let imgNodes=document.querySelectorAll("div.post-body img");imgNodes=Array.from(imgNodes).filter(e=>e.parentNode.tagName!=="A"),mediumZoom(imgNodes,{background:"hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)"})</script>
+<script src=https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js type=module defer></script>
+</body>
+</html>
